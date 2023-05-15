@@ -7,7 +7,7 @@ import ExpandedTable from './ExpandedTable';
  * tableData is an array of objects. Each object represents a row of data associated to a particular account.
  * @returns {JSX.Element}
  */
-function BaseTable({ tableData }) {
+function BaseTable({ tableData, handleSearch }) {
     const columnHeaders = [
         { name: 'Issuer', selector: row => row.issuer },
         { name: 'Loan Amount', selector: row => row.loan_amount },
@@ -22,12 +22,21 @@ function BaseTable({ tableData }) {
     ]
 
     return (
-        <DataTable
-            columns={columnHeaders}
-            data={tableData}
-            expandableRows
-            expandableRowsComponent={ExpandedTable}
-        />
+        <div style={{ padding: "5% 4%" }}>
+            <div style={{ display: "flex", justifyContent: "right" }}>
+                <input type='text' placeholder='Search...' onChange={handleSearch} />
+            </div>
+            <DataTable
+                columns={columnHeaders}
+                data={tableData}
+                expandableRows
+                expandOnRowClicked
+                expandableRowsComponent={ExpandedTable}
+                highlightOnHover
+                striped
+            />
+        </div>
+
     );
 }
 
