@@ -38,4 +38,28 @@ a:active {
 .footer {
   background-color: #1B3668;
   color: white;
+  text-align: center;
+  font-size: 12px;
+}
+p a:link {
+  color: lightblue;
+  text-decoration: none;
+}
+
+/* visited link */
+p a:visited {
+  color: lightblue;
+  text-decoration: none;
+}
+
+/* mouse over link */
+p a:hover {
+  color: #00b0f0;
+  text-decoration: none;
+}
+
+/* selected link */
+p a:active {
+  color: grey;
+  text-decoration: none;
 }
