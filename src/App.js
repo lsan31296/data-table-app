@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './App.css';
 import { fetchData } from './api';
 import BaseTable from './data-table/BaseTable';
+import AccountDateTable from './components/AccountDateTable';
 
 
 function App() {
@@ -61,6 +62,8 @@ function App() {
         tableData={tableData}
         handleSearch={handleSearch}
       />
+
+      <AccountDateTable />
 
       <footer className='footer'>
         <div className='row text-center'>
