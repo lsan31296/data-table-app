@@ -2,19 +2,18 @@
 import data from './data-table/data.json';
 import multiData from './data-table/multiSelectData.json';
 
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "http://localhost:5001/"
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "http://localhost:5001"
 
 //Defines the default headers for these function to work with 'json-server'
 const headers = new Headers();
 headers.append("Content-Type", "application/json");
-headers.append('Origin','http://localhost:3000');
-
-
-
+//headers.append("Accept", "application/json")
+//headers.append('Origin','http://localhost:3000');
+//headers.append("Sec-Fetch-Mode", "cors");
+//headers.append("Sec-Fetch-Site", "same-origin");
 
 /**
  * Fetch 'json' from the specified URL and handle error status codes and ignore 'AbortError's'
- * 
  * @param URL
  * the url for the request
  * @param options
@@ -27,23 +26,24 @@ headers.append('Origin','http://localhost:3000');
  */
 async function fetchJson(URL, options, onCancel) {
     try {
-        const response = await fetch(URL, options);
+        const response = await fetch(URL, options = null);
         if (response.status === 204) {
             return null;
         }
 
         const payload = await response.json();
+        //console.log({ payload });
         if (payload.error) {
             return Promise.reject({ message: payload.error });
         }
-        return payload.data;
+        return payload;
     } catch (error) {
         if (error.name !== "AbortError") {
             console.error(error.stack);
             throw error;
         }
-        return Promise.resolve(onCancel);
     }
+    return Promise.resolve(onCancel);
 }
 
 /**
@@ -59,8 +59,16 @@ export async function getAccountDate(params, signal) {
     Object.entries(params).forEach(([key, value]) => 
         url.searchParams.append(key, value.toString())
     );
-    console.log("URL:", url)
-    return await fetchJson(url, { headers, signal }, [])
+    const options = {
+        headers,
+    }
+    //console.log("URL:", url)
+    return await fetchJson(url, options)
+}
+
+export async function getAllAccounts(signal) {
+    const url = `${API_BASE_URL}/get-accounts`;
+    return await fetchJson(url, signal, []);
 }
 
 /**

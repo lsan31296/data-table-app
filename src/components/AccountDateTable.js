@@ -1,6 +1,6 @@
 //This component is responsible for displaying account based on account id and open_date
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import DataTable from "react-data-table-component";
 import { getAccountDate } from "../api";
 
@@ -11,14 +11,18 @@ function AccountDateTable() {
     }
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [accountData, setAccountData] = useState(initialFormState);
+    const [apiResponse, setApiResponse] = useState(null);
     //const [params, setParams] = useState();
 
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        console.log("Successfully Submitted!")
-        getAccountDate(accountData).then((response) => console.log(response));
+        console.log("Successfully Submitted!", accountData)
+        const response = await getAccountDate(accountData);
+        //console.log(response);
+        setApiResponse(response);
         setIsSubmitted(true);
+        console.log(apiResponse);
     };
 
     const handleChange = ({ target }) => {
@@ -26,7 +30,7 @@ function AccountDateTable() {
             ...accountData,
             [target.name]: target.value,
         })
-        console.log(accountData)
+        //console.log(accountData)
     }
 
     const handleClear = ({ target }) => {
@@ -39,6 +43,9 @@ function AccountDateTable() {
     }, [isSubmitted]);
     */
     
+    const columnHeaders = null;
+
+
     return (
         <main>
             <h1>Account Search</h1>
@@ -63,7 +70,9 @@ function AccountDateTable() {
             
             {
                 isSubmitted && 
-                <h1>Data Table goes here after verifying console logged successful api response.</h1>
+                <DataTable 
+                columns={columnHeaders}
+                />
             }
         </main>
         
