@@ -1,7 +1,7 @@
 //This component is responsible for displaying account based on account id and open_date
 
 import React, { useState } from "react";
-import DataTable from "react-data-table-component";
+//import DataTable from "react-data-table-component";
 import { getAccountDate } from "../api";
 
 function AccountDateTable() {
@@ -22,7 +22,7 @@ function AccountDateTable() {
         //console.log(response);
         setApiResponse(response);
         setIsSubmitted(true);
-        console.log(apiResponse);
+        console.log("apiResponse: ", apiResponse);
     };
 
     const handleChange = ({ target }) => {
@@ -43,11 +43,11 @@ function AccountDateTable() {
     }, [isSubmitted]);
     */
     
-    const columnHeaders = null;
+    //const columnHeaders = null;
 
 
     return (
-        <main>
+        <div style={{ padding: "1% 4%", backgroundColor: "#F2F2F2" }}>
             <h1>Account Search</h1>
             <form onSubmit={handleSubmit}>
                 <div className="row account-date-row mx-2">
@@ -68,13 +68,15 @@ function AccountDateTable() {
                     <button type="button" className=" btn btn-secondary ms-1" onClick={handleClear}>Clear Fields</button>
             </form>
             
-            {
+            { //Need Wei to tell me which columns are going to be dispalyed from `get-account-date` API (different from risk-holdings)
+                /*
                 isSubmitted && 
                 <DataTable 
                 columns={columnHeaders}
                 />
+                */
             }
-        </main>
+        </div>
         
     )
 }

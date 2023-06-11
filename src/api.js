@@ -1,16 +1,12 @@
 /* This file represents the API we would be using to fetch our data from */
 import data from './data-table/data.json';
-import multiData from './data-table/multiSelectData.json';
+//import multiData from './data-table/multiSelectData.json';
 
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "http://localhost:5001"
 
 //Defines the default headers for these function to work with 'json-server'
 const headers = new Headers();
 headers.append("Content-Type", "application/json");
-//headers.append("Accept", "application/json")
-//headers.append('Origin','http://localhost:3000');
-//headers.append("Sec-Fetch-Mode", "cors");
-//headers.append("Sec-Fetch-Site", "same-origin");
 
 /**
  * Fetch 'json' from the specified URL and handle error status codes and ignore 'AbortError's'
@@ -26,13 +22,13 @@ headers.append("Content-Type", "application/json");
  */
 async function fetchJson(URL, options, onCancel) {
     try {
-        const response = await fetch(URL, options = null);
+        const response = await fetch(URL, options);
         if (response.status === 204) {
             return null;
         }
 
         const payload = await response.json();
-        //console.log({ payload });
+        console.log("Payload: ", payload);
         if (payload.error) {
             return Promise.reject({ message: payload.error });
         }
@@ -47,13 +43,23 @@ async function fetchJson(URL, options, onCancel) {
 }
 
 /**
- * 
+ * Test API call
  * @returns 
  */
 export async function fetchData() {
     return data;
 }
 
+/**
+ * Used for the middle-tier's `get-account-date` api
+ * @param {*} params 
+ * Any parameters that should go into the query string when making the call to server. 
+ * such as, id = 12 and open_date = 2019-03-26 will be turned into a query string.
+ * @param {*} signal 
+ * Optional signal for a new AbortController if a cancel button is involved.
+ * @returns {Array[Object]}
+ * May return and array of one or more account object with various related data fields
+ */
 export async function getAccountDate(params, signal) {
     const url = new URL(`${API_BASE_URL}/get-account-date`);
     Object.entries(params).forEach(([key, value]) => 
@@ -66,6 +72,13 @@ export async function getAccountDate(params, signal) {
     return await fetchJson(url, options)
 }
 
+/**
+ * Use to get all accounts from middle-tier's `get-accounts' api
+ * @param {*} signal 
+ * Options signal for a new AortController if a cancel button is involved.
+ * @returns {Array[Objects]}
+ * All json data in an array of objects
+ */
 export async function getAllAccounts(signal) {
     const url = `${API_BASE_URL}/get-accounts`;
     return await fetchJson(url, signal, []);
@@ -73,16 +86,16 @@ export async function getAllAccounts(signal) {
 
 /**
  * This function will be used to send an HTTP request to fetch risk accounts names'
- * @param {*} array 
- * Array of apx codes in the following shape:
+ * @param {*} signal 
+ * Optional signal for AbortController if necessary.
  * [
     {
       "value": "CRAIX",
-      "label": "CRAIX"
+      "label": ""//Full Name
     },
     {
       "value": "MaryReynoldsBabcock",
-      "label": "MaryReynoldsBabcock"
+      "label": ""//Full Name
     },
  * ] 
  * @returns {Array.prototype} 
@@ -98,21 +111,21 @@ export async function getAllAccounts(signal) {
  * ] 
  * 
  */
-export async function fetchRiskAccounts(arrayOfApxCodes) {
-    const json = multiData;
-    //match arrayOfApxCodes in json and return name
-    const result = arrayOfApxCodes.map((code) => {
-        let name = "";
-
-        for (let i=0; i < json.length; i++) {
-            if (code.value === json[i].apx_portfolio_code) {
-                name = json[i].name;
-                break;
-            }
-        }
-
-        return name;
-    });
-
-    return result;
+export async function fetchAllRiskAccounts(signal) {
+    const url = `${API_BASE_URL}/get-risk-accounts`;
+    return await fetchJson(url, signal);
 }
+
+export async function getRiskHoldings(params, signal) {
+    const url = new URL(`${API_BASE_URL}/get-risk-holdings`);
+    const options = {
+        method: "POST",
+        headers,
+        body: JSON.stringify(params),
+        signal,
+    }
+    return await fetchJson(url, options);
+}
+
+
+//console.log(getRiskHoldings({account: "Archdiocese_of_Boston", ao_date: "2023-03-24"}))

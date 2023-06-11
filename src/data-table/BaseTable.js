@@ -3,7 +3,6 @@ import ExpandedTable from "./ExpandedTable";
 //import { downloadCSV, formatter } from '../utils/helperFunctions';
 import ExportCSV from "../ExportCSV";
 import { formatter } from "../utils/helperFunctions";
-import DropwDownMenu from "../drop-down/DropDownMenu";
 
 /**
  * Responsible for displaying the base table with 10 columns and rows compressed.
@@ -91,7 +90,7 @@ function BaseTable({ tableData, handleSearch }) {
     */
 
   return (
-    <div style={{ padding: "5% 4%", backgroundColor: "#F2F2F2" }}>
+    <div style={{ padding: "1% 4%", backgroundColor: "#F2F2F2", /*border: "purple solid 2px"*/ }}>
       <div
         style={{
           display: "flex",
@@ -99,11 +98,11 @@ function BaseTable({ tableData, handleSearch }) {
           backgroundColor: "#1B3668",
           color: "white",
           padding: "2px",
+          //border: "red solid 2px",
         }}
       >
-        <h3 style={{ border: "purple solid 2px" }} >Account Details</h3>
-        <DropwDownMenu tableData={tableData}/>
-        <div style={{ border: "red solid 2px" }}>
+        <h3>Account Details</h3>
+        <div>
           <input type="text" placeholder="Search..." onChange={handleSearch} />
           <ExportCSV csvData={tableData} fileName="Account Details" />
           {/* <button className="btn btn-primary"onClick={() => downloadCSV(tableData)} >Export</button> */}

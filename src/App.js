@@ -1,22 +1,35 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
-import { fetchData } from './api';
+import { fetchAllRiskAccounts, fetchData } from './api';
 import BaseTable from './data-table/BaseTable';
 import AccountDateTable from './components/AccountDateTable';
+import RiskHoldings from './drop-down/RiskHoldings';
 
 
 function App() {
   const [tableData, setTableData] = useState(null);
   const [searchData, setSearchData] = useState(null);
+  const [dropDownData, setDropDownData] = useState(null);
+  //const [riskHoldingsData, setRiskHoldingsData] = useState(null);
 
-  useEffect(() => {
-    const loadData = async() => {
-      fetchData().then(res => {
-        setTableData(res);
-        setSearchData(res);
-      });
+  const loadData = async() => {
+    //load all data for Account Details table. Test/Dummy API
+    fetchData().then(res => {
+      setTableData(res);
+      setSearchData(res);
+    });
+
+    //load `DropDownMenu` data here from get-risk-accounts api call
+    fetchAllRiskAccounts().then(res => {
+      setDropDownData(res);
+      //console.log("Drop Down Menu Data: ", res);
+      //may or may not have to set searchData here with res BUT you would need to create a new custome BaseTable component.
+      //and pass in the searchData as a parameter to the new BaseTable AS WELL AS conditionally render the new BaseTable on the existence of
+      //drop down data
+      })
     };
 
+  useEffect(() => {
     loadData();
   }, []);
 
@@ -24,7 +37,7 @@ function App() {
 
   
 
-  if (!tableData) {
+  if (!tableData || !dropDownData) {
     return <h1>Loading...</h1>
   } else {
     const handleSearch = ({target}) => {
@@ -58,12 +71,16 @@ function App() {
         </div>
       </header>
 
-      <BaseTable
-        tableData={tableData}
-        handleSearch={handleSearch}
-      />
+      <main>
+        <RiskHoldings dropDownData={dropDownData} tableData={tableData} handleSearch={handleSearch}/>
 
-      <AccountDateTable />
+        <BaseTable 
+          tableData={tableData}
+          handleSearch={handleSearch}
+        />
+
+        <AccountDateTable />
+      </main>
 
       <footer className='footer'>
         <div className='row text-center'>
@@ -76,6 +93,7 @@ function App() {
     </>
     );
   }
+
 
 }
 
