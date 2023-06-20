@@ -213,7 +213,7 @@ function RiskHoldings({ tableData, dropDownData }) {
             {
                 responseData && 
                 <div>
-                    <h3 style={{ backgroundColor: "#1B3668", color: "white", padding: "1% 1%" }} >Risk Holdings Account Details</h3>
+                    <h3 style={{ backgroundColor: "#1B3668", color: "white", padding: "1% 1%" }} >Risk Holdings Trade Date View</h3>
                     <DataTable 
                         columns={columnHeaders}
                         data={responseData}
@@ -222,7 +222,8 @@ function RiskHoldings({ tableData, dropDownData }) {
                         customStyles={customStyles}
                         expandableRows
                         expandOnRowClicked
-                        expandableRowsComponent={ExpandedTable}                        
+                        expandableRowsComponent={ExpandedTable}
+                        fixedHeader                        
                     />
                 </div>
             }   

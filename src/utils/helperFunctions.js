@@ -95,3 +95,20 @@ export function yesterday(currentDate) {
     date.setDate(date.getDate() - 1);
     return asDateString(date);
 }
+
+
+export function splitTableIntoFour(dataRows) {
+    let first, second, third, fourth;
+    let m, n, o;
+
+    m = Math.ceil(dataRows.length / 4);
+    n = Math.ceil((2 * dataRows.length) / 4);
+    o = Math.ceil((3 * dataRows.length) / 4);
+
+    first = dataRows.slice(0, m);
+    second = dataRows.slice(m, n);
+    third = dataRows.slice(n, o);
+    fourth = dataRows.slice(o, dataRows.length);
+
+    return [first, second, third, fourth];
+}
