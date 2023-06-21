@@ -25,24 +25,35 @@ const ExpandedTable = ({ data }) => {
     const splitTables = splitTableIntoFour(rows);
     console.log(splitTables[0]);
 
+    
     return (
         <div className="container-fluid">
-        <div className="row g-0">
-            <div className="col" style={{ /*border: "green solid 3px"*/ }}>
-                        {splitTables[0]}            
+            <div className="row g-0">
+                <div className="col" style={{ /*border: "green solid 3px"*/ }}>
+                    {splitTables[0]}            
+                </div>
+                <div className="col" style={{ /*border: "orange solid 3px"*/ }}>
+                    {splitTables[1]}              
+                </div>
+                <div className="col" style={{ /*border: "yellow solid 3px"*/ }}>
+                    {splitTables[2]}            
+                </div>
+                <div className="col" style={{ /*border: "red solid 3px"*/ }}>
+                    {splitTables[3]}    
+                </div>        
             </div>
-            <div className="col" style={{ /*border: "orange solid 3px"*/ }}>
-                        {splitTables[1]}              
-            </div>
-            <div className="col" style={{ /*border: "yellow solid 3px"*/ }}>
-                        {splitTables[2]}            
-            </div>
-            <div className="col" style={{ /*border: "red solid 3px"*/ }}>
-                {splitTables[3]}    
-            </div>        
-        </div>
         </div>
     )
+
+    /*
+    return (
+        <table>
+            <tbody>
+                {rows}
+            </tbody>
+        </table>
+    )
+    */
 }
 
 export default ExpandedTable;

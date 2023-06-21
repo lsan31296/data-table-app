@@ -24,6 +24,7 @@ function MultiSelectMenu({rowsForSelect, handleMultiSelectChange, handleMenuClos
                     ...baseStyles,
                     color: "black",
                 }),
+                menu: provided => ({ ...provided, zIndex: 9999}),
             }}
             onChange={handleMultiSelectChange}
             closeMenuOnSelect={false}

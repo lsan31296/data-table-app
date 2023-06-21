@@ -43,10 +43,15 @@ export function downloadCSV(dataArray) {
     link.click();
 }
 
-export const formatter = new Intl.NumberFormat('en-US', {
+export const dollarFormatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD'
 });
+
+export const numberFormatter = new Intl.NumberFormat('en-US', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 4,
+})
 
 export function filterRiskAccounts(arrayOfRiskAccounts, json) {
     //const json = multiData;

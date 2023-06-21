@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { filterRiskAccounts, today, yesterday, formatter } from "../utils/helperFunctions";
+import { filterRiskAccounts, today, yesterday, dollarFormatter, numberFormatter } from "../utils/helperFunctions";
 import { getRiskHoldings } from "../api";
 import DataTable from "react-data-table-component";
 import ExpandedTable from "../data-table/ExpandedTable";
@@ -13,7 +13,8 @@ function RiskHoldings({ tableData, dropDownData }) {
     //Initialize form inputs
     const initialFormState = {
         accounts: [],
-        ao_date: yesterday(today()),
+        aoDate: yesterday(today()),
+        positionView: "", 
     };
 
     //Make state variable to track rows selected
@@ -23,7 +24,24 @@ function RiskHoldings({ tableData, dropDownData }) {
         value: account.apx_portfolio_code,  
         label: account.name,
     }));
-
+    const dataTableStyles = {
+        TD: {
+            title: "Trade Date",
+            bannerColor: "#1B3668",
+        },
+        SD: {
+            title: "Settlement Date",
+            bannerColor: "#0b850d"
+        },
+        ID: {
+            title: "Trade Date Intraday",
+            bannerColor: "#e37005",
+        },
+        LT: {
+            title: "Lot-Level Trade Date",
+            bannerColor: "#590396"
+        }
+    }
     //Handler functions declared here
     const handleMultiSelectChange = (values, actionMeta) => {
         //console.log("Action Meta:", actionMeta);
@@ -47,14 +65,21 @@ function RiskHoldings({ tableData, dropDownData }) {
     };
     const handleDateChange = ({target}) => {
         //console.log(target.value);
-        setBodyReq({...bodyReq, ao_date: target.value })
-        //bodyReq.ao_date = target.value;
+        setBodyReq({...bodyReq, aoDate: target.value })
+        //bodyReq.aoDate = target.value;
         console.log("BodyReq Date: ", bodyReq);
+    };
+    const handleRadioButtonClick = ({ target }) => {
+        setBodyReq({...bodyReq, positionView: target.value })
+        console.log("BodyReq View: ", bodyReq.positionView);
     };
     const handleSearch = async (event) => {
         event.preventDefault();
-        console.log("Hit Search");
+        console.log("Hit Search: ", bodyReq);
+        //add coniditional for type of view from radio button
         setResponseData(await getRiskHoldings(bodyReq));
+        //Add the change in table title and banner color
+        
     };
 
     //Set react-data table configurations here
@@ -144,7 +169,7 @@ function RiskHoldings({ tableData, dropDownData }) {
             sortable: true,
             compact: true,
             maxWidth: "100px",
-            format: (row) => formatter.format(row.quantity),
+            format: (row) => numberFormatter.format(row.quantity),
         }, 
         {
            name: "Original Face",
@@ -152,7 +177,7 @@ function RiskHoldings({ tableData, dropDownData }) {
            sortable: true,
            compact: true,
            maxWidth: "100px",
-           format: (row) => formatter.format(row.orig_face),
+           format: (row) => dollarFormatter.format(row.orig_face),
         },
         {
             name: "MV Accrued",
@@ -160,7 +185,7 @@ function RiskHoldings({ tableData, dropDownData }) {
             sortable: true,
             compact: true,
             maxWidth: "100px",
-            format: (row) => formatter.format(row.mv_accrued),
+            format: (row) => dollarFormatter.format(row.mv_accrued),
         },
         {
             name: "Holding Group",
@@ -205,15 +230,34 @@ function RiskHoldings({ tableData, dropDownData }) {
               
                 <MultiSelectMenu rowsForSelect={rowsForSelect} handleMultiSelectChange={handleMultiSelectChange} handleMenuClose={handleMenuClose}/>
                 <div className="input-group">
-                    <label htmlFor="ao_date"></label>
-                    <input className="form-control" id="ao_date" type="date" name="ao_date" onChange={handleDateChange} value={bodyReq.ao_date} pattern="\d{4}-\d{2}-\d{2}" placeholder="YYYY-MM-DD"/>
+                    <label htmlFor="aoDate"></label>
+                    <input className="form-control" id="aoDate" type="date" name="aoDate" onChange={handleDateChange} value={bodyReq.aoDate} pattern="\d{4}-\d{2}-\d{2}" placeholder="YYYY-MM-DD"/>
+                    
+                    <div className="input-group-text">
+                        <div className="form-check pe-1">
+                            <input className="form-check-input" type="radio" value="TD" name="RiskHoldingView" id="trade_date" onChange={handleRadioButtonClick}/>
+                            <label className="form-check-label" htmlFor="trade_date">Trade Date</label>
+                        </div>
+                        <div className="form-check pe-1">
+                            <input className="form-check-input" type="radio" value='SD' name="RiskHoldingView" id="settlement_date" onChange={handleRadioButtonClick}/>
+                            <label className="form-check-label" htmlFor="settlement_date">Settlement Date</label>
+                        </div>
+                        <div className="form-check pe-1">
+                            <input className="form-check-input" type="radio" value='ID' name="RiskHoldingView" id="intra_trade_date" onChange={handleRadioButtonClick}/>
+                            <label className="form-check-label" htmlFor="intra_trade_date">Trade Date Intra</label>
+                        </div>
+                        <div className="form-check pe-1">
+                            <input className="form-check-input" type="radio" value='LT' name="RiskHoldingView" id="lot_level_trade_date" onChange={handleRadioButtonClick}/>
+                            <label className="form-check-label" htmlFor="lot_level_trade_date">Lot-Level Trade Date</label>
+                        </div>
+                    </div>
                     <button className="btn btn-primary" type="submit">Search</button>
                 </div>  
             </form>
             {
                 responseData && 
                 <div>
-                    <h3 style={{ backgroundColor: "#1B3668", color: "white", padding: "1% 1%" }} >Risk Holdings Trade Date View</h3>
+                    <h3 style={{ backgroundColor: `${dataTableStyles[bodyReq.positionView].bannerColor}`, color: "white", padding: "1% 1%" }} >Risk Holdings: {dataTableStyles[bodyReq.positionView].title} View</h3>
                     <DataTable 
                         columns={columnHeaders}
                         data={responseData}

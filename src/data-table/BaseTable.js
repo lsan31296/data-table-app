@@ -1,8 +1,8 @@
 import DataTable from "react-data-table-component";
 import ExpandedTable from "./ExpandedTable";
-//import { downloadCSV, formatter } from '../utils/helperFunctions';
+//import { downloadCSV, dollarFormatter } from '../utils/helperFunctions';
 import ExportCSV from "../ExportCSV";
-import { formatter } from "../utils/helperFunctions";
+import { dollarFormatter } from "../utils/helperFunctions";
 
 /**
  * Responsible for displaying the base table with 10 columns and rows compressed.
@@ -17,14 +17,14 @@ function BaseTable({ tableData, handleSearch }) {
       name: "Loan Amount",
       selector: (row) => row.loan_amount,
       sortable: true,
-      format: (row) => formatter.format(row.loan_amount),
+      format: (row) => dollarFormatter.format(row.loan_amount),
     },
     { name: "State Code", selector: (row) => row.state_code, sortable: true },
     {
       name: "Market Value",
       selector: (row) => row.market_value,
       sortable: true,
-      format: (row) => formatter.format(row.market_value),
+      format: (row) => dollarFormatter.format(row.market_value),
     },
     { name: "Pool Number", selector: (row) => row.pool_number, sortable: true },
     { name: "Fund Ticker", selector: (row) => row.fund_ticker, sortable: true },
