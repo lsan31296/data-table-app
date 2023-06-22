@@ -90,23 +90,23 @@ export async function getAllAccounts(signal) {
  * Optional signal for AbortController if necessary.
  * [
     {
-      "value": "CRAIX",
-      "label": ""//Full Name
+    "value": "CRAIX",
+    "label": ""//Full Name
     },
     {
-      "value": "MaryReynoldsBabcock",
-      "label": ""//Full Name
+    "value": "MaryReynoldsBabcock",
+    "label": ""//Full Name
     },
  * ] 
  * @returns {Array.prototype} 
  * [
     {
-      "name": "(CRAIX) - CCM Community Impact Bond Fund",
-      "apx_portfolio_code": "CRAIX"
+    "name": "(CRAIX) - CCM Community Impact Bond Fund",
+    "apx_portfolio_code": "CRAIX"
     },
     {
-      "name": "(MRBF) - The Mary Reynolds Babcock Foundation",
-      "apx_portfolio_code": "MaryReynoldsBabcock"
+    "name": "(MRBF) - The Mary Reynolds Babcock Foundation",
+    "apx_portfolio_code": "MaryReynoldsBabcock"
     },
  * ] 
  * 

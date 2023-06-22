@@ -4,8 +4,6 @@ import { getRiskHoldings } from "../api";
 import DataTable from "react-data-table-component";
 import ExpandedTable from "../data-table/ExpandedTable";
 import MultiSelectMenu from "./MultiSelectMenu";
-//NEED helper function for autocalculating yesterday's date.
-
 
 //This component is responsible for displaying a drop down menu which may be used for sending requests,
 //exporting selected accounts, etc.
@@ -103,12 +101,12 @@ function RiskHoldings({ tableData, dropDownData }) {
             maxWidth: "20px",
         },
         {
-          name: "As Of Date",
-          selector: (row) => row.ao_date,
-          sortable: true,
-          compact: true,
-          maxWidth: "80px",
-          format: (row) => row.ao_date.slice(0, 10),
+            name: "As Of Date",
+            selector: (row) => row.ao_date,
+            sortable: true,
+            compact: true,
+            maxWidth: "80px",
+            format: (row) => row.ao_date.slice(0, 10),
         },
         { 
             name: "BBG Cusip", 
@@ -118,15 +116,15 @@ function RiskHoldings({ tableData, dropDownData }) {
             compact: true,
         },
         {
-          name: "Weight",
-          selector: (row) => row.weight.toFixed(4),
-          sortable: true,
-          maxWidth: "3px",
-          compact: true,
+            name: "Weight",
+            selector: (row) => row.weight.toFixed(4),
+            sortable: true,
+            maxWidth: "3px",
+            compact: true,
         },
         { 
             name: "Marketing Asset Group", 
-            selector: (row) => row.MarketingAssetGroup, 
+            selector: (row) => row.marketingAssetGroup, 
             sortable: true,
             minWidth: "170px",
             compact: true,
@@ -139,41 +137,40 @@ function RiskHoldings({ tableData, dropDownData }) {
             minWidth: "30px",
         },
         {
-          name: "Security Type",
-          selector: (row) => row.carlton_SecurityType,
-          sortable: true,
-          compact: true,
-          minWidth: "141px",
+            name: "Security Type",
+            selector: (row) => row.carlton_SecurityType,
+            sortable: true,
+            compact: true,
+            minWidth: "141px",
         },
         {
-          name: "Security Sector",
-          selector: (row) => row.carlton_SecuritySector,
-          sortable: true,
-          compact: true,
-          minWidth: "141px",
+            name: "Security Sector",
+            selector: (row) => row.carlton_SecuritySector,
+            sortable: true,
+            compact: true,
+            minWidth: "141px",
         },
         {
-          name: "Tracker Security Type",
-          selector: (row) => row.tracker_security_type,
-          sortable: true,
-          compact: true,
-          minWidth: "151px",
+            name: "Tracker Security Type",
+            selector: (row) => row.tracker_security_type,
+            sortable: true,
+            compact: true,
+            minWidth: "151px",
         },
         {
-          name: "Security Name",
-          selector: (row) => row.sec_name,
-          sortable: true,
-          compact: true,
-          minWidth: "160px",
+            name: "Security Name",
+            selector: (row) => row.sec_name,
+            sortable: true,
+            compact: true,
+            minWidth: "160px",
           //format: (row) => row.sec_name,
         },
         {
-          name: "Agg. Rating",
-          selector: (row) => row.aggregate_rating,
-          sortable: true,
-          compact: true,
-          maxWidth: "40px",
-
+            name: "Agg. Rating",
+            selector: (row) => row.aggregate_rating,
+            sortable: true,
+            compact: true,
+            maxWidth: "40px",
         },
         {
             name: "Quantity",
@@ -184,12 +181,12 @@ function RiskHoldings({ tableData, dropDownData }) {
             format: (row) => numberFormatter.format(row.quantity),
         }, 
         {
-           name: "Original Face",
-           selector: (row) => row.orig_face,
-           sortable: true,
-           compact: true,
-           maxWidth: "100px",
-           format: (row) => dollarFormatter.format(row.orig_face),
+            name: "Original Face",
+            selector: (row) => row.orig_face,
+            sortable: true,
+            compact: true,
+            maxWidth: "100px",
+            format: (row) => dollarFormatter.format(row.orig_face),
         },
         {
             name: "MV Accrued",
@@ -206,7 +203,7 @@ function RiskHoldings({ tableData, dropDownData }) {
             compact: true,
             minWidth: "100px",
         }
-      ];
+    ];
     const customStyles = {
         headRow: {
             style: {
