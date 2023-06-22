@@ -233,6 +233,15 @@ function RiskHoldings({ tableData, dropDownData }) {
             }
         }
     }
+    //Set conditional row styles for aggregate row
+    const conditionalRowStyles = [
+        {
+            when: row => row.weight >= 0.9,
+            style: {
+                fontWeight: 700
+            }
+        }
+    ]
 
     /* RENDERED ON UI */
     return (
@@ -284,6 +293,7 @@ function RiskHoldings({ tableData, dropDownData }) {
                         highlightOnHover
                         striped
                         customStyles={customStyles}
+                        conditionalRowStyles={conditionalRowStyles}
                         expandableRows
                         expandOnRowClicked
                         expandableRowsComponent={ExpandedTable}
