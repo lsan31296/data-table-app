@@ -14,7 +14,8 @@ function RiskHoldings({ tableData, dropDownData }) {
     const initialFormState = {
         accounts: [],
         aoDate: yesterday(today()),
-        positionView: "", 
+        positionView: "",
+        aggregateRows: "n",
     };
 
     //Make state variable to track rows selected
@@ -67,11 +68,11 @@ function RiskHoldings({ tableData, dropDownData }) {
         //console.log(target.value);
         setBodyReq({...bodyReq, aoDate: target.value })
         //bodyReq.aoDate = target.value;
-        console.log("BodyReq Date: ", bodyReq);
+        //console.log("BodyReq Date: ", bodyReq);
     };
     const handleRadioButtonClick = ({ target }) => {
         setBodyReq({...bodyReq, positionView: target.value })
-        console.log("BodyReq View: ", bodyReq.positionView);
+        //console.log("BodyReq View: ", bodyReq.positionView);
     };
     const handleSearch = async (event) => {
         event.preventDefault();
@@ -80,6 +81,17 @@ function RiskHoldings({ tableData, dropDownData }) {
         setResponseData(await getRiskHoldings(bodyReq));
         //Add the change in table title and banner color
         
+    };
+    const handleAggSwitchChange = ({ target }) => {
+        //setBodyReq({...bodyReq, aggregateRows: target.value })
+        if (target.checked) {
+            console.log("Checked");
+            setBodyReq({ ...bodyReq, aggregateRows: target.value });
+        } else {
+            console.log("Not Checked");
+            setBodyReq({ ...bodyReq, aggregateRows: "n" });
+        }
+        //console.log("Hit Agg Switch: ", bodyReq)
     };
 
     //Set react-data table configurations here
@@ -227,8 +239,8 @@ function RiskHoldings({ tableData, dropDownData }) {
         <div style={{ padding: "1% 4%", backgroundColor: "#F2F2F2", /*border: "solid 2px green"*/ }}>
 
             <form onSubmit={handleSearch}>
-              
                 <MultiSelectMenu rowsForSelect={rowsForSelect} handleMultiSelectChange={handleMultiSelectChange} handleMenuClose={handleMenuClose}/>
+                
                 <div className="input-group">
                     <label htmlFor="aoDate"></label>
                     <input className="form-control" id="aoDate" type="date" name="aoDate" onChange={handleDateChange} value={bodyReq.aoDate} pattern="\d{4}-\d{2}-\d{2}" placeholder="YYYY-MM-DD"/>
@@ -251,6 +263,14 @@ function RiskHoldings({ tableData, dropDownData }) {
                             <label className="form-check-label" htmlFor="lot_level_trade_date">Lot-Level Trade Date</label>
                         </div>
                     </div>
+
+                    <div className="input-group-text">
+                        <div className="form-check form-switch">
+                            <input className="form-check-input" type="checkbox" id="aggSwitch" name="aggRows" value="y" onChange={handleAggSwitchChange}/>
+                            <label className="form-check-label" htmlFor="aggSwitch">Aggregate Rows</label>
+                        </div>
+                    </div>
+
                     <button className="btn btn-primary" type="submit">Search</button>
                 </div>  
             </form>
