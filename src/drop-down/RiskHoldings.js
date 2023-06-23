@@ -48,6 +48,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch }) {
     //Handler functions declared here
     const handleMultiSelectChange = (values, actionMeta) => {
         //console.log("Action Meta:", actionMeta);
+        setResponseData(null);
         if (values.length > 0) {
             //setSelected(values);//produces an array of objects
             setBodyReq({ ...bodyReq, accounts: filterRiskAccounts(values, dropDownData) })
