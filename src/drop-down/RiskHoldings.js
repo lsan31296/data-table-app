@@ -27,18 +27,22 @@ function RiskHoldings({ tableData, dropDownData }) {
         TD: {
             title: "Trade Date",
             bannerColor: "#1B3668",
+            aggMaGroupRowColor: "#9ad4e6"
         },
         SD: {
             title: "Settlement Date",
-            bannerColor: "#0b850d"
+            bannerColor: "#0b850d",
+            aggMaGroupRowColor: "#c1f7c2"
         },
         ID: {
             title: "Trade Date Intraday",
             bannerColor: "#e37005",
+            aggMaGroupRowColor: "#edd2b9"
         },
         LT: {
             title: "Lot-Level Trade Date",
-            bannerColor: "#590396"
+            bannerColor: "#590396",
+            aggMaGroupRowColor: "#ce98f5"
         }
     }
     //Handler functions declared here
@@ -236,6 +240,12 @@ function RiskHoldings({ tableData, dropDownData }) {
             when: row => row.weight >= 0.9,
             style: {
                 fontWeight: 700
+            }
+        },
+        {
+            when: row => row.weight < 0.9 && row.aggregate_rating === "" && row.sec_name === "",
+            style: {
+                backgroundColor: `${dataTableStyles[bodyReq.positionView].aggMaGroupRowColor}`
             }
         }
     ]
