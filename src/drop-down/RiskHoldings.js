@@ -4,6 +4,7 @@ import { getRiskHoldings } from "../api";
 import DataTable from "react-data-table-component";
 import ExpandedTable from "../data-table/ExpandedTable";
 import MultiSelectMenu from "./MultiSelectMenu";
+import ExportCSV from "../ExportCSV";
 
 //This component is responsible for displaying a drop down menu which may be used for sending requests,
 //exporting selected accounts, etc.
@@ -288,8 +289,9 @@ function RiskHoldings({ tableData, dropDownData, handleSearch }) {
                             <label className="form-check-label" htmlFor="aggSwitch">Aggregate Rows</label>
                         </div>
                     </div>
-
+                    
                     <button className="btn btn-primary" type="submit">Search</button>
+                    <ExportCSV csvData={responseData} fileName={`Risk Holdings: ${dataTableStyles[bodyReq.positionView].title}`} />
                 </div>  
             </form>
             {

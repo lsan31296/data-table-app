@@ -22,7 +22,7 @@ export const ExportCSV = ({ csvData, fileName }) => {
 
   return (
     <>
-      <button className="btn btn-primary" onClick={(e) => exportToCSV(csvData, fileName)}>Export</button>
+      <button className="btn btn-secondary" onClick={(e) => exportToCSV(csvData, fileName)}>Export</button>
     </>
   );
 };
