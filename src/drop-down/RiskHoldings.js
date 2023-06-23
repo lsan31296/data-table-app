@@ -7,7 +7,7 @@ import MultiSelectMenu from "./MultiSelectMenu";
 
 //This component is responsible for displaying a drop down menu which may be used for sending requests,
 //exporting selected accounts, etc.
-function RiskHoldings({ tableData, dropDownData }) {
+function RiskHoldings({ tableData, dropDownData, handleSearch }) {
     //Initialize form inputs
     const initialFormState = {
         accounts: [],
@@ -67,16 +67,17 @@ function RiskHoldings({ tableData, dropDownData }) {
         }
     };
     const handleDateChange = ({target}) => {
-        //console.log(target.value);
+        setResponseData(null);
         setBodyReq({...bodyReq, aoDate: target.value })
         //bodyReq.aoDate = target.value;
         //console.log("BodyReq Date: ", bodyReq);
     };
     const handleRadioButtonClick = ({ target }) => {
+        setResponseData(null);
         setBodyReq({...bodyReq, positionView: target.value })
         //console.log("BodyReq View: ", bodyReq.positionView);
     };
-    const handleSearch = async (event) => {
+    const handleSearchButton = async (event) => {
         event.preventDefault();
         console.log("Hit Search: ", bodyReq);
         //add coniditional for type of view from radio button
@@ -85,7 +86,7 @@ function RiskHoldings({ tableData, dropDownData }) {
         
     };
     const handleAggSwitchChange = ({ target }) => {
-        //setBodyReq({...bodyReq, aggregateRows: target.value })
+        setResponseData(null);
         if (target.checked) {
             console.log("Checked");
             setBodyReq({ ...bodyReq, aggregateRows: target.value });
@@ -254,7 +255,7 @@ function RiskHoldings({ tableData, dropDownData }) {
     return (
         <div style={{ padding: "1% 4%", backgroundColor: "#F2F2F2", /*border: "solid 2px green"*/ }}>
 
-            <form onSubmit={handleSearch}>
+            <form onSubmit={handleSearchButton}>
                 <MultiSelectMenu rowsForSelect={rowsForSelect} handleMultiSelectChange={handleMultiSelectChange} handleMenuClose={handleMenuClose}/>
                 
                 <div className="input-group">
