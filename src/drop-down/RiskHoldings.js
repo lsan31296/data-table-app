@@ -12,7 +12,7 @@ function RiskHoldings({ tableData, dropDownData }) {
     const initialFormState = {
         accounts: [],
         aoDate: yesterday(today()),
-        positionView: "",
+        positionView: "TD",
         aggregateRows: "n",
     };
 
