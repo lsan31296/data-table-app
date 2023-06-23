@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import { fetchAllRiskAccounts, fetchData } from './api';
-import BaseTable from './data-table/BaseTable';
-import AccountDateTable from './components/AccountDateTable';
+//import BaseTable from './data-table/BaseTable';
+//import AccountDateTable from './components/AccountDateTable';
 import RiskHoldings from './drop-down/RiskHoldings';
 
 
@@ -76,7 +76,7 @@ function App() {
 
       </main>
 
-      <footer className='footer mt-auto py-3'>
+      <footer className='footer'>
         <div className='container'>
         <div className='row text-center'>
           <div className='large-12 medium-12 small-12 columns'>

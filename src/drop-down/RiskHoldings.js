@@ -255,7 +255,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch }) {
 
     /* RENDERED ON UI */
     return (
-        <div style={{ padding: "1% 4%", backgroundColor: "#F2F2F2", /*border: "solid 2px green"*/ }}>
+        <div style={{ padding: responseData ? "30px 4% 100px 4%" :"1% 4%" , backgroundColor: "#F2F2F2",  /*border: "solid 2px green"*/ }}>
 
             <form onSubmit={handleSearchButton}>
                 <MultiSelectMenu rowsForSelect={rowsForSelect} handleMultiSelectChange={handleMultiSelectChange} handleMenuClose={handleMenuClose}/>
