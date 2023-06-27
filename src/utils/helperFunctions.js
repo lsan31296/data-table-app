@@ -127,11 +127,15 @@ export function formatSwitch(key, value) {
         case 'boolean':
                 return <input className="form-check-input" type="checkbox" value="" disabled checked={value === true ? true : false }/>;
         case 'string':
+            if (key === "ao_date" || key === "original_trade_date") {
+                return value.slice(0, 10);
+            } else {
                 return value || "Empty";
+            }
         case 'number':
                 if (key === "weight") {
                     return formatWeight(value);
-                } else if (["accrued", "orig_face", "current_face", "price", "mv", "mv_accrued"].includes(key)) {
+                } else if (["accrued", "orig_face", "curent_face", "price", "mv", "mv_accrued", ""].includes(key)) {
                     return dollarFormatter.format(value);
                 } else {
                     return numberFormatter.format(value) || "Empty";
