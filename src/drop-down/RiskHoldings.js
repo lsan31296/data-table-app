@@ -275,11 +275,11 @@ function RiskHoldings({ tableData, dropDownData, handleSearch }) {
                         </div>
                         <div className="form-check pe-1">
                             <input className="form-check-input" type="radio" value='ID' name="RiskHoldingView" id="intra_trade_date" onChange={handleRadioButtonClick}/>
-                            <label className="form-check-label" htmlFor="intra_trade_date">Trade Date Intra</label>
+                            <label className="form-check-label" htmlFor="intra_trade_date">Intraday</label>
                         </div>
                         <div className="form-check pe-1">
                             <input className="form-check-input" type="radio" value='LT' name="RiskHoldingView" id="lot_level_trade_date" onChange={handleRadioButtonClick}/>
-                            <label className="form-check-label" htmlFor="lot_level_trade_date">Lot-Level Trade Date</label>
+                            <label className="form-check-label" htmlFor="lot_level_trade_date">Lot-Level</label>
                         </div>
                     </div>
 
