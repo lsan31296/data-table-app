@@ -117,3 +117,26 @@ export function splitTableIntoFour(dataRows) {
 
     return [first, second, third, fourth];
 }
+
+export function formatWeight(weight) {
+    return Number(weight).toLocaleString(undefined, {style: 'percent', minimumFractionDigits: 2} );
+}
+
+export function formatSwitch(key, value) {
+    switch(typeof(value)) {
+        case 'boolean':
+                return <input className="form-check-input" type="checkbox" value="" disabled checked={value === true ? true : false }/>;
+        case 'string':
+                return value || "Empty";
+        case 'number':
+                if (key === "weight") {
+                    return formatWeight(value);
+                } else if (["accrued", "orig_face", "current_face", "price", "mv", "mv_accrued"].includes(key)) {
+                    return dollarFormatter.format(value);
+                } else {
+                    return numberFormatter.format(value) || "Empty";
+                }
+        default:
+                return value;
+    }
+}

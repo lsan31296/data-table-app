@@ -1,30 +1,29 @@
-import { splitTableIntoFour } from "../utils/helperFunctions";
+import { splitTableIntoFour, formatSwitch } from "../utils/helperFunctions";
 
 
 const ExpandedTable = ({ data }) => {
     
     const rows = Object.entries(data).map(([key, value], index) => {
-        console.log("Index: ", index);
+        //console.log("Key & Value: ", key, value);
+        const switchData = formatSwitch(key, value);
+        //console.log("Switch Data: ", switchData);
         return (
             <tr key={index} style={{ borderBottom:"solid 1px grey" }}>
                 <td style={{ fontSize: "12px", fontWeight: "bold" }}>{key}:</td>
                 <td style={{ fontSize: "12px" }}>
-                    {typeof(value) === "boolean" ?
+                    {switchData}
+                    {/*{typeof(value) === "boolean" ?
                         <input className="form-check-input" type="checkbox" value="" disabled checked={value === true ? true : false }/>
                     : 
                         value ? value : "Empty"
-                    }
+                    }*/}
                 </td>
             </tr>
         )
     });
 
-    //for (let i=0; i<rows.length; i++) {
-
-    //}
     const splitTables = splitTableIntoFour(rows);
     console.log(splitTables[0]);
-
     
     return (
         <div className="container-fluid">
