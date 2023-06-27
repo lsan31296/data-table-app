@@ -124,7 +124,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch }) {
         },
         {
             name: "Weight",
-            selector: (row) => row.weight.toFixed(4),
+            selector: (row) => Number(row.weight).toLocaleString(undefined, {style: 'percent', minimumFractionDigits: 2} ),
             sortable: true,
             maxWidth: "3px",
             compact: true,
