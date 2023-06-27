@@ -130,7 +130,7 @@ export function formatSwitch(key, value) {
             if (key === "ao_date" || key === "original_trade_date") {
                 return value.slice(0, 10);
             } else {
-                return value || "Empty";
+                return value || null;
             }
         case 'number':
                 if (key === "weight") {
@@ -138,7 +138,7 @@ export function formatSwitch(key, value) {
                 } else if (["accrued", "orig_face", "curent_face", "price", "mv", "mv_accrued", ""].includes(key)) {
                     return dollarFormatter.format(value);
                 } else {
-                    return numberFormatter.format(value) || "Empty";
+                    return numberFormatter.format(value) || null;
                 }
         default:
                 return value;
