@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { filterRiskAccounts, today, yesterday, dollarFormatter, numberFormatter, formatWeight, lastBusinessDay} from "../utils/helperFunctions";
+import { filterRiskAccounts, today, dollarFormatter, numberFormatter, formatWeight, lastBusinessDay, addDataIntoCache} from "../utils/helperFunctions";
 import { getRiskHoldings } from "../api";
 import DataTable from "react-data-table-component";
 import ExpandedTable from "../data-table/ExpandedTable";
@@ -83,9 +83,14 @@ function RiskHoldings({ tableData, dropDownData, handleSearch }) {
         event.preventDefault();
         console.log("Hit Search: ", bodyReq);
         //add coniditional for type of view from radio button
-        setResponseData(await getRiskHoldings(bodyReq));
-        //Add the change in table title and banner color
-        
+        const resData = await getRiskHoldings(bodyReq);
+        setResponseData(resData);
+        //If resData exists
+        if (resData.length > 0) {
+            //then add bodyReq json into cache name, resData into cache data
+            await addDataIntoCache(JSON.stringify(bodyReq), "http://localhost:3000/", resData);
+            console.log("Done data caching!");
+        }
     };
     const handleAggSwitchChange = ({ target }) => {
         setResponseData(null);

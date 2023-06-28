@@ -178,4 +178,14 @@ export function lastBusinessDay(date) {
     return asDateString(prevDate);
 }
 
-//console.log("Last business Day: ", lastBusinessDay(today()));
+//Function is responsible for adding requests into cache
+export async function addDataIntoCache( cacheName, url, response) {
+    const data = new Response(JSON.stringify(response));
+
+    if ('caches' in window) {
+        caches.open(cacheName).then((cache) => {
+            cache.put(url, data);
+            console.log("Data added into cache!");
+        });
+    }
+}
