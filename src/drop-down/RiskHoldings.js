@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { filterRiskAccounts, today, yesterday, dollarFormatter, numberFormatter, formatWeight } from "../utils/helperFunctions";
+import { filterRiskAccounts, today, yesterday, dollarFormatter, numberFormatter, formatWeight, lastBusinessDay} from "../utils/helperFunctions";
 import { getRiskHoldings } from "../api";
 import DataTable from "react-data-table-component";
 import ExpandedTable from "../data-table/ExpandedTable";
@@ -12,7 +12,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch }) {
     //Initialize form inputs
     const initialFormState = {
         accounts: [],
-        aoDate: yesterday(today()),
+        aoDate: lastBusinessDay(today()),
         positionView: "TD",
         aggregateRows: "n",
     };

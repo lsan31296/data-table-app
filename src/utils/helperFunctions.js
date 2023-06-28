@@ -144,3 +144,38 @@ export function formatSwitch(key, value) {
                 return value;
     }
 }
+
+//FUNCTION THAT CALCULATES MOST RECENT BUSINESS DAY (EXCLUDES WEEKENDS AND HOLIDAYS)
+export function lastBusinessDay(date) {
+    const prevDate = new Date(date);
+    const prevDayOfWeek = prevDate.getDay();
+    const weekDayArr = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+    const holidayArr2023 = [
+        "2023-01-02",//New Years (celebrated on Sunday, observed Monday)
+        "2023-01-16",//MLK Day
+        "2023-02-20",//President's Day
+        "2023-05-29",//Memorial Day
+        "2023-06-19",//Juneteenth National Independence Day
+        "2023-07-04",//Independence Day
+        "2023-09-04",//Labor Day
+        "2023-10-09",//Columbus Day
+        "2023-11-11",//Veteran's Day (celebrate Saturday)
+        "2023-11-23",//Thanksgiving Day
+        "2023-12-25",//Christmas Day
+    ]
+    
+    console.log("Previous Date Object: ", prevDate);
+    console.log("Previous Day of Week: ", weekDayArr[prevDayOfWeek], prevDayOfWeek);
+
+    if(prevDayOfWeek === 0 || prevDayOfWeek === 6) {
+        console.log("Previous Date has fallen on a weekend!")
+        return lastBusinessDay(asDateString(prevDate));
+    } else if( holidayArr2023.includes(asDateString(prevDate)) ) {
+        console.log("Previous Date has fallen on a Federal Holiday!")
+        return lastBusinessDay(asDateString(prevDate));
+    }
+
+    return asDateString(prevDate);
+}
+
+//console.log("Last business Day: ", lastBusinessDay(today()));
