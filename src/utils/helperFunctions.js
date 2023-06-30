@@ -179,7 +179,7 @@ export function lastBusinessDay(date) {
 }
 
 //Function is responsible for adding requests into cache
-export async function addDataIntoCache( cacheName, url, response) {
+export async function addDataIntoCache(cacheName, url, response) {
     const data = new Response(JSON.stringify(response));
 
     if ('caches' in window) {
