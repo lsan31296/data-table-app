@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
-import { fetchAllRiskAccounts, fetchData } from './api';
+import { fetchAllRiskAccounts, fetchData, getBusinessDay } from './api';
+import { today } from "./utils/helperFunctions";
 //import BaseTable from './data-table/BaseTable';
 //import AccountDateTable from './components/AccountDateTable';
 import RiskHoldings from './drop-down/RiskHoldings';
@@ -12,9 +13,14 @@ function App() {
   const [tableData, setTableData] = useState(null);
   const [searchData, setSearchData] = useState(null);
   const [dropDownData, setDropDownData] = useState(null);
+  const [previousBD, setPreviousBD] = useState(null);
   //const [riskHoldingsData, setRiskHoldingsData] = useState(null);
 
   const loadData = async() => {
+    //Load previous business date
+    getBusinessDay({ inputDate: today(), nextNDays: -1 }).then(res => {
+      setPreviousBD(res[0].next_business_day.slice(0, 10));
+    });
     //load all data for Account Details table. Test/Dummy API
     fetchData().then(res => {
       setTableData(res);
@@ -74,7 +80,7 @@ function App() {
       </header>
 
       <main>
-        <RiskHoldings dropDownData={dropDownData} tableData={tableData} handleSearch={handleSearch}/>
+        <RiskHoldings dropDownData={dropDownData} tableData={tableData} handleSearch={handleSearch} previousBD={previousBD}/>
 
       </main>
 

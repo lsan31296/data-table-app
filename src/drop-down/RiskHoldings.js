@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { filterRiskAccounts, today, dollarFormatter, numberFormatter, formatWeight, lastBusinessDay, addDataIntoCache} from "../utils/helperFunctions";
+import { filterRiskAccounts, dollarFormatter, numberFormatter, formatWeight, addDataIntoCache} from "../utils/helperFunctions";
 import { getRiskHoldings } from "../api";
 import DataTable from "react-data-table-component";
 import ExpandedTable from "../data-table/ExpandedTable";
@@ -8,11 +8,11 @@ import ExportCSV from "../ExportCSV";
 
 //This component is responsible for displaying a drop down menu which may be used for sending requests,
 //exporting selected accounts, etc.
-function RiskHoldings({ tableData, dropDownData, handleSearch }) {
+function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
     //Initialize form inputs
     const initialFormState = {
         accounts: [],
-        aoDate: lastBusinessDay(today()),
+        aoDate: previousBD,//lastBusinessDay(today()),
         positionView: "TD",
         aggregateRows: "n",
     };
@@ -251,7 +251,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch }) {
             }
         },
         {
-            when: row => row.weight < 0.9 && row.aggregate_rating === "" && row.sec_name === "",
+            when: row => row.weight < 0.9 && row.aggregate_rating === "" && row.sec_name === "",//identifies the aggregate rows
             style: {
                 backgroundColor: `${dataTableStyles[bodyReq.positionView].aggMaGroupRowColor}`
             }

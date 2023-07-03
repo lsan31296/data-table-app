@@ -127,5 +127,14 @@ export async function getRiskHoldings(params, signal) {
     return await fetchJson(url, options);
 }
 
+export async function getBusinessDay(params) {
+    //console.log("Params: ", params);
+    const url = new URL(`${API_BASE_URL}/get-next-business-day`);
+    Object.entries(params).forEach(([key, value]) =>
+    url.searchParams.append(key, value.toString())
+    );
+    return await fetchJson(url, {headers}, []);
+}
+
 
 //console.log(getRiskHoldings({account: "Archdiocese_of_Boston", ao_date: "2023-03-24"}))
