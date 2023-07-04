@@ -107,16 +107,18 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
     const handleDoubleClick = (row, event) => {
         console.log("Double-clicked row: ", row, event);
         //open up context menu that has several options and access to data
-            var rowData = row;
-            navigator.clipboard.writeText(rowData);
-            alert(`Row data copied to clipboard!`);
+            var rowData = JSON.stringify(row);
+            navigator.clipboard.writeText(rowData)
+            .then(() => {
+                alert(`Row data copied to clipboard!`);
+            });
     };
 
     //Set react-data table configurations here
     const columnHeaders = [
         { 
             name: "Account", 
-            selector: (row) => row.account,
+            selector: (row) => bodyReq.aggregateRows === "y" ? row.account : row.account_name,
             sortable: true,
             maxWidth: "20px",
         },
