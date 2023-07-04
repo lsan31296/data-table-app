@@ -5,6 +5,7 @@ import DataTable from "react-data-table-component";
 import ExpandedTable from "../data-table/ExpandedTable";
 import MultiSelectMenu from "./MultiSelectMenu";
 import ExportCSV from "../ExportCSV";
+import CustomMaterialMenu from "../components/CustomMaterialMenu";
 
 //This component is responsible for displaying a drop down menu which may be used for sending requests,
 //exporting selected accounts, etc.
@@ -57,10 +58,10 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
     };
     const handleMenuClose = async (actionMeta) => {
         if (bodyReq.accounts.length > 0) {
-            console.log("Hit menu close");
+            //console.log("Hit menu close");
             //console.log(selected)
             //const accountsArr = filterRiskAccounts(selected, dropDownData);
-            console.log("Accounts Array: ", bodyReq.accounts);
+            //console.log("Accounts Array: ", bodyReq.accounts);
             //if (accountsArr.length > 0) {
                 //bodyReq.accounts =  [...accountsArr];
                 console.log("Body Request: ", bodyReq);
@@ -95,13 +96,20 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
     const handleAggSwitchChange = ({ target }) => {
         setResponseData(null);
         if (target.checked) {
-            console.log("Checked");
+            //console.log("Checked");
             setBodyReq({ ...bodyReq, aggregateRows: target.value });
         } else {
-            console.log("Not Checked");
+            //console.log("Not Checked");
             setBodyReq({ ...bodyReq, aggregateRows: "n" });
         }
         //console.log("Hit Agg Switch: ", bodyReq)
+    };
+    const handleDoubleClick = (row, event) => {
+        console.log("Double-clicked row: ", row, event);
+        //open up context menu that has several options and access to data
+            var rowData = row;
+            navigator.clipboard.writeText(rowData);
+            alert(`Row data copied to clipboard!`);
     };
 
     //Set react-data table configurations here
@@ -111,6 +119,12 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             selector: (row) => row.account,
             sortable: true,
             maxWidth: "20px",
+        },
+        {
+            cell: row => <CustomMaterialMenu size="small" row={row} />,
+            allowOverFlow: true,
+            button: true,
+            minWidth: "20px",
         },
         {
             name: "As Of Date",
@@ -311,9 +325,10 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
                         customStyles={customStyles}
                         conditionalRowStyles={conditionalRowStyles}
                         expandableRows
-                        expandOnRowClicked
+                        //expandOnRowClicked //NEEDED TO BE REMOVED IN ORDER TO ALLOW DOUBLE CLICK HANDLER TO OCCUR
                         expandableRowsComponent={ExpandedTable}
-                        fixedHeader                        
+                        fixedHeader
+                        onRowDoubleClicked={handleDoubleClick}                        
                     />
                 </div>
             }   

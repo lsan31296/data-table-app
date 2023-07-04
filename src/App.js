@@ -63,6 +63,7 @@ function App() {
       setTableData(newData);
     };
 
+    /* RENDERING STARTS HERE */
     return (
     <>
       <div className='desktop-top-bar'>
