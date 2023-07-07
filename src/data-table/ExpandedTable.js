@@ -23,7 +23,7 @@ const ExpandedTable = ({ data }) => {
     });
 
     const splitTables = splitTableIntoFour(rows);
-    console.log(splitTables[0]);
+    //console.log(splitTables[0]);
     
     return (
         <div className="container-fluid">

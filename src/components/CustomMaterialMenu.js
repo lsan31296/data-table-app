@@ -9,10 +9,18 @@ export default function CustomMaterialMenu({ row }) {
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
         console.log("Row from Options: ", row);
+        //console.log("Current Target: ", event.currentTarget);
         setAnchorEl(event.currentTarget);
     };
     const handleClose = () => {
         setAnchorEl(null);
+    };
+    const handleNameAndCusip = (event) => {
+        var rowData = JSON.stringify({ account: row.account, bbg_cusip: row.bbg_cusip });
+            navigator.clipboard.writeText(rowData)
+            .then(() => {
+                alert(`Account and BBG CUSIP copied to clipboard!`);
+            });
     };
 
     return (
@@ -36,7 +44,7 @@ export default function CustomMaterialMenu({ row }) {
                 'aria-labelledby': 'basic-button',
             }}
         >
-            <MenuItem onClick={handleClose}>Option 1</MenuItem>
+            <MenuItem onClick={handleNameAndCusip}>Name and CUSIP</MenuItem>
             <MenuItem onClick={handleClose}>Option 2</MenuItem>
             <MenuItem onClick={handleClose}>Option 3</MenuItem>
         </Menu>

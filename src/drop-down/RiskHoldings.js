@@ -6,6 +6,7 @@ import ExpandedTable from "../data-table/ExpandedTable";
 import MultiSelectMenu from "./MultiSelectMenu";
 import ExportCSV from "../ExportCSV";
 import CustomMaterialMenu from "../components/CustomMaterialMenu";
+import './RiskHoldings.css';
 
 //This component is responsible for displaying a drop down menu which may be used for sending requests,
 //exporting selected accounts, etc.
@@ -96,13 +97,13 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
     const handleAggSwitchChange = ({ target }) => {
         setResponseData(null);
         if (target.checked) {
-            //console.log("Checked");
+            console.log("Checked");
             setBodyReq({ ...bodyReq, aggregateRows: target.value });
         } else {
-            //console.log("Not Checked");
+            console.log("Not Checked");
             setBodyReq({ ...bodyReq, aggregateRows: "n" });
         }
-        //console.log("Hit Agg Switch: ", bodyReq)
+        console.log("Hit Agg Switch: ", bodyReq)
     };
     const handleDoubleClick = (row, event) => {
         console.log("Double-clicked row: ", row, event);
@@ -286,28 +287,44 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
                     <input className="form-control" id="aoDate" type="date" name="aoDate" onChange={handleDateChange} value={bodyReq.aoDate} pattern="\d{4}-\d{2}-\d{2}" placeholder="YYYY-MM-DD"/>
                     
                     <div className="input-group-text">
-                        <div className="form-check pe-1">
-                            <input className="form-check-input" type="radio" value="TD" name="RiskHoldingView" id="trade_date" onChange={handleRadioButtonClick}/>
+                        <div className="form-check pe-2">
+                            <input className="form-check-input" type="radio" value="TD" name="RiskHoldingView" id="trade_date" onChange={handleRadioButtonClick} defaultChecked/>
                             <label className="form-check-label" htmlFor="trade_date">Trade Date</label>
                         </div>
-                        <div className="form-check pe-1">
+                        <div className="form-check pe-2">
                             <input className="form-check-input" type="radio" value='SD' name="RiskHoldingView" id="settlement_date" onChange={handleRadioButtonClick}/>
                             <label className="form-check-label" htmlFor="settlement_date">Settlement Date</label>
                         </div>
-                        <div className="form-check pe-1">
+                        <div className="form-check pe-2">
                             <input className="form-check-input" type="radio" value='ID' name="RiskHoldingView" id="intra_trade_date" onChange={handleRadioButtonClick}/>
                             <label className="form-check-label" htmlFor="intra_trade_date">Intraday</label>
                         </div>
-                        <div className="form-check pe-1">
+                        <div className="form-check">
                             <input className="form-check-input" type="radio" value='LT' name="RiskHoldingView" id="lot_level_trade_date" onChange={handleRadioButtonClick}/>
                             <label className="form-check-label" htmlFor="lot_level_trade_date">Lot-Level</label>
                         </div>
                     </div>
 
                     <div className="input-group-text">
+                        <div className="form-check form-switch pe-2">
+                            <input className="form-check-input" type="radio" id="noAggSwitch" name="aggRows" value="n" onChange={handleAggSwitchChange} defaultChecked/>
+                            <label className="form-check-label" htmlFor="noAggSwitch">No Aggregates</label>
+                        </div>
+                        <div className="form-check form-switch pe-2">
+                            <input className="form-check-input" type="radio" id="aggSwitch" name="aggRows" value="y" onChange={handleAggSwitchChange}/>
+                            <label className="form-check-label" htmlFor="aggSwitch">Aggregate</label>
+                        </div>
+                        <div className="form-check form-switch pe-2">
+                            <input className="form-check-input" type="radio" id="groupAggSwitch" name="aggRows" value="yg" onChange={handleAggSwitchChange}/>
+                            <label className="form-check-label" htmlFor="groupAggSwitch">Group</label>
+                        </div>
+                        <div className="form-check form-switch pe-2">
+                            <input className="form-check-input" type="radio" id="typeAggSwitch" name="aggRows" value="yt" onChange={handleAggSwitchChange}/>
+                            <label className="form-check-label" htmlFor="typeAggSwitch">Type</label>
+                        </div>
                         <div className="form-check form-switch">
-                            <input className="form-check-input" type="checkbox" id="aggSwitch" name="aggRows" value="y" onChange={handleAggSwitchChange}/>
-                            <label className="form-check-label" htmlFor="aggSwitch">Aggregate Rows</label>
+                            <input className="form-check-input" type="radio" id="secAggSwitch" name="aggRows" value="ys" onChange={handleAggSwitchChange}/>
+                            <label className="form-check-label" htmlFor="secAggSwitch">Sector</label>
                         </div>
                     </div>
                     
