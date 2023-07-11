@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { filterRiskAccounts, dollarFormatter, numberFormatter, formatWeight, addDataIntoCache, removeUnwanteds} from "../utils/helperFunctions";
+import { filterRiskAccounts, dollarFormatter, numberFormatter, formatWeight, addDataIntoCache, removeUnwanteds, formatAccountName } from "../utils/helperFunctions";
 import { getRiskHoldings } from "../api";
 import DataTable from "react-data-table-component";
 import ExpandedTable from "../data-table/ExpandedTable";
@@ -23,9 +23,6 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
     const [responseData, setResponseData] = useState(null);
     const [bodyReq, setBodyReq] = useState({...initialFormState});
     const rowsForSelect = removeUnwanteds(dropDownData).map((account, index) => (
-        //Use index finder to find all indeces of unwanted values.
-        //If index param is not included in array of unwanted indices then: 
-            //Proceed with mapping
         { 
             value: account.apx_portfolio_code,  
             label: account.name,
@@ -53,7 +50,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             aggMaGroupRowColor: "#ce98f5"
         }
     }
-    //Handler functions declared here
+    //HANDLER FUNCTIONS DECLARED HERE
     const handleMultiSelectChange = (values, actionMeta) => {
         //console.log("Action Meta:", actionMeta);
         setResponseData(null);
@@ -123,25 +120,26 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
     //Set react-data table configurations here
     const columnHeaders = [
         { 
-            name: "Account", 
-            selector: (row) => row.account_name, //Needs formatter, but first needs dropdown data corrected
+            name: "Account Name", 
+            selector: (row) => formatAccountName(row.account_name),
             sortable: true,
-            maxWidth: "20px",
+            minWidth: "135px",
         },
         {
             cell: row => <CustomMaterialMenu size="small" row={row} />,
             allowOverFlow: true,
             button: true,
-            minWidth: "20px",
+            minWidth: "40px",
+            compact: true
         },
-        {
+        /*{
             name: "As Of Date",
             selector: (row) => row.ao_date,
             sortable: true,
             compact: true,
             maxWidth: "80px",
             format: (row) => row.ao_date.slice(0, 10),
-        },
+        },*/
         { 
             name: "BBG Cusip", 
             selector: (row) => row.bbg_cusip, 
@@ -150,12 +148,241 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             compact: true,
         },
         {
+            name: "Security Name",
+            selector: (row) => row.sec_name,
+            sortable: true,
+            compact: true,
+            minWidth: "125px",
+          //format: (row) => row.sec_name,
+        },
+        {
+            name: "Coupon",
+            selector: (row) => row.coupon,
+            sortable: true,
+            compact: true,
+            minWidth: "70px",
+            format: (row) => numberFormatter.format(row.coupon)
+        },
+        {
+            name: "Maturity",
+            selector: (row) => row.maturity,
+            sortable: true,
+            compact: true,
+            minWidth: "80px"
+        },
+        {
+            name: "Price",
+            selector: (row) => dollarFormatter.format(row.price),
+            sortable: true,
+            minWidth: "50px",
+            compact: true,
+        },
+        {
+            name: "OAS",
+            selector: (row) => numberFormatter.format(row.oas),
+            sortable: true,
+            compact: true,
+            minWidth: "65px"
+        },
+        {
             name: "Weight",
             selector: (row) => formatWeight(row.weight),
             sortable: true,
-            maxWidth: "3px",
+            minWidth: "65px",
             compact: true,
         },
+        {
+            name: "Original Face",
+            selector: (row) => row.orig_face,
+            sortable: true,
+            compact: true,
+            maxWidth: "100px",
+            format: (row) => dollarFormatter.format(row.orig_face),
+        },
+        {
+            name: "Current Face",
+            selector: (row) => dollarFormatter.format(row.curent_face),
+            sortable: true,
+            compact: true,
+            //maxWidth: "100px"
+        },
+        {
+            name: "MV",
+            selector: (row) => dollarFormatter.format(row.mv),
+            sortable: true,
+            compact: true,
+
+        },
+        {
+            name: "Duration",
+            selector: (row) => numberFormatter.format(row.dur),
+            sortable: true,
+            compact: true,
+            minWidth: "75px"
+        },
+        {
+            name: "Dur. Cont.",
+            selector: (row) => numberFormatter.format(row.durCont),
+            sortable: true,
+            compact: true,
+            minWidth: "85px"
+        },
+        {
+            name: "Yield To Worst",
+            selector: (row) => numberFormatter.format(row.ytw),
+            sortable: true,
+            compact: true,
+            minWidth: "110px"
+        },
+        {
+            name: "Ytw Cont.",
+            selector: (row) => numberFormatter.format(row.ytwCont),
+            sortable: true,
+            compact: true,
+            minWidth: "85px"
+        },
+        {
+            name: "Spread Dur.",
+            selector: (row) => numberFormatter.format(row.dxS),
+            sortable: true,
+            compact: true,
+            minWidth: "90px"
+        },
+        {
+            name: "Convexity",
+            selector: (row) => numberFormatter.format(row.cnvx),
+            sortable: true,
+            compact: true,
+            minWidth: "80px"
+        },
+        {
+            name: "Weighted Avg. Life",
+            selector: (row) => numberFormatter.format(row.wal),
+            sortable: true,
+            compact: true,
+            maxWidth: "115px"
+        },
+        {
+            name: "Agg. Rating",
+            selector: (row) => row.aggregate_rating,
+            sortable: true,
+            compact: true,
+            maxWidth: "40px",
+        },
+        {
+            name: "Moody",
+            selector: (row) => row.carlton_MoodyRating,
+            sortable: true,
+            compact: true,
+            minWidth: "65px",
+        },
+        {
+            name: "SP",
+            selector: (row) => row.carlton_SPRating,
+            sortable: true,
+            compact: true,
+            minWidth: "40px",
+            maxWidth: "60px",
+        },
+        {
+            name: "Fitch",
+            selector: (row) => row.carlton_FitchRating,
+            sortable: true,
+            compact: true,
+            minWidth: "40px",
+        },
+        {
+            name: "Factor",
+            selector: (row) => numberFormatter.format(row.factor),
+            sortable: true,
+            compact: true,
+            minWidth: "60px"
+        },
+        {
+            name: "6M",
+            selector: (row) => numberFormatter.format(row.krD_6M),
+            sortable: true,
+            compact: true,
+            minWidth: "50px"
+        },
+        {
+            name: "1YR",
+            selector: (row) => numberFormatter.format(row.krD_1YR),
+            sortable: true,
+            compact: true,
+            minWidth: "50px"
+        },
+        {
+            name: "2YR",
+            selector: (row) => numberFormatter.format(row.krD_2YR),
+            sortable: true,
+            compact: true,
+            minWidth: "50px"
+        },
+        {
+            name: "3YR",
+            selector: (row) => numberFormatter.format(row.krD_3YR),
+            sortable: true,
+            compact: true,
+            minWidth: "50px"
+        },
+        {
+            name: "5YR",
+            selector: (row) => numberFormatter.format(row.krD_5YR),
+            sortable: true,
+            compact: true,
+            minWidth: "50px"
+        },
+        {
+            name: "7YR",
+            selector: (row) => numberFormatter.format(row.krD_7YR),
+            sortable: true,
+            compact: true,
+            minWidth: "50px"
+        },
+        {
+            name: "10YR",
+            selector: (row) => numberFormatter.format(row.krD_10YR),
+            sortable: true,
+            compact: true,
+            minWidth: "50px"
+        },
+        {
+            name: "20YR",
+            selector: (row) => numberFormatter.format(row.krD_20YR),
+            sortable: true,
+            compact: true,
+            minWidth: "50px"
+        },
+        {
+            name: "30YR",
+            selector: (row) => numberFormatter.format(row.krD_30YR),
+            sortable: true,
+            compact: true,
+            minWidth: "50px"
+        },
+        {
+            name: "Orig. Trade Date",
+            selector: (row) => row.original_trade_date.slice(0,10),
+            sortable: true,
+            compact: true,
+            minWidth: "120px"
+        },
+        {
+            name: "Book Gain Loss",
+            selector: (row) => numberFormatter.format(row.book_gain_loss),
+            sortable: true,
+            compact: true,
+            minWidth: "120px"
+        },
+        {
+            name: "DOD Gain Loss",
+            selector: (row) => numberFormatter.format(row.dod_gain_loss),
+            sortable: true,
+            compact: true,
+            minWidth: "120px"
+        },
+        /*
         { 
             name: "Marketing Asset Group", 
             selector: (row) => row.marketingAssetGroup, 
@@ -192,21 +419,6 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             minWidth: "151px",
         },
         {
-            name: "Security Name",
-            selector: (row) => row.sec_name,
-            sortable: true,
-            compact: true,
-            minWidth: "160px",
-          //format: (row) => row.sec_name,
-        },
-        {
-            name: "Agg. Rating",
-            selector: (row) => row.aggregate_rating,
-            sortable: true,
-            compact: true,
-            maxWidth: "40px",
-        },
-        {
             name: "Quantity",
             selector: (row) => row.quantity,
             sortable: true,
@@ -214,14 +426,6 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             maxWidth: "100px",
             format: (row) => numberFormatter.format(row.quantity),
         }, 
-        {
-            name: "Original Face",
-            selector: (row) => row.orig_face,
-            sortable: true,
-            compact: true,
-            maxWidth: "100px",
-            format: (row) => dollarFormatter.format(row.orig_face),
-        },
         {
             name: "MV Accrued",
             selector: (row) => row.mv_accrued,
@@ -237,6 +441,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             compact: true,
             minWidth: "100px",
         }
+        */
     ];
     const customStyles = {
         headRow: {

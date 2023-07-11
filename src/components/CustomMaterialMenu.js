@@ -2,7 +2,7 @@ import * as React from 'react';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import { FaRegCopy, FaShareAlt, FaEllipsisV } from 'react-icons/fa';
+import { /*FaRegCopy, FaShareAlt, */ FaEllipsisV } from 'react-icons/fa';
 
 export default function CustomMaterialMenu({ row }) {
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -24,8 +24,8 @@ export default function CustomMaterialMenu({ row }) {
     };
 
     return (
-    <div>
-        <Button
+    <div style={{ minWidth: "25px"}}>
+        <Button style={{ minWidth: "30px"}}
             id="basic-button"
             aria-controls={open ? 'basic-menu' : undefined}
             aria-haspopup="true"

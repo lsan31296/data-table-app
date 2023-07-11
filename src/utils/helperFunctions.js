@@ -49,7 +49,7 @@ export const dollarFormatter = new Intl.NumberFormat('en-US', {
 });
 
 export const numberFormatter = new Intl.NumberFormat('en-US', {
-    minimumFractionDigits: 2,
+    minimumFractionDigits: 4,
     maximumFractionDigits: 4,
 })
 
@@ -129,6 +129,8 @@ export function formatSwitch(key, value) {
         case 'string':
             if (key === "ao_date" || key === "original_trade_date") {
                 return value.slice(0, 10);
+            } else if(key === "account_name") {
+                return formatAccountName(value);
             } else {
                 return value || null;
             }
