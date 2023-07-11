@@ -347,6 +347,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
                         //expandOnRowClicked //NEEDED TO BE REMOVED IN ORDER TO ALLOW DOUBLE CLICK HANDLER TO OCCUR
                         expandableRowsComponent={ExpandedTable}
                         fixedHeader
+                        fixedHeaderScrollHeight="710px"
                         onRowDoubleClicked={handleDoubleClick}                        
                     />
                 </div>
