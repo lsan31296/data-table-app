@@ -189,3 +189,26 @@ export async function addDataIntoCache(cacheName, url, response) {
         });
     }
 }
+
+export function formatAccountName(accountString) {
+    const dashIndex = accountString.indexOf("-");
+    return accountString.slice(dashIndex + 2);
+}
+
+const unwantedElements = ["CCM_INTERNAL_SMA", "CCMNX-Adjusted", "Alternative Impact Fund - Cash Sleeve", "Alternative Impact Fund - FI Sleeve", "Equity Impact Core Fund", "Equity IMact SMID Fund", "Test Acct"];
+/*
+* Helper function is going to be used to find the indeces of unwanted variable using 
+* formatAccount_name().
+* Will take in the dropDownData as a parameter, which is an array.
+* Returns an array of unwanted indices.
+*/
+export function removeUnwanteds(data) {
+    let array = [];
+    data.forEach((object, index) => {
+        if (!unwantedElements.includes(object.name)) {
+            array.push(object);
+        }
+    });
+    
+    return array;
+}

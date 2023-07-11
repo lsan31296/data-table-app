@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { filterRiskAccounts, dollarFormatter, numberFormatter, formatWeight, addDataIntoCache} from "../utils/helperFunctions";
+import { filterRiskAccounts, dollarFormatter, numberFormatter, formatWeight, addDataIntoCache, removeUnwanteds} from "../utils/helperFunctions";
 import { getRiskHoldings } from "../api";
 import DataTable from "react-data-table-component";
 import ExpandedTable from "../data-table/ExpandedTable";
@@ -22,10 +22,15 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
     //Make state variable to track rows selected
     const [responseData, setResponseData] = useState(null);
     const [bodyReq, setBodyReq] = useState({...initialFormState});
-    const rowsForSelect = dropDownData.map((account) => ({ 
-        value: account.apx_portfolio_code,  
-        label: account.name,
-    }));
+    const rowsForSelect = removeUnwanteds(dropDownData).map((account, index) => (
+        //Use index finder to find all indeces of unwanted values.
+        //If index param is not included in array of unwanted indices then: 
+            //Proceed with mapping
+        { 
+            value: account.apx_portfolio_code,  
+            label: account.name,
+        }
+    ));
     const dataTableStyles = {
         TD: {
             title: "Trade Date",
@@ -119,7 +124,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
     const columnHeaders = [
         { 
             name: "Account", 
-            selector: (row) => bodyReq.aggregateRows === "y" ? row.account : row.account_name,
+            selector: (row) => row.account_name, //Needs formatter, but first needs dropdown data corrected
             sortable: true,
             maxWidth: "20px",
         },
