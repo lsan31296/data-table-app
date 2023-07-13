@@ -80,21 +80,21 @@ AND APPLIES BLACK BORDERS AROUND GROUP OF COLUMNS
 REPRESENTS 'POSITION' SUBHEADER
 */
 .rdt_TableHead > div > div:nth-child(8) {
-  border-left: blue 1px solid;
-  border-bottom: blue 1px solid;
-  border-top: blue 1px solid;
+  border-left: #0d6efd 1px solid;
+  border-bottom: #0d6efd 1px solid;
+  border-top: #0d6efd 1px solid;
 }
 .rdt_TableHead > div > div:nth-child(9),
 .rdt_TableHead > div > div:nth-child(10),
 .rdt_TableHead > div > div:nth-child(11),
 .rdt_TableHead > div > div:nth-child(12) {
-  border-top: blue 1px solid;
-  border-bottom: blue 1px solid;
+  border-top: #0d6efd 1px solid;
+  border-bottom: #0d6efd 1px solid;
 }
 .rdt_TableHead > div > div:nth-child(13) {
-  border-right: blue 1px solid;
-  border-bottom: blue 1px solid;
-  border-top: blue 1px solid;
+  border-right: #0d6efd 1px solid;
+  border-bottom: #0d6efd 1px solid;
+  border-top: #0d6efd 1px solid;
 }
 
 /*
@@ -103,22 +103,22 @@ SELECTS COLUMNS:
 REPRESENTS 'RISK' SUBHEADER
 */
 .rdt_TableHead > div > div:nth-child(14) {
-  border-left: red 1px solid;
-  border-bottom: red 1px solid;
-  border-top: red 1px solid;
+  border-left: #dc3545 1px solid;
+  border-bottom: #dc3545 1px solid;
+  border-top: #dc3545 1px solid;
 }
 .rdt_TableHead > div > div:nth-child(15),
 .rdt_TableHead > div > div:nth-child(16),
 .rdt_TableHead > div > div:nth-child(17),
 .rdt_TableHead > div > div:nth-child(18),
 .rdt_TableHead > div > div:nth-child(19) {
-  border-top: red 1px solid;
-  border-bottom: red 1px solid;
+  border-top: #dc3545 1px solid;
+  border-bottom: #dc3545 1px solid;
 }
 .rdt_TableHead > div > div:nth-child(20) {
-  border-right: red 1px solid;
-  border-bottom: red 1px solid;
-  border-top: red 1px solid;
+  border-right: #dc3545 1px solid;
+  border-bottom: #dc3545 1px solid;
+  border-top: #dc3545 1px solid;
 }
 /*
 SELECTS COLUMNS:
@@ -126,19 +126,19 @@ SELECTS COLUMNS:
 REPRESENTS 'RATING' SUBHEADER
 */
 .rdt_TableHead > div > div:nth-child(21) {
-  border-left: orange 1px solid;
-  border-bottom: orange 1px solid;
-  border-top: orange 1px solid;
+  border-left: #ffc107 1px solid;
+  border-bottom: #ffc107 1px solid;
+  border-top: #ffc107 1px solid;
 }
 .rdt_TableHead > div > div:nth-child(22),
 .rdt_TableHead > div > div:nth-child(23) {
-  border-top: orange 1px solid;
-  border-bottom: orange 1px solid;
+  border-top: #ffc107 1px solid;
+  border-bottom: #ffc107 1px solid;
 }
 .rdt_TableHead > div > div:nth-child(24) {
-  border-right: orange 1px solid;
-  border-bottom: orange 1px solid;
-  border-top: orange 1px solid;
+  border-right: #ffc107 1px solid;
+  border-bottom: #ffc107 1px solid;
+  border-top: #ffc107 1px solid;
 }
 /*
 SELECTS COLUMNS:
@@ -146,9 +146,9 @@ SELECTS COLUMNS:
 REPRESENTS 'KRD' SUBHEADER
 */
 .rdt_TableHead > div > div:nth-child(26) {
-  border-left: lightblue 1px solid;
-  border-bottom: lightblue 1px solid;
-  border-top: lightblue 1px solid;
+  border-left: #0dcaf0 1px solid;
+  border-bottom: #0dcaf0 1px solid;
+  border-top: #0dcaf0 1px solid;
 }
 .rdt_TableHead > div > div:nth-child(27),
 .rdt_TableHead > div > div:nth-child(28),
@@ -157,13 +157,13 @@ REPRESENTS 'KRD' SUBHEADER
 .rdt_TableHead > div > div:nth-child(31),
 .rdt_TableHead > div > div:nth-child(32),
 .rdt_TableHead > div > div:nth-child(33) {
-  border-top: lightblue 1px solid;
-  border-bottom: lightblue 1px solid;
+  border-top: #0dcaf0 1px solid;
+  border-bottom: #0dcaf0 1px solid;
 }
 .rdt_TableHead > div > div:nth-child(34) {
-  border-right: lightblue 1px solid;
-  border-bottom: lightblue 1px solid;
-  border-top: lightblue 1px solid;
+  border-right: #0dcaf0 1px solid;
+  border-bottom: #0dcaf0 1px solid;
+  border-top: #0dcaf0 1px solid;
 }
 /*
 SELECTS COLUMNS:
