@@ -1,6 +1,8 @@
+/*
 [type~="radio"] {
     border: red solid 2px;
-}
+} 
+*/
 
 /* RESPONSIBLE FOR SPACE IN BETWEEN INPUT(radio/switch) AND LABEL */
 .form-check .form-check-input {

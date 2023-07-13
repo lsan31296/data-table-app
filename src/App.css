@@ -71,3 +71,126 @@ p a:active {
 .main {
   margin-bottom: 150px;
 }
+
+/* BEGINNING OF SUBHEADER GROUP SELECTIONS
+SELECTS COLUMNS IN RISKHOLDINGS TALBE HEAD ROW: 
+
+  PRICE, OAS, WEIGHT, ORIG FACE, CURR FACE, MV
+AND APPLIES BLACK BORDERS AROUND GROUP OF COLUMNS
+REPRESENTS 'POSITION' SUBHEADER
+*/
+.rdt_TableHead > div > div:nth-child(8) {
+  border-left: blue 1px solid;
+  border-bottom: blue 1px solid;
+  border-top: blue 1px solid;
+}
+.rdt_TableHead > div > div:nth-child(9),
+.rdt_TableHead > div > div:nth-child(10),
+.rdt_TableHead > div > div:nth-child(11),
+.rdt_TableHead > div > div:nth-child(12) {
+  border-top: blue 1px solid;
+  border-bottom: blue 1px solid;
+}
+.rdt_TableHead > div > div:nth-child(13) {
+  border-right: blue 1px solid;
+  border-bottom: blue 1px solid;
+  border-top: blue 1px solid;
+}
+
+/*
+SELECTS COLUMNS:
+  DUR, DUR CONT, YTW, YTW CONT, DXS, CNVX, WAL
+REPRESENTS 'RISK' SUBHEADER
+*/
+.rdt_TableHead > div > div:nth-child(14) {
+  border-left: red 1px solid;
+  border-bottom: red 1px solid;
+  border-top: red 1px solid;
+}
+.rdt_TableHead > div > div:nth-child(15),
+.rdt_TableHead > div > div:nth-child(16),
+.rdt_TableHead > div > div:nth-child(17),
+.rdt_TableHead > div > div:nth-child(18),
+.rdt_TableHead > div > div:nth-child(19) {
+  border-top: red 1px solid;
+  border-bottom: red 1px solid;
+}
+.rdt_TableHead > div > div:nth-child(20) {
+  border-right: red 1px solid;
+  border-bottom: red 1px solid;
+  border-top: red 1px solid;
+}
+/*
+SELECTS COLUMNS:
+  AGGREGATE RATING, CARLTON (MOODY, SP, FITCH) RATING
+REPRESENTS 'RATING' SUBHEADER
+*/
+.rdt_TableHead > div > div:nth-child(21) {
+  border-left: orange 1px solid;
+  border-bottom: orange 1px solid;
+  border-top: orange 1px solid;
+}
+.rdt_TableHead > div > div:nth-child(22),
+.rdt_TableHead > div > div:nth-child(23) {
+  border-top: orange 1px solid;
+  border-bottom: orange 1px solid;
+}
+.rdt_TableHead > div > div:nth-child(24) {
+  border-right: orange 1px solid;
+  border-bottom: orange 1px solid;
+  border-top: orange 1px solid;
+}
+/*
+SELECTS COLUMNS:
+  KRD: 6M, 1YR, 2YR, 3YR, 5YR, 7YR, 10YR, 20YR, 30YR
+REPRESENTS 'KRD' SUBHEADER
+*/
+.rdt_TableHead > div > div:nth-child(26) {
+  border-left: lightblue 1px solid;
+  border-bottom: lightblue 1px solid;
+  border-top: lightblue 1px solid;
+}
+.rdt_TableHead > div > div:nth-child(27),
+.rdt_TableHead > div > div:nth-child(28),
+.rdt_TableHead > div > div:nth-child(29),
+.rdt_TableHead > div > div:nth-child(30),
+.rdt_TableHead > div > div:nth-child(31),
+.rdt_TableHead > div > div:nth-child(32),
+.rdt_TableHead > div > div:nth-child(33) {
+  border-top: lightblue 1px solid;
+  border-bottom: lightblue 1px solid;
+}
+.rdt_TableHead > div > div:nth-child(34) {
+  border-right: lightblue 1px solid;
+  border-bottom: lightblue 1px solid;
+  border-top: lightblue 1px solid;
+}
+/*
+SELECTS COLUMNS:
+  BOOK GAIN LOSS, DOD GAIN LOSS
+REPRESENTS 'PERFORMANCE' SUBHEADER
+*/
+.rdt_TableHead > div > div:nth-child(36) {
+  border-left: black 1px solid;
+  border-bottom: black 1px solid;
+  border-top: black 1px solid;
+}
+.rdt_TableHead > div > div:nth-child(37) {
+  border-bottom: black 1px solid;
+  border-right: black 1px solid;
+  border-top: black 1px solid;
+}
+
+/*
+RESPONSIBLE FOR DISPLAYING 'LEGEND' DROPDOWN CONTENTS 
+HORIZONTALLY AS OPPOSED TO VERTICALLY. 
+*/
+#horizontal-dropdown-list.dropdown-menu.show {
+  display: contents;
+} /*RESPONSIBLE FOR TOGGLING DIRECTION OF DROPDOWN ICON*/
+#horizontal-dropdown-btn.dropdown-toggle.show::before {
+  border-top: .3em solid transparent;
+  border-right: 0;
+  border-bottom: .3em solid transparent;
+  border-left: .3em solid;
+}

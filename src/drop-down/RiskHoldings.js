@@ -7,6 +7,7 @@ import MultiSelectMenu from "./MultiSelectMenu";
 import ExportCSV from "../ExportCSV";
 import CustomMaterialMenu from "../components/CustomMaterialMenu";
 import './RiskHoldings.css';
+import SubHeaderComponent from "../data-table/SubHeaderComponent";
 
 //This component is responsible for displaying a drop down menu which may be used for sending requests,
 //exporting selected accounts, etc.
@@ -546,7 +547,8 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
                 responseData && 
                 <div>
                     <h3 style={{ backgroundColor: `${dataTableStyles[bodyReq.positionView].bannerColor}`, color: "white", padding: "1% 1%" }} >Risk Holdings: {dataTableStyles[bodyReq.positionView].title} View</h3>
-                    <DataTable 
+                    <DataTable
+                        subHeader subHeaderComponent={SubHeaderComponent}  
                         columns={columnHeaders}
                         data={responseData}
                         highlightOnHover
@@ -558,7 +560,10 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
                         expandableRowsComponent={ExpandedTable}
                         fixedHeader
                         fixedHeaderScrollHeight="710px"
-                        onRowDoubleClicked={handleDoubleClick}                        
+                        onRowDoubleClicked={handleDoubleClick}
+                        //title={<h1 style={{ border: "red solid 2px"}}>Header</h1>}
+                        //subHeaderComponent={<h3 style={{ border: "green solid 2px" }}>SubHeader</h3>}
+
                     />
                 </div>
             }   
