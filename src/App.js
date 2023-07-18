@@ -2,12 +2,9 @@ import React, { useEffect, useState } from 'react';
 import './App.css';
 import { fetchAllRiskAccounts, fetchData, getBusinessDay } from './api';
 import { today } from "./utils/helperFunctions";
-//import BaseTable from './data-table/BaseTable';
-//import AccountDateTable from './components/AccountDateTable';
 import RiskHoldings from './drop-down/RiskHoldings';
-
-//TESTING SYSTEM TIME STAMP
-
+//import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
+import 'react-tabs/style/react-tabs.css';
 
 function App() {
   const [tableData, setTableData] = useState(null);
@@ -27,7 +24,7 @@ function App() {
       setSearchData(res);
     });
 
-    //load `DropDownMenu` data here from get-risk-accounts api call
+    //load dropdown 'MultiSelect' data here from get-risk-accounts api call
     fetchAllRiskAccounts().then(res => {
       setDropDownData(res);
       //console.log("Drop Down Menu Data: ", res);
@@ -81,6 +78,19 @@ function App() {
       </header>
 
       <main>
+        {/*
+        <Tabs defaultIndex={0} onSelect={(index) => console.log("Tab Index: ", index)}>
+          <TabList>
+            <Tab>Risk Holdings</Tab>
+            <Tab>Option 1: Static</Tab>
+          </TabList>
+
+          <TabPanel>
+            <RiskHoldings dropDownData={dropDownData} tableData={tableData} handleSearch={handleSearch} previousBD={previousBD}/>
+          </TabPanel>
+        </Tabs>*/
+        }
+        
         <RiskHoldings dropDownData={dropDownData} tableData={tableData} handleSearch={handleSearch} previousBD={previousBD}/>
 
       </main>

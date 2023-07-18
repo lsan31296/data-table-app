@@ -8,6 +8,7 @@ import ExportCSV from "../ExportCSV";
 import CustomMaterialMenu from "../components/CustomMaterialMenu";
 import './RiskHoldings.css';
 import SubHeaderComponent from "../data-table/SubHeaderComponent";
+import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 
 //This component is responsible for displaying a drop down menu which may be used for sending requests,
 //exporting selected accounts, etc.
@@ -19,16 +20,6 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
         positionView: "TD",
         aggregateRows: "n",
     };
-
-    //Make state variable to track rows selected
-    const [responseData, setResponseData] = useState(null);
-    const [bodyReq, setBodyReq] = useState({...initialFormState});
-    const rowsForSelect = removeUnwanteds(dropDownData).map((account, index) => (
-        { 
-            value: account.apx_portfolio_code,  
-            label: account.name,
-        }
-    ));
     const dataTableStyles = {
         TD: {
             title: "Trade Date",
@@ -51,13 +42,47 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             aggMaGroupRowColor: "#ce98f5"
         }
     }
+    const initialHashState = {
+        tab0: {
+            data: [],//resData for respective tab
+            req: {},//bodyRes for respective tab
+            tableStyle: dataTableStyles
+        },
+        tab1: {
+            data: [],
+            req: {},
+            tableStyle: dataTableStyles
+        }
+    }
+
+    //Make state variable to track rows selected
+    const [responseData, setResponseData] = useState(null);//Need corresponding responseData state variables for each tabIndex
+    const [bodyReq, setBodyReq] = useState({...initialFormState});
+    const [tabIndex, setTabIndex] = useState(0);
+    const rowsForSelect = removeUnwanteds(dropDownData).map((account, index) => (
+        { 
+            value: account.apx_portfolio_code,  
+            label: account.name,
+        }
+    ));
+    const [hashMap, setHashMap] = useState({...initialHashState});
     //HANDLER FUNCTIONS DECLARED HERE
     const handleMultiSelectChange = (values, actionMeta) => {
         //console.log("Action Meta:", actionMeta);
-        setResponseData(null);
+
+        //setResponseData(null);
+        setHashMap({
+            ...hashMap,
+            [`tab${tabIndex}`]: {
+                ...hashMap[`tab${tabIndex}`],
+                data: []
+            }
+        })//Replaces line above
+
         if (values.length > 0) {
             //setSelected(values);//produces an array of objects
             setBodyReq({ ...bodyReq, accounts: filterRiskAccounts(values, dropDownData) })
+            
         }
     };
     const handleMenuClose = async (actionMeta) => {
@@ -74,22 +99,54 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
         }
     };
     const handleDateChange = ({target}) => {
-        setResponseData(null);
+        //setResponseData(null);
+        setHashMap({
+            ...hashMap,
+            [`tab${tabIndex}`]: {
+                ...hashMap[`tab${tabIndex}`],
+                data: []
+            }
+        })//Replaces line above
         setBodyReq({...bodyReq, aoDate: target.value })
         //bodyReq.aoDate = target.value;
         //console.log("BodyReq Date: ", bodyReq);
     };
     const handleRadioButtonClick = ({ target }) => {
-        setResponseData(null);
+        //setResponseData(null);
+        setHashMap({
+            ...hashMap,
+            [`tab${tabIndex}`]: {
+                ...hashMap[`tab${tabIndex}`],
+                data: []
+            }
+        })//Replaces line above
         setBodyReq({...bodyReq, positionView: target.value })
         //console.log("BodyReq View: ", bodyReq.positionView);
     };
     const handleSearchButton = async (event) => {
         event.preventDefault();
         console.log("Hit Search: ", bodyReq);
-        //add coniditional for type of view from radio button
         const resData = await getRiskHoldings(bodyReq);
-        setResponseData(resData);
+        //APPLY CONDITIONAL TO CREATE 'RESPONSEDATAx' WHICH CORRESPONDS TO TABINDEX = x
+        if (tabIndex >= 0 && resData.length > 0) {
+            setResponseData(resData);
+            /*
+            setHashMap({
+                ...hashMap,
+                [`data${tabIndex}`]: [...resData]
+            });
+            //setResponseData(null);
+            */
+            setHashMap({
+                ...hashMap,
+                [`tab${tabIndex}`]: {
+                    ...hashMap[`tab${tabIndex}`],
+                    data: [...resData]
+                }
+            })//Replaces line above
+            console.log("Current HashMap: ", hashMap);
+        }
+        //setResponseData(resData);
         //If resData exists
         if (resData.length > 0) {
             //then add bodyReq json into cache name, resData into cache data
@@ -98,7 +155,14 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
         }
     };
     const handleAggSwitchChange = ({ target }) => {
-        setResponseData(null);
+        //setResponseData(null);
+        setHashMap({
+            ...hashMap,
+            [`tab${tabIndex}`]: {
+                ...hashMap[`tab${tabIndex}`],
+                data: []
+            }
+        })//Replaces line above
         if (target.checked) {
             console.log("Checked");
             setBodyReq({ ...bodyReq, aggregateRows: target.value });
@@ -116,6 +180,10 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             .then(() => {
                 alert(`Row data copied to clipboard!`);
             });
+    };
+    const handleTabOnSelect = async (index) => {
+        console.log("Current selected tab index: ", index);
+        await setTabIndex(index);
     };
 
     //Set react-data table configurations here
@@ -445,11 +513,22 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
         */
     ];
     const customStyles = {
+        header : {
+            style: {
+                backgroundColor: `${dataTableStyles[bodyReq.positionView].bannerColor}`
+            }
+        },
+        subHeader: {
+            style: {
+                minHeight: "45px"
+            }
+        },
         headRow: {
             style: {
                 fontSize: "14px",
                 color: "#1B3668",
                 wordBreak: "break-word",
+                minHeight: "45px"
             },
         },
         headCells: {
@@ -546,25 +625,55 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             {
                 responseData && 
                 <div>
-                    <h3 style={{ backgroundColor: `${dataTableStyles[bodyReq.positionView].bannerColor}`, color: "white", padding: "1% 1%" }} >Risk Holdings: {dataTableStyles[bodyReq.positionView].title} View</h3>
-                    <DataTable
-                        subHeader subHeaderComponent={SubHeaderComponent}  
-                        columns={columnHeaders}
-                        data={responseData}
-                        highlightOnHover
-                        striped
-                        customStyles={customStyles}
-                        conditionalRowStyles={conditionalRowStyles}
-                        expandableRows
-                        //expandOnRowClicked //NEEDED TO BE REMOVED IN ORDER TO ALLOW DOUBLE CLICK HANDLER TO OCCUR
-                        expandableRowsComponent={ExpandedTable}
-                        fixedHeader
-                        fixedHeaderScrollHeight="710px"
-                        onRowDoubleClicked={handleDoubleClick}
-                        //title={<h1 style={{ border: "red solid 2px"}}>Header</h1>}
-                        //subHeaderComponent={<h3 style={{ border: "green solid 2px" }}>SubHeader</h3>}
+                    <Tabs selectedIndex={tabIndex || 0} onSelect={handleTabOnSelect}>
+                        <TabList>
+                            <Tab>Risk Holdings</Tab>
+                            <Tab>Test Tab</Tab>
+                        </TabList>
 
-                    />
+                        <TabPanel>
+                            <DataTable
+                                title={<h3 style={{ color: "white" }}>Risk Holdings: {dataTableStyles[bodyReq.positionView].title} View</h3>}
+                                subHeader subHeaderComponent={SubHeaderComponent}  
+                                columns={columnHeaders}
+                                data={hashMap[`tab${tabIndex}`].data}
+                                highlightOnHover
+                                striped
+                                customStyles={customStyles}
+                                conditionalRowStyles={conditionalRowStyles}
+                                expandableRows
+                                //expandOnRowClicked //NEEDED TO BE REMOVED IN ORDER TO ALLOW DOUBLE CLICK HANDLER TO OCCUR
+                                expandableRowsComponent={ExpandedTable}
+                                fixedHeader
+                                fixedHeaderScrollHeight="710px"
+                                onRowDoubleClicked={handleDoubleClick}
+                                //title={<h1 style={{ border: "red solid 2px"}}>Header</h1>}
+                                //subHeaderComponent={<h3 style={{ border: "green solid 2px" }}>SubHeader</h3>}
+                            />
+                        </TabPanel>
+
+                        <TabPanel>
+                        <DataTable
+                                title={<h3 style={{ color: "white" }}>Risk Holdings: {dataTableStyles[bodyReq.positionView].title} View</h3>}
+                                subHeader subHeaderComponent={SubHeaderComponent}  
+                                columns={columnHeaders}
+                                data={hashMap[`tab${tabIndex}`].data}
+                                highlightOnHover
+                                striped
+                                customStyles={customStyles}
+                                conditionalRowStyles={conditionalRowStyles}
+                                expandableRows
+                                //expandOnRowClicked //NEEDED TO BE REMOVED IN ORDER TO ALLOW DOUBLE CLICK HANDLER TO OCCUR
+                                expandableRowsComponent={ExpandedTable}
+                                fixedHeader
+                                fixedHeaderScrollHeight="710px"
+                                onRowDoubleClicked={handleDoubleClick}
+                                //title={<h1 style={{ border: "red solid 2px"}}>Header</h1>}
+                                //subHeaderComponent={<h3 style={{ border: "green solid 2px" }}>SubHeader</h3>}
+                            />
+                        </TabPanel>
+
+                    </Tabs>
                 </div>
             }   
         </div> 
