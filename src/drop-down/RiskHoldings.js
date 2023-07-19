@@ -454,66 +454,6 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             compact: true,
             minWidth: "120px"
         },
-        /*
-        { 
-            name: "Marketing Asset Group", 
-            selector: (row) => row.marketingAssetGroup, 
-            sortable: true,
-            minWidth: "170px",
-            compact: true,
-        },
-        { 
-            name: "Security Group", 
-            selector: (row) => row.carlton_SecurityGroup, 
-            sortable: true,
-            compact: true,
-            minWidth: "30px",
-        },
-        {
-            name: "Security Type",
-            selector: (row) => row.carlton_SecurityType,
-            sortable: true,
-            compact: true,
-            minWidth: "141px",
-        },
-        {
-            name: "Security Sector",
-            selector: (row) => row.carlton_SecuritySector,
-            sortable: true,
-            compact: true,
-            minWidth: "141px",
-        },
-        {
-            name: "Tracker Security Type",
-            selector: (row) => row.tracker_security_type,
-            sortable: true,
-            compact: true,
-            minWidth: "151px",
-        },
-        {
-            name: "Quantity",
-            selector: (row) => row.quantity,
-            sortable: true,
-            compact: true,
-            maxWidth: "100px",
-            format: (row) => numberFormatter.format(row.quantity),
-        }, 
-        {
-            name: "MV Accrued",
-            selector: (row) => row.mv_accrued,
-            sortable: true,
-            compact: true,
-            maxWidth: "100px",
-            format: (row) => dollarFormatter.format(row.mv_accrued),
-        },
-        {
-            name: "Holding Group",
-            selector: (row) => row.holding_group,
-            sortable: true,
-            compact: true,
-            minWidth: "100px",
-        }
-        */
     ];
     const customStyles = {
         header : {
