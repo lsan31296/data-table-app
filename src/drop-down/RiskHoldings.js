@@ -45,12 +45,12 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
     const initialHashState = {
         tab0: {
             data: [],//resData for respective tab
-            req: {},//bodyRes for respective tab
+            req: initialFormState,//bodyRes for respective tab
             tableStyle: dataTableStyles
         },
         tab1: {
             data: [],
-            req: {},
+            req: initialFormState,
             tableStyle: dataTableStyles
         }
     }
@@ -69,21 +69,19 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
     //HANDLER FUNCTIONS DECLARED HERE
     const handleMultiSelectChange = (values, actionMeta) => {
         //console.log("Action Meta:", actionMeta);
-
-        //setResponseData(null);
+        setBodyReq({ ...bodyReq, accounts: filterRiskAccounts(values, dropDownData) })
         setHashMap({
             ...hashMap,
             [`tab${tabIndex}`]: {
                 ...hashMap[`tab${tabIndex}`],
-                data: []
+                data: [], //setResponseData(null);
+                req: values.length > 0 ? {
+                    ...hashMap[`tab${tabIndex}`].req,
+                    accounts: filterRiskAccounts(values, dropDownData) //setBodyReq({ ...bodyReq, accounts: filterRiskAccounts(values, dropDownData) })
+                } :
+                {...hashMap[`tab${tabIndex}`].req}
             }
-        })//Replaces line above
-
-        if (values.length > 0) {
-            //setSelected(values);//produces an array of objects
-            setBodyReq({ ...bodyReq, accounts: filterRiskAccounts(values, dropDownData) })
-            
-        }
+        })
     };
     const handleMenuClose = async (actionMeta) => {
         if (bodyReq.accounts.length > 0) {
@@ -99,44 +97,43 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
         }
     };
     const handleDateChange = ({target}) => {
-        //setResponseData(null);
+        setBodyReq({...bodyReq, aoDate: target.value })
         setHashMap({
             ...hashMap,
             [`tab${tabIndex}`]: {
                 ...hashMap[`tab${tabIndex}`],
-                data: []
+                data: [], //setResponseData(null);
+                req: {
+                    ...hashMap[`tab${tabIndex}`].req, 
+                    aoDate: target.value //setBodyReq({...bodyReq, aoDate: target.value })
+                }
             }
-        })//Replaces line above
-        setBodyReq({...bodyReq, aoDate: target.value })
+        })
         //bodyReq.aoDate = target.value;
         //console.log("BodyReq Date: ", bodyReq);
     };
     const handleRadioButtonClick = ({ target }) => {
-        //setResponseData(null);
+        setBodyReq({...bodyReq, positionView: target.value })
         setHashMap({
             ...hashMap,
             [`tab${tabIndex}`]: {
                 ...hashMap[`tab${tabIndex}`],
-                data: []
+                data: [], //setResponseData(null);
+                req: {
+                    ...hashMap[`tab${tabIndex}`].req,
+                    positionView: target.value //setBodyReq({...bodyReq, positionView: target.value })
+                }
             }
-        })//Replaces line above
-        setBodyReq({...bodyReq, positionView: target.value })
+        })
         //console.log("BodyReq View: ", bodyReq.positionView);
     };
     const handleSearchButton = async (event) => {
         event.preventDefault();
-        console.log("Hit Search: ", bodyReq);
-        const resData = await getRiskHoldings(bodyReq);
+        console.log("Hit Search: ", hashMap[`tab${tabIndex}`].req);
+        const resData = await getRiskHoldings(hashMap[`tab${tabIndex}`].req);
         //APPLY CONDITIONAL TO CREATE 'RESPONSEDATAx' WHICH CORRESPONDS TO TABINDEX = x
-        if (tabIndex >= 0 && resData.length > 0) {
+        if (tabIndex >= 0) {
             setResponseData(resData);
-            /*
-            setHashMap({
-                ...hashMap,
-                [`data${tabIndex}`]: [...resData]
-            });
-            //setResponseData(null);
-            */
             setHashMap({
                 ...hashMap,
                 [`tab${tabIndex}`]: {
@@ -150,7 +147,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
         //If resData exists
         if (resData.length > 0) {
             //then add bodyReq json into cache name, resData into cache data
-            await addDataIntoCache(JSON.stringify(bodyReq), "http://localhost:3000/", resData);
+            await addDataIntoCache(JSON.stringify(hashMap[`tab${tabIndex}`].req), "http://localhost:3000/", resData);
             console.log("Done data caching!");
         }
     };
@@ -160,9 +157,14 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             ...hashMap,
             [`tab${tabIndex}`]: {
                 ...hashMap[`tab${tabIndex}`],
-                data: []
+                data: [],
+                req: {
+                    ...hashMap[`tab${tabIndex}`].req,
+                    aggregateRows: target.checked ? target.value : "n"
+                }
             }
         })//Replaces line above
+        
         if (target.checked) {
             console.log("Checked");
             setBodyReq({ ...bodyReq, aggregateRows: target.value });
@@ -170,7 +172,8 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             console.log("Not Checked");
             setBodyReq({ ...bodyReq, aggregateRows: "n" });
         }
-        console.log("Hit Agg Switch: ", bodyReq)
+        
+        console.log("Hit Agg Switch: ", hashMap[`tab${tabIndex}`].req)
     };
     const handleDoubleClick = (row, event) => {
         console.log("Double-clicked row: ", row, event);
@@ -515,7 +518,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
     const customStyles = {
         header : {
             style: {
-                backgroundColor: `${dataTableStyles[bodyReq.positionView].bannerColor}`
+                backgroundColor: hashMap[`tab${tabIndex}`].tableStyle[`${hashMap[`tab${tabIndex}`].req.positionView}`].bannerColor
             }
         },
         subHeader: {
@@ -560,7 +563,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
         {
             when: row => row.weight < 0.9 && row.aggregate_rating === "" && row.sec_name === "",//identifies the aggregate rows
             style: {
-                backgroundColor: `${dataTableStyles[bodyReq.positionView].aggMaGroupRowColor}`
+                backgroundColor: hashMap[`tab${tabIndex}`].tableStyle[`${hashMap[`tab${tabIndex}`].req.positionView}`].aggMaGroupRowColor
             }
         }
     ]
@@ -574,7 +577,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
                 
                 <div className="input-group">
                     <label htmlFor="aoDate"></label>
-                    <input className="form-control" id="aoDate" type="date" name="aoDate" onChange={handleDateChange} value={bodyReq.aoDate} pattern="\d{4}-\d{2}-\d{2}" placeholder="YYYY-MM-DD"/>
+                    <input className="form-control" id="aoDate" type="date" name="aoDate" onChange={handleDateChange} value={hashMap[`tab${tabIndex}`].req.aoDate} pattern="\d{4}-\d{2}-\d{2}" placeholder="YYYY-MM-DD"/>
                     
                     <div className="input-group-text">
                         <div className="form-check pe-2">
@@ -619,11 +622,11 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
                     </div>
                     
                     <button className="btn btn-primary" type="submit">Search</button>
-                    <ExportCSV csvData={responseData} fileName={`Risk Holdings: ${dataTableStyles[bodyReq.positionView].title}`} />
+                    <ExportCSV csvData={hashMap[`tab${tabIndex}`].data} fileName={`Risk Holdings:  ${hashMap[`tab${tabIndex}`].tableStyle[`${hashMap[`tab${tabIndex}`].req.positionView}`].title}`} />
                 </div>  
             </form>
             {
-                responseData && 
+                tabIndex >= 0 && 
                 <div>
                     <Tabs selectedIndex={tabIndex || 0} onSelect={handleTabOnSelect}>
                         <TabList>
@@ -633,7 +636,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
 
                         <TabPanel>
                             <DataTable
-                                title={<h3 style={{ color: "white" }}>Risk Holdings: {dataTableStyles[bodyReq.positionView].title} View</h3>}
+                                title={<h3 style={{ color: "white" }}>Risk Holdings: {hashMap[`tab${tabIndex}`].tableStyle[`${hashMap[`tab${tabIndex}`].req.positionView}`].title} View</h3>}
                                 subHeader subHeaderComponent={SubHeaderComponent}  
                                 columns={columnHeaders}
                                 data={hashMap[`tab${tabIndex}`].data}
@@ -654,7 +657,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
 
                         <TabPanel>
                         <DataTable
-                                title={<h3 style={{ color: "white" }}>Risk Holdings: {dataTableStyles[bodyReq.positionView].title} View</h3>}
+                                title={<h3 style={{ color: "white" }}>Risk Holdings: {hashMap[`tab${tabIndex}`].tableStyle[`${hashMap[`tab${tabIndex}`].req.positionView}`].title} View</h3>}
                                 subHeader subHeaderComponent={SubHeaderComponent}  
                                 columns={columnHeaders}
                                 data={hashMap[`tab${tabIndex}`].data}
