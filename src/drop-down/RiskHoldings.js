@@ -69,6 +69,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
     //HANDLER FUNCTIONS DECLARED HERE
     const handleMultiSelectChange = (values, actionMeta) => {
         //console.log("Action Meta:", actionMeta);
+        console.log("Multi Select values: " , values);
         setBodyReq({ ...bodyReq, accounts: filterRiskAccounts(values, dropDownData) })
         setHashMap({
             ...hashMap,
@@ -79,11 +80,14 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
                     ...hashMap[`tab${tabIndex}`].req,
                     accounts: filterRiskAccounts(values, dropDownData) //setBodyReq({ ...bodyReq, accounts: filterRiskAccounts(values, dropDownData) })
                 } :
-                {...hashMap[`tab${tabIndex}`].req}
+                {
+                    ...hashMap[`tab${tabIndex}`].req,
+                    //accounts: bodyReq.accounts
+                }
             }
         })
     };
-    const handleMenuClose = async (actionMeta) => {
+    const handleMenuClose = async (actionMeta, values) => {
         if (bodyReq.accounts.length > 0) {
             //console.log("Hit menu close");
             //console.log(selected)
@@ -92,6 +96,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             //if (accountsArr.length > 0) {
                 //bodyReq.accounts =  [...accountsArr];
                 console.log("Body Request: ", bodyReq);
+                console.log("Account list from MultiSelect: ", hashMap[`tab${tabIndex}`].req.accounts);
                 //setResponseData(await getRiskHoldings(bodyReq));
             //}
         }
@@ -130,7 +135,32 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
     const handleSearchButton = async (event) => {
         event.preventDefault();
         console.log("Hit Search: ", hashMap[`tab${tabIndex}`].req);
-        const resData = await getRiskHoldings(hashMap[`tab${tabIndex}`].req);
+        
+        //IF search is hit and bodyReq.accounts is empty, stop process 
+        if (bodyReq.accounts.length === 0) {
+            alert("Must select an account value to search in drop down.");
+            return;
+        }
+    
+        if (hashMap[`tab${tabIndex}`].req.accounts.length === 0 && bodyReq.accounts.length > 0) {
+            //set accounts in hashMap to what is in bodyReq.accounts
+            console.log(" Current BodyReq: ", bodyReq);
+            setHashMap({
+                ...hashMap,
+                [`tab${tabIndex}`]: {
+                    ...hashMap[`tab${tabIndex}`],
+                    //data: [], //setResponseData(null);
+                    req: {
+                        ...hashMap[`tab${tabIndex}`].req,
+                        accounts: [...bodyReq.accounts] //setBodyReq({ ...bodyReq, accounts: filterRiskAccounts(values, dropDownData) })
+                    } 
+                }
+            })
+        }
+        const resData = await getRiskHoldings(
+            (hashMap[`tab${tabIndex}`].req.accounts.length === 0 && bodyReq.accounts.length) > 0 ? bodyReq
+            : hashMap[`tab${tabIndex}`].req
+        );
         //APPLY CONDITIONAL TO CREATE 'RESPONSEDATAx' WHICH CORRESPONDS TO TABINDEX = x
         if (tabIndex >= 0) {
             setResponseData(resData);
@@ -141,7 +171,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
                     data: [...resData]
                 }
             })//Replaces line above
-            console.log("Current HashMap: ", hashMap);
+            //console.log("Current HashMap: ", hashMap);
         }
         //setResponseData(resData);
         //If resData exists
@@ -185,8 +215,10 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             });
     };
     const handleTabOnSelect = async (index) => {
-        console.log("Current selected tab index: ", index);
+        console.log("Current selected index: ", index);
         await setTabIndex(index);
+        console.log("Current Tab Index State: ", tabIndex);
+        console.log("Current hashMap state after switching tabs: ", hashMap);
     };
 
     //Set react-data table configurations here
@@ -513,7 +545,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
         <div style={{ padding: responseData ? "30px 4% 100px 4%" :"1% 4%" , backgroundColor: "#F2F2F2",  /*border: "solid 2px green"*/ }}>
 
             <form onSubmit={handleSearchButton}>
-                <MultiSelectMenu rowsForSelect={rowsForSelect} handleMultiSelectChange={handleMultiSelectChange} handleMenuClose={handleMenuClose}/>
+                <MultiSelectMenu name="multiSelect" required={true} rowsForSelect={rowsForSelect} handleMultiSelectChange={handleMultiSelectChange} handleMenuClose={handleMenuClose}/>
                 
                 <div className="input-group">
                     <label htmlFor="aoDate"></label>

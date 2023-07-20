@@ -49,8 +49,8 @@ export const dollarFormatter = new Intl.NumberFormat('en-US', {
 });
 
 export const numberFormatter = new Intl.NumberFormat('en-US', {
-    minimumFractionDigits: 4,
-    maximumFractionDigits: 4,
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
 })
 
 export function filterRiskAccounts(arrayOfRiskAccounts, json) {
