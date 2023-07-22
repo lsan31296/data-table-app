@@ -8,3 +8,10 @@
 .form-check .form-check-input {
     float: none !important;
 }
+
+#add-tab-button{
+    float: right;
+    position:relative;
+    bottom: -8px;
+    right: 0px;
+}

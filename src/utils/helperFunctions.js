@@ -43,6 +43,48 @@ export function downloadCSV(dataArray) {
     link.click();
 }
 
+export function fileNameConstructor(hashMap, tabIndex) {
+    const tabObj = hashMap[`tab${tabIndex}`];
+    const view = tabObj.tableStyle[`${tabObj.req.positionView}`].title;
+    const aggChoiceString = tabObj.req.aggregateRows;
+    const accountArr = tabObj.req.accounts;
+    //console.log("hashMap accounts", accountArr);
+    let aggView;
+    let accountList = "";
+
+
+    switch(aggChoiceString) {
+        case 'n':
+            aggView = 'NoAgg'
+            break;
+        case 'y':
+            aggView = 'AggByMarketAssetGRoup'
+            break;
+        case 'yg':
+            aggView = 'AggByCarltonSecGroup'
+            break;
+        case 'yt':
+            aggView = 'AggByCarltonSecType'
+            break;
+        case 'ys':
+            aggView = 'AggByCarltonSecSector'
+            break;
+        default:
+            console.log(`Not a valid aggregate choice: ${aggChoiceString}`);
+    }
+
+    if(accountArr.length > 0) {
+        if(accountArr.length === 1) {
+            accountList = accountArr[0];
+        } else {
+            accountList = accountArr.join(",");
+        }
+    }
+    //console.log("Account List after forEach logic: ", accountList);
+    let title = `Risk Holdings ${view}_${tabObj.req.aoDate}_${aggView}_for(${accountList})`;
+    return title;
+}
+
 export const dollarFormatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD'
@@ -132,7 +174,7 @@ export function formatSwitch(key, value) {
             } else if(key === "account_name") {
                 return formatAccountName(value);
             } else {
-                return value || null;
+                return value || <input className="form-check-input" type="checkbox" value="" disabled checked={value === true ? true : false }/>;;
             }
         case 'number':
                 if (key === "weight") {

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { filterRiskAccounts, dollarFormatter, numberFormatter, formatWeight, addDataIntoCache, removeUnwanteds, formatAccountName } from "../utils/helperFunctions";
+import { filterRiskAccounts, dollarFormatter, numberFormatter, formatWeight, addDataIntoCache, removeUnwanteds, formatAccountName, fileNameConstructor } from "../utils/helperFunctions";
 import { getRiskHoldings } from "../api";
 import DataTable from "react-data-table-component";
 import ExpandedTable from "../data-table/ExpandedTable";
@@ -13,10 +13,10 @@ import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 //This component is responsible for displaying a drop down menu which may be used for sending requests,
 //exporting selected accounts, etc.
 function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
-    //Initialize form inputs
+    //INITIAL FORM/HASHMAP STATES
     const initialFormState = {
         accounts: [],
-        aoDate: previousBD,//lastBusinessDay(today()),
+        aoDate: previousBD,
         positionView: "TD",
         aggregateRows: "n",
     };
@@ -42,31 +42,98 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             aggMaGroupRowColor: "#ce98f5"
         }
     }
-    const initialHashState = {
-        tab0: {
-            data: [],//resData for respective tab
-            req: initialFormState,//bodyRes for respective tab
-            tableStyle: dataTableStyles
-        },
-        tab1: {
-            data: [],
-            req: initialFormState,
-            tableStyle: dataTableStyles
-        }
+    const initialHashTabState = {
+        data: [],//resData for respective tab
+        req: initialFormState,//bodyReq for respective tab
+        tableStyle: dataTableStyles
     }
+    const initialHashState = {
+        tab0: initialHashTabState
+    }
+        /*NEED TO DECLARE TAB VARIABLES HERE AS IT HOUSES DataTable component and all the data it needs*/
+        const initialTabListState = [
+        
+        ];
+        const initialTabPanelState = [
+    
+        ];
+        const [tabListArr, setTabListArr] = useState([...initialTabListState]);
+        const [tabPanelArr, setTabPanelArr] = useState([...initialTabPanelState]);
 
-    //Make state variable to track rows selected
-    const [responseData, setResponseData] = useState(null);//Need corresponding responseData state variables for each tabIndex
-    const [bodyReq, setBodyReq] = useState({...initialFormState});
+    //DECLARATION OF STATE VARIABLES
     const [tabIndex, setTabIndex] = useState(0);
+    const [bodyReq, setBodyReq] = useState({...initialFormState});
+    const [hashMap, setHashMap] = useState({...initialHashState});
     const rowsForSelect = removeUnwanteds(dropDownData).map((account, index) => (
         { 
             value: account.apx_portfolio_code,  
             label: account.name,
         }
     ));
-    const [hashMap, setHashMap] = useState({...initialHashState});
+
     //HANDLER FUNCTIONS DECLARED HERE
+    const handleAddTabClick = (event) => {
+        console.log("Tab Index before adding tab: ", tabIndex);
+        console.log("TabList Array Length Before: ", tabListArr.length)
+        //Insert New Tab in hashMap
+        hashMap[`tab${tabListArr.length+1}`] = initialHashTabState;
+        setHashMap({
+            ...hashMap,
+        });
+        //Insert New Tab
+        setTabListArr([
+            ...tabListArr,
+            <Tab>Risk Holdings #{tabListArr.length + 2} <button onClick={() => console.log("Clicked close button")}type="button" class="btn-close" aria-label="Close"></button></Tab>
+        ]);
+        setTabIndex(tabListArr.length+1);
+        console.log("TabList Array Length After: ", tabListArr.length);
+        /*
+        //Insert New Tab Panel
+        setTabPanelArr([
+            ...tabPanelArr,
+            <TabPanel>
+            <DataTable
+                    title={<h3 style={{ color: "white" }}>Risk Holdings: {hashMap[`tab${tabIndex+1}`].tableStyle[`${hashMap[`tab${tabIndex+1}`].req.positionView}`].title} View</h3>}
+                    subHeader subHeaderComponent={SubHeaderComponent}  
+                    columns={columnHeaders}
+                    data={hashMap[`tab${tabIndex+1}`].data}
+                    highlightOnHover
+                    striped
+                    customStyles={customStyles}
+                    conditionalRowStyles={conditionalRowStyles}
+                    expandableRows
+                    //expandOnRowClicked //NEEDED TO BE REMOVED IN ORDER TO ALLOW DOUBLE CLICK HANDLER TO OCCUR
+                    expandableRowsComponent={ExpandedTable}
+                    fixedHeader
+                    fixedHeaderScrollHeight="710px"
+                    onRowDoubleClicked={handleDoubleClick}
+                    //title={<h1 style={{ border: "red solid 2px"}}>Header</h1>}
+                    //subHeaderComponent={<h3 style={{ border: "green solid 2px" }}>SubHeader</h3>}
+                />
+            </TabPanel>
+        ]);
+        */
+        console.log("Tab Panel Array Length: ", tabPanelArr.length);
+    };
+    const handleRemoveSelectedTabClick = (event) => {
+        if (tabListArr.length > 1) {
+            console.log("Removed Tab Index: ", tabIndex);
+            tabPanelArr.splice(tabIndex,1);
+            tabListArr.splice(tabIndex, 1);
+            setTabPanelArr([...tabPanelArr]);
+            setTabListArr([...tabListArr]);
+            setTabIndex(tabPanelArr.length > 1 && tabIndex !== 0 ? tabListArr.length - 1 : 0);
+        } else {
+            alert("You cannot close out your last tab.");
+            return;
+        }
+    };
+    const handleTabOnSelect = (index) => {
+        console.log("Current selected index: ", index);
+        setTabIndex(index);
+        //console.log("Current Tab Index State: ", tabIndex);
+        console.log("Current hashMap state after switching tabs: ", hashMap);
+    };
     const handleMultiSelectChange = (values, actionMeta) => {
         //console.log("Action Meta:", actionMeta);
         console.log("Multi Select values: " , values);
@@ -75,10 +142,10 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             ...hashMap,
             [`tab${tabIndex}`]: {
                 ...hashMap[`tab${tabIndex}`],
-                data: [], //setResponseData(null);
+                data: [], //Resets data that appears in table anytime there is a change in the form. 
                 req: values.length > 0 ? {
                     ...hashMap[`tab${tabIndex}`].req,
-                    accounts: filterRiskAccounts(values, dropDownData) //setBodyReq({ ...bodyReq, accounts: filterRiskAccounts(values, dropDownData) })
+                    accounts: filterRiskAccounts(values, dropDownData) //Maps account name(s) to array with corresponding apxCode(s)
                 } :
                 {
                     ...hashMap[`tab${tabIndex}`].req,
@@ -88,18 +155,8 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
         })
     };
     const handleMenuClose = async (actionMeta, values) => {
-        if (bodyReq.accounts.length > 0) {
-            //console.log("Hit menu close");
-            //console.log(selected)
-            //const accountsArr = filterRiskAccounts(selected, dropDownData);
-            //console.log("Accounts Array: ", bodyReq.accounts);
-            //if (accountsArr.length > 0) {
-                //bodyReq.accounts =  [...accountsArr];
-                console.log("Body Request: ", bodyReq);
-                console.log("Account list from MultiSelect: ", hashMap[`tab${tabIndex}`].req.accounts);
-                //setResponseData(await getRiskHoldings(bodyReq));
-            //}
-        }
+            console.log("Body Request: ", bodyReq);
+            console.log("Account list from MultiSelect: ", hashMap[`tab${tabIndex}`].req.accounts);
     };
     const handleDateChange = ({target}) => {
         setBodyReq({...bodyReq, aoDate: target.value })
@@ -107,15 +164,13 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             ...hashMap,
             [`tab${tabIndex}`]: {
                 ...hashMap[`tab${tabIndex}`],
-                data: [], //setResponseData(null);
+                data: [],
                 req: {
                     ...hashMap[`tab${tabIndex}`].req, 
-                    aoDate: target.value //setBodyReq({...bodyReq, aoDate: target.value })
+                    aoDate: target.value //Set form aoDate to value of selected date from datepicker
                 }
             }
         })
-        //bodyReq.aoDate = target.value;
-        //console.log("BodyReq Date: ", bodyReq);
     };
     const handleRadioButtonClick = ({ target }) => {
         setBodyReq({...bodyReq, positionView: target.value })
@@ -123,17 +178,17 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             ...hashMap,
             [`tab${tabIndex}`]: {
                 ...hashMap[`tab${tabIndex}`],
-                data: [], //setResponseData(null);
+                data: [],
                 req: {
                     ...hashMap[`tab${tabIndex}`].req,
-                    positionView: target.value //setBodyReq({...bodyReq, positionView: target.value })
+                    positionView: target.value
                 }
             }
         })
-        //console.log("BodyReq View: ", bodyReq.positionView);
     };
     const handleSearchButton = async (event) => {
         event.preventDefault();
+        console.log("Tab Index: ", tabIndex)
         console.log("Hit Search: ", hashMap[`tab${tabIndex}`].req);
         
         //IF search is hit and bodyReq.accounts is empty, stop process 
@@ -141,39 +196,62 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             alert("Must select an account value to search in drop down.");
             return;
         }
-    
+        
+        //IF tab is switched, and no additional dropdown value is selected, account list for tab req is empty.
+        //So check the following condition...
         if (hashMap[`tab${tabIndex}`].req.accounts.length === 0 && bodyReq.accounts.length > 0) {
-            //set accounts in hashMap to what is in bodyReq.accounts
-            console.log(" Current BodyReq: ", bodyReq);
+            //then set accounts in hashMap to what is in bodyReq.accounts is as it was the last selection. 
             setHashMap({
                 ...hashMap,
                 [`tab${tabIndex}`]: {
                     ...hashMap[`tab${tabIndex}`],
-                    //data: [], //setResponseData(null);
                     req: {
                         ...hashMap[`tab${tabIndex}`].req,
-                        accounts: [...bodyReq.accounts] //setBodyReq({ ...bodyReq, accounts: filterRiskAccounts(values, dropDownData) })
+                        accounts: [...bodyReq.accounts]
                     } 
                 }
             })
         }
         const resData = await getRiskHoldings(
-            (hashMap[`tab${tabIndex}`].req.accounts.length === 0 && bodyReq.accounts.length) > 0 ? bodyReq
+            (hashMap[`tab${tabIndex}`].req.accounts.length === 0 && bodyReq.accounts.length > 0) ? bodyReq
             : hashMap[`tab${tabIndex}`].req
         );
-        //APPLY CONDITIONAL TO CREATE 'RESPONSEDATAx' WHICH CORRESPONDS TO TABINDEX = x
+        //If a current tab is selected, set that tab's data array to response from getRiskHoldings API (resData)
         if (tabIndex >= 0) {
-            setResponseData(resData);
             setHashMap({
                 ...hashMap,
                 [`tab${tabIndex}`]: {
                     ...hashMap[`tab${tabIndex}`],
                     data: [...resData]
                 }
-            })//Replaces line above
-            //console.log("Current HashMap: ", hashMap);
+            })
         }
-        //setResponseData(resData);
+        if (tabIndex > 0) {
+        setTabPanelArr([
+            ...tabPanelArr,
+            <TabPanel>
+            <DataTable
+                    title={<h3 style={{ color: "white" }}>Risk Holdings: {hashMap[`tab${tabIndex}`].tableStyle[`${hashMap[`tab${tabIndex}`].req.positionView}`].title} View</h3>}
+                    subHeader subHeaderComponent={SubHeaderComponent}  
+                    columns={columnHeaders}
+                    data={resData}
+                    highlightOnHover
+                    striped
+                    customStyles={customStyles}
+                    conditionalRowStyles={conditionalRowStyles}
+                    expandableRows
+                    //expandOnRowClicked //NEEDED TO BE REMOVED IN ORDER TO ALLOW DOUBLE CLICK HANDLER TO OCCUR
+                    expandableRowsComponent={ExpandedTable}
+                    fixedHeader
+                    fixedHeaderScrollHeight="710px"
+                    onRowDoubleClicked={handleDoubleClick}
+                    //title={<h1 style={{ border: "red solid 2px"}}>Header</h1>}
+                    //subHeaderComponent={<h3 style={{ border: "green solid 2px" }}>SubHeader</h3>}
+                />
+            </TabPanel>
+        ]);
+    }
+
         //If resData exists
         if (resData.length > 0) {
             //then add bodyReq json into cache name, resData into cache data
@@ -182,7 +260,6 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
         }
     };
     const handleAggSwitchChange = ({ target }) => {
-        //setResponseData(null);
         setHashMap({
             ...hashMap,
             [`tab${tabIndex}`]: {
@@ -193,7 +270,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
                     aggregateRows: target.checked ? target.value : "n"
                 }
             }
-        })//Replaces line above
+        })
         
         if (target.checked) {
             console.log("Checked");
@@ -214,12 +291,6 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
                 alert(`Row data copied to clipboard!`);
             });
     };
-    const handleTabOnSelect = async (index) => {
-        console.log("Current selected index: ", index);
-        await setTabIndex(index);
-        console.log("Current Tab Index State: ", tabIndex);
-        console.log("Current hashMap state after switching tabs: ", hashMap);
-    };
 
     //Set react-data table configurations here
     const columnHeaders = [
@@ -236,14 +307,6 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             minWidth: "40px",
             compact: true
         },
-        /*{
-            name: "As Of Date",
-            selector: (row) => row.ao_date,
-            sortable: true,
-            compact: true,
-            maxWidth: "80px",
-            format: (row) => row.ao_date.slice(0, 10),
-        },*/
         { 
             name: "BBG Cusip", 
             selector: (row) => row.bbg_cusip, 
@@ -257,7 +320,6 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             sortable: true,
             compact: true,
             minWidth: "125px",
-          //format: (row) => row.sec_name,
         },
         {
             name: "Coupon",
@@ -315,7 +377,6 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             selector: (row) => dollarFormatter.format(row.mv),
             sortable: true,
             compact: true,
-
         },
         {
             name: "Duration",
@@ -540,9 +601,10 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
         }
     ]
 
+    
     /* RENDERED ON UI */
     return (
-        <div style={{ padding: responseData ? "30px 4% 100px 4%" :"1% 4%" , backgroundColor: "#F2F2F2",  /*border: "solid 2px green"*/ }}>
+        <div style={{ padding: hashMap[`tab${tabIndex}`].data.length > 0 ? "30px 4% 100px 4%" :"1% 4%", backgroundColor: "#F2F2F2",  /*border: "solid 2px green"*/ }}>
 
             <form onSubmit={handleSearchButton}>
                 <MultiSelectMenu name="multiSelect" required={true} rowsForSelect={rowsForSelect} handleMultiSelectChange={handleMultiSelectChange} handleMenuClose={handleMenuClose}/>
@@ -594,59 +656,39 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
                     </div>
                     
                     <button className="btn btn-primary" type="submit">Search</button>
-                    <ExportCSV csvData={hashMap[`tab${tabIndex}`].data} fileName={`Risk Holdings:  ${hashMap[`tab${tabIndex}`].tableStyle[`${hashMap[`tab${tabIndex}`].req.positionView}`].title}`} />
+                    <ExportCSV csvData={hashMap[`tab${tabIndex}`].data} fileName={fileNameConstructor(hashMap, tabIndex)} />
                 </div>  
             </form>
             {
                 tabIndex >= 0 && 
                 <div>
-                    <Tabs selectedIndex={tabIndex || 0} onSelect={handleTabOnSelect}>
+                    <Tabs selectedIndex={tabIndex} onSelect={handleTabOnSelect}>
                         <TabList>
-                            <Tab>Risk Holdings</Tab>
-                            <Tab>Test Tab</Tab>
+                            <Tab>Risk Holdings <button onClick={() => console.log("Clicked close button")}type="button" class="btn-close" aria-label="Close"></button></Tab>
+                            {tabListArr}
+                            <button className="btn btn-sm btn-primary" id="add-tab-button" type="button" onClick={handleAddTabClick}>Add Tab</button>
+                            {/*<button className="btn btn-sm btn-danger" onClick={handleRemoveSelectedTabClick}>Remove Tab</button>*/}
                         </TabList>
-
-                        <TabPanel>
-                            <DataTable
-                                title={<h3 style={{ color: "white" }}>Risk Holdings: {hashMap[`tab${tabIndex}`].tableStyle[`${hashMap[`tab${tabIndex}`].req.positionView}`].title} View</h3>}
-                                subHeader subHeaderComponent={SubHeaderComponent}  
-                                columns={columnHeaders}
-                                data={hashMap[`tab${tabIndex}`].data}
-                                highlightOnHover
-                                striped
-                                customStyles={customStyles}
-                                conditionalRowStyles={conditionalRowStyles}
-                                expandableRows
-                                //expandOnRowClicked //NEEDED TO BE REMOVED IN ORDER TO ALLOW DOUBLE CLICK HANDLER TO OCCUR
-                                expandableRowsComponent={ExpandedTable}
-                                fixedHeader
-                                fixedHeaderScrollHeight="710px"
-                                onRowDoubleClicked={handleDoubleClick}
-                                //title={<h1 style={{ border: "red solid 2px"}}>Header</h1>}
-                                //subHeaderComponent={<h3 style={{ border: "green solid 2px" }}>SubHeader</h3>}
-                            />
-                        </TabPanel>
+                        
 
                         <TabPanel>
                         <DataTable
-                                title={<h3 style={{ color: "white" }}>Risk Holdings: {hashMap[`tab${tabIndex}`].tableStyle[`${hashMap[`tab${tabIndex}`].req.positionView}`].title} View</h3>}
-                                subHeader subHeaderComponent={SubHeaderComponent}  
-                                columns={columnHeaders}
-                                data={hashMap[`tab${tabIndex}`].data}
-                                highlightOnHover
-                                striped
-                                customStyles={customStyles}
-                                conditionalRowStyles={conditionalRowStyles}
-                                expandableRows
-                                //expandOnRowClicked //NEEDED TO BE REMOVED IN ORDER TO ALLOW DOUBLE CLICK HANDLER TO OCCUR
-                                expandableRowsComponent={ExpandedTable}
-                                fixedHeader
-                                fixedHeaderScrollHeight="710px"
-                                onRowDoubleClicked={handleDoubleClick}
-                                //title={<h1 style={{ border: "red solid 2px"}}>Header</h1>}
-                                //subHeaderComponent={<h3 style={{ border: "green solid 2px" }}>SubHeader</h3>}
-                            />
+                            title={<h3 style={{ color: "white" }}>Risk Holdings: {hashMap.tab0.tableStyle[`${hashMap.tab0.req.positionView}`].title} View</h3>}
+                            subHeader subHeaderComponent={SubHeaderComponent}  
+                            columns={columnHeaders}
+                            data={hashMap.tab0.data}
+                            highlightOnHover
+                            striped
+                            customStyles={customStyles}
+                            conditionalRowStyles={conditionalRowStyles}
+                            expandableRows
+                            expandableRowsComponent={ExpandedTable}
+                            fixedHeader
+                            fixedHeaderScrollHeight="710px"
+                            onRowDoubleClicked={handleDoubleClick}
+                        />
                         </TabPanel>
+                        {tabPanelArr}
 
                     </Tabs>
                 </div>
