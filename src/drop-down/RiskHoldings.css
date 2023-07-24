@@ -15,3 +15,10 @@
     bottom: -8px;
     right: 0px;
 }
+
+#remove-tab-button {
+    float: right;
+    position:relative;
+    bottom: -8px;
+    right: 0px;
+}

@@ -57,8 +57,8 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
         const initialTabPanelState = [
     
         ];
-        const [tabListArr, setTabListArr] = useState([...initialTabListState]);
-        const [tabPanelArr, setTabPanelArr] = useState([...initialTabPanelState]);
+        const [tabListArr, setTabListArr] = useState([]);
+        const [tabPanelArr, setTabPanelArr] = useState([]);
 
     //DECLARATION OF STATE VARIABLES
     const [tabIndex, setTabIndex] = useState(0);
@@ -75,17 +75,19 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
     const handleAddTabClick = (event) => {
         console.log("Tab Index before adding tab: ", tabIndex);
         console.log("TabList Array Length Before: ", tabListArr.length)
-        //Insert New Tab in hashMap
+        //Insert New Tab in hashMap to save dynamic state variables, set state
         hashMap[`tab${tabListArr.length+1}`] = initialHashTabState;
         setHashMap({
             ...hashMap,
         });
-        //Insert New Tab
+        //Insert New Tab, set state
         setTabListArr([
             ...tabListArr,
-            <Tab>Risk Holdings #{tabListArr.length + 2} <button onClick={() => console.log("Clicked close button")}type="button" class="btn-close" aria-label="Close"></button></Tab>
+            <Tab>Risk Holdings #{tabListArr.length + 2}</Tab>
         ]);
+        //Set tab index to newly created tab
         setTabIndex(tabListArr.length+1);
+        console.log("TabIndex set to: ", tabListArr.length+1);
         console.log("TabList Array Length After: ", tabListArr.length);
         /*
         //Insert New Tab Panel
@@ -116,15 +118,26 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
         console.log("Tab Panel Array Length: ", tabPanelArr.length);
     };
     const handleRemoveSelectedTabClick = (event) => {
-        if (tabListArr.length > 1) {
+        console.log("Clicked close button");
+        console.log("TabListArr length: ", tabListArr.length);
+        //If we current tab isn't the only remaining tab then,
+        if (tabListArr.length > 0 && tabIndex !== 0) {
+            //remove current tab panel and then from tab list
             console.log("Removed Tab Index: ", tabIndex);
-            tabPanelArr.splice(tabIndex,1);
+            tabPanelArr.splice(tabIndex, 1);
             tabListArr.splice(tabIndex, 1);
+            //Set state variable for both panel and list
             setTabPanelArr([...tabPanelArr]);
             setTabListArr([...tabListArr]);
-            setTabIndex(tabPanelArr.length > 1 && tabIndex !== 0 ? tabListArr.length - 1 : 0);
+            //Set current tab to last tab
+            setTabIndex(tabPanelArr.length > 1 && tabIndex !== 0 ? tabIndex - 1 : 0);
+            console.log("TabIndex set to: ", tabPanelArr.length > 1 && tabIndex !== 0 ? tabIndex - 1 : 0);
         } else {
-            alert("You cannot close out your last tab.");
+            console.log(`TabList: `,tabListArr);
+            tabListArr.forEach((element) => {console.log(element)});
+            console.log(`TabPanel: `, tabPanelArr);
+            console.log(`TabIndex: `, tabIndex);
+            alert("You cannot close out your first or last tab.");
             return;
         }
     };
@@ -188,15 +201,13 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
     };
     const handleSearchButton = async (event) => {
         event.preventDefault();
-        console.log("Tab Index: ", tabIndex)
+        console.log("Hit Search!. Tab Index: ", tabIndex)
         console.log("Hit Search: ", hashMap[`tab${tabIndex}`].req);
-        
         //IF search is hit and bodyReq.accounts is empty, stop process 
         if (bodyReq.accounts.length === 0) {
             alert("Must select an account value to search in drop down.");
             return;
         }
-        
         //IF tab is switched, and no additional dropdown value is selected, account list for tab req is empty.
         //So check the following condition...
         if (hashMap[`tab${tabIndex}`].req.accounts.length === 0 && bodyReq.accounts.length > 0) {
@@ -664,10 +675,10 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
                 <div>
                     <Tabs selectedIndex={tabIndex} onSelect={handleTabOnSelect}>
                         <TabList>
-                            <Tab>Risk Holdings <button onClick={() => console.log("Clicked close button")}type="button" class="btn-close" aria-label="Close"></button></Tab>
+                            <Tab>Risk Holdings</Tab>
                             {tabListArr}
+                            <button className="btn btn-sm btn-danger" id="remove-tab-button" onClick={handleRemoveSelectedTabClick}>Remove Tab</button>
                             <button className="btn btn-sm btn-primary" id="add-tab-button" type="button" onClick={handleAddTabClick}>Add Tab</button>
-                            {/*<button className="btn btn-sm btn-danger" onClick={handleRemoveSelectedTabClick}>Remove Tab</button>*/}
                         </TabList>
                         
 
