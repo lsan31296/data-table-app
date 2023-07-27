@@ -9,6 +9,7 @@ import CustomMaterialMenu from "../components/CustomMaterialMenu";
 import './RiskHoldings.css';
 import SubHeaderComponent from "../data-table/SubHeaderComponent";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
+import PopModal from "../components/PopModal";
 
 //This component is responsible for displaying a drop down menu which may be used for sending requests,
 //exporting selected accounts, etc.
@@ -64,6 +65,8 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
     const [tabIndex, setTabIndex] = useState(0);
     const [bodyReq, setBodyReq] = useState({...initialFormState});
     const [hashMap, setHashMap] = useState({...initialHashState});
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [modalData, setModalData] = useState(null);
     const rowsForSelect = removeUnwanteds(dropDownData).map((account, index) => (
         { 
             value: account.apx_portfolio_code,  
@@ -72,6 +75,14 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
     ));
 
     //HANDLER FUNCTIONS DECLARED HERE
+    const handleModalOpen = (uspTradeRes) => {
+        setModalData(uspTradeRes);
+        setIsModalOpen(true);
+    };
+    const handleModalClose = () => {
+        setIsModalOpen(false);
+    }
+
     const handleAddTabClick = (event) => {
         console.log("Tab Index before adding tab: ", tabIndex);
         console.log("TabList Array Length Before: ", tabListArr.length)
@@ -117,21 +128,28 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
         */
         console.log("Tab Panel Array Length: ", tabPanelArr.length);
     };
-    const handleRemoveSelectedTabClick = (event) => {
+    const handleRemoveSelectedTabClick = async (event) => {
         console.log("Clicked close button");
-        console.log("TabListArr length: ", tabListArr.length);
+        console.log("TabListArr length: ", tabListArr);
         //If we current tab isn't the only remaining tab then,
         if (tabListArr.length > 0 && tabIndex !== 0) {
             //remove current tab panel and then from tab list
             console.log("Removed Tab Index: ", tabIndex);
-            tabPanelArr.splice(tabIndex, 1);
-            tabListArr.splice(tabIndex, 1);
-            //Set state variable for both panel and list
-            setTabPanelArr([...tabPanelArr]);
-            setTabListArr([...tabListArr]);
+            tabPanelArr.splice(tabIndex-1, 1);
+            tabListArr.splice(tabIndex-1, 1);
+            console.log("Spliced Tab Panel and List.");
+            //Set state variable for both panel and list and hashMap
+            await setTabPanelArr([...tabPanelArr]);
+            await setTabListArr([...tabListArr]);
+            console.log("Set Tab Panel and List states.")
+            console.log("Set hashMap state.")
             //Set current tab to last tab
-            setTabIndex(tabPanelArr.length > 1 && tabIndex !== 0 ? tabIndex - 1 : 0);
-            console.log("TabIndex set to: ", tabPanelArr.length > 1 && tabIndex !== 0 ? tabIndex - 1 : 0);
+            setTabIndex(tabPanelArr.length > 0 && tabIndex !== 0 ? tabIndex-1 : 0);
+            console.log("TabIndex set to: ", tabPanelArr.length > 0 && tabIndex !== 0 ? tabIndex-1 : 0);
+            console.log("hashMap before delete: ", hashMap);
+            delete hashMap[`tab${tabIndex}`];
+            console.log("Deleted hashMap Property.", hashMap);
+            await setHashMap({...hashMap});
         } else {
             console.log(`TabList: `,tabListArr);
             tabListArr.forEach((element) => {console.log(element)});
@@ -166,6 +184,30 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
                 }
             }
         })
+
+        tabPanelArr[tabIndex-1] = 
+        <TabPanel>
+        <DataTable
+        //Problem here, this is why it doesn't show proper header color.
+                title={<h3 style={{ color: "white" }}>Risk Holdings: {hashMap[`tab${tabIndex}`].tableStyle[`${hashMap[`tab${tabIndex}`].req.positionView}`].title} View</h3>}
+                subHeader subHeaderComponent={SubHeaderComponent}  
+                columns={columnHeaders}
+                data={[]}
+                highlightOnHover
+                striped
+                customStyles={customStyles}
+                conditionalRowStyles={conditionalRowStyles}
+                expandableRows
+                //expandOnRowClicked //NEEDED TO BE REMOVED IN ORDER TO ALLOW DOUBLE CLICK HANDLER TO OCCUR
+                expandableRowsComponent={ExpandedTable}
+                fixedHeader
+                fixedHeaderScrollHeight="710px"
+                onRowDoubleClicked={handleDoubleClick}
+                //title={<h1 style={{ border: "red solid 2px"}}>Header</h1>}
+                //subHeaderComponent={<h3 style={{ border: "green solid 2px" }}>SubHeader</h3>}
+            />
+        </TabPanel>;
+        setTabPanelArr([...tabPanelArr]);
     };
     const handleMenuClose = async (actionMeta, values) => {
             console.log("Body Request: ", bodyReq);
@@ -184,6 +226,32 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
                 }
             }
         })
+        tabPanelArr[tabIndex-1] = 
+            <TabPanel>
+            <DataTable
+            //Problem here, this is why it doesn't show proper header color.
+                    title={<h3 style={{ color: "white" }}>Risk Holdings: {hashMap[`tab${tabIndex}`].tableStyle[`${hashMap[`tab${tabIndex}`].req.positionView}`].title} View</h3>}
+                    subHeader subHeaderComponent={SubHeaderComponent}  
+                    columns={columnHeaders}
+                    data={[]}
+                    highlightOnHover
+                    striped
+                    customStyles={customStyles}
+                    conditionalRowStyles={conditionalRowStyles}
+                    expandableRows
+                    //expandOnRowClicked //NEEDED TO BE REMOVED IN ORDER TO ALLOW DOUBLE CLICK HANDLER TO OCCUR
+                    expandableRowsComponent={ExpandedTable}
+                    fixedHeader
+                    fixedHeaderScrollHeight="710px"
+                    onRowDoubleClicked={handleDoubleClick}
+                    //title={<h1 style={{ border: "red solid 2px"}}>Header</h1>}
+                    //subHeaderComponent={<h3 style={{ border: "green solid 2px" }}>SubHeader</h3>}
+                />
+            </TabPanel>;
+        
+        setTabPanelArr([
+            ...tabPanelArr,
+        ])
     };
     const handleRadioButtonClick = ({ target }) => {
         setBodyReq({...bodyReq, positionView: target.value })
@@ -198,6 +266,32 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
                 }
             }
         })
+        tabPanelArr[tabIndex-1] = 
+            <TabPanel>
+            <DataTable
+            //Problem here, this is why it doesn't show proper header color.
+                    title={<h3 style={{ color: "white" }}>Risk Holdings: {hashMap[`tab${tabIndex}`].tableStyle[`${hashMap[`tab${tabIndex}`].req.positionView}`].title} View</h3>}
+                    subHeader subHeaderComponent={SubHeaderComponent}  
+                    columns={columnHeaders}
+                    data={[]}
+                    highlightOnHover
+                    striped
+                    customStyles={customStyles}
+                    conditionalRowStyles={conditionalRowStyles}
+                    expandableRows
+                    //expandOnRowClicked //NEEDED TO BE REMOVED IN ORDER TO ALLOW DOUBLE CLICK HANDLER TO OCCUR
+                    expandableRowsComponent={ExpandedTable}
+                    fixedHeader
+                    fixedHeaderScrollHeight="710px"
+                    onRowDoubleClicked={handleDoubleClick}
+                    //title={<h1 style={{ border: "red solid 2px"}}>Header</h1>}
+                    //subHeaderComponent={<h3 style={{ border: "green solid 2px" }}>SubHeader</h3>}
+                />
+            </TabPanel>;
+        
+        setTabPanelArr([
+            ...tabPanelArr,
+        ])
     };
     const handleSearchButton = async (event) => {
         event.preventDefault();
@@ -208,6 +302,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             alert("Must select an account value to search in drop down.");
             return;
         }
+
         //IF tab is switched, and no additional dropdown value is selected, account list for tab req is empty.
         //So check the following condition...
         if (hashMap[`tab${tabIndex}`].req.accounts.length === 0 && bodyReq.accounts.length > 0) {
@@ -217,15 +312,16 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
                 [`tab${tabIndex}`]: {
                     ...hashMap[`tab${tabIndex}`],
                     req: {
-                        ...hashMap[`tab${tabIndex}`].req,
-                        accounts: [...bodyReq.accounts]
+                        //...hashMap[`tab${tabIndex}`].req,
+                        //accounts: [...bodyReq.accounts]
+                        ...bodyReq
                     } 
                 }
             })
         }
         const resData = await getRiskHoldings(
             (hashMap[`tab${tabIndex}`].req.accounts.length === 0 && bodyReq.accounts.length > 0) ? bodyReq
-            : hashMap[`tab${tabIndex}`].req
+            : bodyReq//hashMap[`tab${tabIndex}`].req
         );
         //If a current tab is selected, set that tab's data array to response from getRiskHoldings API (resData)
         if (tabIndex >= 0) {
@@ -238,10 +334,10 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             })
         }
         if (tabIndex > 0) {
-        setTabPanelArr([
-            ...tabPanelArr,
+            tabPanelArr[tabIndex-1] = 
             <TabPanel>
             <DataTable
+            //Problem here, this is why it doesn't show proper header color.
                     title={<h3 style={{ color: "white" }}>Risk Holdings: {hashMap[`tab${tabIndex}`].tableStyle[`${hashMap[`tab${tabIndex}`].req.positionView}`].title} View</h3>}
                     subHeader subHeaderComponent={SubHeaderComponent}  
                     columns={columnHeaders}
@@ -259,8 +355,11 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
                     //title={<h1 style={{ border: "red solid 2px"}}>Header</h1>}
                     //subHeaderComponent={<h3 style={{ border: "green solid 2px" }}>SubHeader</h3>}
                 />
-            </TabPanel>
-        ]);
+            </TabPanel>;
+        
+        setTabPanelArr([
+            ...tabPanelArr,
+        ]);    
     }
 
         //If resData exists
@@ -292,19 +391,46 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
         }
         
         console.log("Hit Agg Switch: ", hashMap[`tab${tabIndex}`].req)
+        tabPanelArr[tabIndex-1] = 
+            <TabPanel>
+            <DataTable
+            //Problem here, this is why it doesn't show proper header color.
+                    title={<h3 style={{ color: "white" }}>Risk Holdings: {hashMap[`tab${tabIndex}`].tableStyle[`${hashMap[`tab${tabIndex}`].req.positionView}`].title} View</h3>}
+                    subHeader subHeaderComponent={SubHeaderComponent}  
+                    columns={columnHeaders}
+                    data={[]}
+                    highlightOnHover
+                    striped
+                    customStyles={customStyles}
+                    conditionalRowStyles={conditionalRowStyles}
+                    expandableRows
+                    //expandOnRowClicked //NEEDED TO BE REMOVED IN ORDER TO ALLOW DOUBLE CLICK HANDLER TO OCCUR
+                    expandableRowsComponent={ExpandedTable}
+                    fixedHeader
+                    fixedHeaderScrollHeight="710px"
+                    onRowDoubleClicked={handleDoubleClick}
+                    //title={<h1 style={{ border: "red solid 2px"}}>Header</h1>}
+                    //subHeaderComponent={<h3 style={{ border: "green solid 2px" }}>SubHeader</h3>}
+                />
+            </TabPanel>;
+        
+        setTabPanelArr([
+            ...tabPanelArr,
+        ])
     };
     const handleDoubleClick = (row, event) => {
-        console.log("Double-clicked row: ", row, event);
+        console.log("Double-clicked row: ", row.account, row.bbg_cusip);
         //open up context menu that has several options and access to data
-            var rowData = JSON.stringify(row);
-            navigator.clipboard.writeText(rowData)
-            .then(() => {
-                alert(`Row data copied to clipboard!`);
-            });
+        var rowData = JSON.stringify(row);
+        navigator.clipboard.writeText(rowData)
+        .then(() => {
+            alert(`Row data copied to clipboard!`);
+        });
     };
 
     //Set react-data table configurations here
     const columnHeaders = [
+        //Currently account_name and ticker are not working when being called to the middle-tier from its database.
         { 
             name: "Account Name", 
             selector: (row) => formatAccountName(row.account_name),
@@ -312,7 +438,14 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             minWidth: "135px",
         },
         {
-            cell: row => <CustomMaterialMenu size="small" row={row} />,
+            cell: row => 
+            <div>
+                <CustomMaterialMenu size="small" row={row} handleModalOpen={handleModalOpen}/>
+                {modalData &&
+                    <PopModal data={modalData} isOpen={isModalOpen} onClose={handleModalClose}/>
+                }
+                
+            </div>,
             allowOverFlow: true,
             button: true,
             minWidth: "40px",
@@ -562,7 +695,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
     const customStyles = {
         header : {
             style: {
-                backgroundColor: hashMap[`tab${tabIndex}`].tableStyle[`${hashMap[`tab${tabIndex}`].req.positionView}`].bannerColor
+                backgroundColor: hashMap[`tab${tabIndex}`].tableStyle[`${hashMap[`tab${tabIndex}`].req.positionView}`].bannerColor || "black"
             }
         },
         subHeader: {
@@ -605,7 +738,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             }
         },
         {
-            when: row => row.weight < 0.9 && row.aggregate_rating === "" && row.sec_name === "",//identifies the aggregate rows
+            when: row => row.weight < 0.99 && row.aggregate_rating === "" && row.sec_name === "",//identifies the aggregate rows
             style: {
                 backgroundColor: hashMap[`tab${tabIndex}`].tableStyle[`${hashMap[`tab${tabIndex}`].req.positionView}`].aggMaGroupRowColor
             }

@@ -135,6 +135,19 @@ export async function getBusinessDay(params) {
     );
     return await fetchJson(url, {headers}, []);
 }
-
-
-//console.log(getRiskHoldings({account: "Archdiocese_of_Boston", ao_date: "2023-03-24"}))
+/**
+ * Returns data regarding a particular trade specified by account and cusip.
+ * @param {*} params
+ * Object containing key and value pair(s) set to parameter and value of parameter, respectively. 
+ * @returns {JSON}
+ * JSON of response from HTTP request. Should have 24 fields regarding that particular trade for that account.
+ */
+export async function getUspTrade(params) {
+    //console.log("Params: ", params);
+    const url = new URL(`${API_BASE_URL}/get-usp-trades`);
+    Object.entries(params).forEach(([key, value]) => 
+        url.searchParams.append(key, value.toString())
+    );
+    //console.log(url);
+    return await fetchJson(url, {headers}, []);
+}

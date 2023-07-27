@@ -169,7 +169,7 @@ export function formatSwitch(key, value) {
         case 'boolean':
                 return <input className="form-check-input" type="checkbox" value="" disabled checked={value === true ? true : false }/>;
         case 'string':
-            if (key === "ao_date" || key === "original_trade_date") {
+            if (key === "ao_date" || key === "original_trade_date" || key.includes("date")) {
                 return value.slice(0, 10);
             } else if(key === "account_name") {
                 return formatAccountName(value);
