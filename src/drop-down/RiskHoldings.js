@@ -94,7 +94,9 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
         //Insert New Tab, set state
         setTabListArr([
             ...tabListArr,
-            <Tab>Risk Holdings #{tabListArr.length + 2}</Tab>
+            <Tab>
+                Risk Holdings #{tabListArr.length + 2} <button onClick={handleRemoveSelectedTabClick} type="button" class="btn-close" aria-label="Close"></button>
+            </Tab>
         ]);
         //Set tab index to newly created tab
         setTabIndex(tabListArr.length+1);
@@ -814,7 +816,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
                         <TabList>
                             <Tab>Risk Holdings</Tab>
                             {tabListArr}
-                            <button className="btn btn-sm btn-danger" id="remove-tab-button" onClick={handleRemoveSelectedTabClick}>Remove Tab</button>
+                            {/* <button className="btn btn-sm btn-danger" id="remove-tab-button" onClick={handleRemoveSelectedTabClick}>Remove Tab</button> */}
                             <button className="btn btn-sm btn-primary" id="add-tab-button" type="button" onClick={handleAddTabClick}>Add Tab</button>
                         </TabList>
                         
