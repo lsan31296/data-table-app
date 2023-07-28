@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { filterRiskAccounts, dollarFormatter, numberFormatter, formatWeight, addDataIntoCache, removeUnwanteds, formatAccountName, fileNameConstructor } from "../utils/helperFunctions";
+import { filterRiskAccounts, dollarFormatter, numberFormatter, formatWeight, addDataIntoCache, removeUnwanteds, formatAccountName, fileNameConstructor, removeAndRenamObjectProps } from "../utils/helperFunctions";
 import { getRiskHoldings } from "../api";
 import DataTable from "react-data-table-component";
 import ExpandedTable from "../data-table/ExpandedTable";
@@ -142,14 +142,18 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             await setTabPanelArr([...tabPanelArr]);
             await setTabListArr([...tabListArr]);
             console.log("Set Tab Panel and List states.")
-            console.log("Set hashMap state.")
+            
             //Set current tab to last tab
             setTabIndex(tabPanelArr.length > 0 && tabIndex !== 0 ? tabIndex-1 : 0);
             console.log("TabIndex set to: ", tabPanelArr.length > 0 && tabIndex !== 0 ? tabIndex-1 : 0);
             console.log("hashMap before delete: ", hashMap);
-            delete hashMap[`tab${tabIndex}`];
-            console.log("Deleted hashMap Property.", hashMap);
-            await setHashMap({...hashMap});
+            //delete hashMap[`tab${tabIndex}`];
+            //console.log("Deleted hashMap Property.", hashMap);
+            const newHashMap = removeAndRenamObjectProps(tabIndex, hashMap);
+            await setHashMap({...newHashMap});
+            console.log("Set hashMap state: ", newHashMap);
+            //Change tab name in hashMap.
+
         } else {
             console.log(`TabList: `,tabListArr);
             tabListArr.forEach((element) => {console.log(element)});

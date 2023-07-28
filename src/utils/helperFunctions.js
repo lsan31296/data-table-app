@@ -256,3 +256,42 @@ export function removeUnwanteds(data) {
     
     return array;
 }
+
+/**
+ * This function is used to remove a certain tab from an ordered hashMap. It then renames
+ * every property after the deleted tab to maintain order.
+ * @param {Integer} tabIndexToRemove
+ * The index of the tab you'd like to remove. Starts from 0.
+ * @param {Object} hash 
+ * Object used as a hashMap to save necessary state data for a particular tab.
+ * For Example:
+ * hashMap = {
+ *  tab0: {
+ *      data: [],
+ *      req: {...},
+ *      tableStyle: {...}
+ *  },
+ *  tab1: {...},
+ *  ...
+ * }
+ * @returns 
+ */
+export function removeAndRenamObjectProps(tabIndexToRemove, hash) {
+    if (Object.entries(hash).length-1 === tabIndexToRemove) {
+        delete hash[`tab${tabIndexToRemove}`];
+        return hash;
+    }
+
+    const tempHash = {...hash};
+    const tempHashLength = Object.entries(tempHash).length;
+
+    for(let i=tabIndexToRemove; i<tempHashLength; i++) {
+        if (i === tempHashLength-1) {
+            delete tempHash[`tab${i}`]
+            break;
+        }
+        tempHash[`tab${i}`] = {...tempHash[`tab${i+1}`]};
+    }
+
+    return tempHash;
+}
