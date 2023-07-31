@@ -58,10 +58,24 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
         const initialTabPanelState = [
     
         ];
-        const [tabListArr, setTabListArr] = useState([]);
-        const [tabPanelArr, setTabPanelArr] = useState([]);
-
     //DECLARATION OF STATE VARIABLES
+    const [tabListArr, setTabListArr] = useState([]);
+    const [tabPanelArr, setTabPanelArr] = useState([]);
+    /**
+     * tabListArr is responsible for setting the names of the displayed tabs. This works in conjunction with...
+     * tabPanelArr which is responsible for displaying the content of tabs from tabListArr. 
+     * These two state variables are used as components of react-tabs package. 1 to 1 relationship. They must be equal in length.
+     * 
+     * Notice there are setTabListArr and setTabPanelArr. These are part of React's useState function. They are functions that must
+     * be used to set their respective variables (tabListArr, tabPanelArr). You cannot mutate the state variables directly, is must be
+     * updated by their set function. 
+     * 
+     * Example:
+     * const [tabList, setTabList] = useState(['Tab1']);
+     * setTabList([...tabList, 'Tab2']);
+     * ---> Now after React processes this, tabList = ['Tab1', 'Tab2']. Using this same convention to set state for tabPanel
+     * More Examples: https://www.npmjs.com/package/react-tabs , https://reactcommunity.org/react-tabs/
+     */
     const [tabIndex, setTabIndex] = useState(0);
     const [bodyReq, setBodyReq] = useState({...initialFormState});
     const [hashMap, setHashMap] = useState({...initialHashState});
