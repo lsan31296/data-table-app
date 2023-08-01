@@ -90,7 +90,18 @@ export const dollarFormatter = new Intl.NumberFormat('en-US', {
     currency: 'USD'
 });
 
-export const numberFormatter = new Intl.NumberFormat('en-US', {
+export const dollarFormatter0 = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    maximumFractionDigits: '0'
+})
+
+export const numberFormatter0 = new Intl.NumberFormat('en-US', {
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+})
+
+export const numberFormatter2 = new Intl.NumberFormat('en-US', {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
 })
@@ -182,7 +193,7 @@ export function formatSwitch(key, value) {
                 } else if (["accrued", "orig_face", "curent_face", "price", "mv", "mv_accrued", ""].includes(key)) {
                     return dollarFormatter.format(value);
                 } else {
-                    return numberFormatter.format(value) || null;
+                    return numberFormatter2.format(value) || null;
                 }
         default:
                 return value;

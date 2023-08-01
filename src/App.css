@@ -75,7 +75,7 @@ p a:active {
 /* BEGINNING OF SUBHEADER GROUP SELECTIONS
 SELECTS COLUMNS IN RISKHOLDINGS TALBE HEAD ROW: 
 
-  PRICE, OAS, WEIGHT, ORIG FACE, CURR FACE, MV
+  PRICE, OAS, WEIGHT, ORIG FACE, CURR FACE, MV, Factor
 AND APPLIES BLACK BORDERS AROUND GROUP OF COLUMNS
 REPRESENTS 'POSITION' SUBHEADER
 */
@@ -87,58 +87,72 @@ REPRESENTS 'POSITION' SUBHEADER
 .rdt_TableHead > div > div:nth-child(9),
 .rdt_TableHead > div > div:nth-child(10),
 .rdt_TableHead > div > div:nth-child(11),
-.rdt_TableHead > div > div:nth-child(12) {
+.rdt_TableHead > div > div:nth-child(12),
+.rdt_TableHead > div > div:nth-child(13) {
   border-top: #0d6efd 1px solid;
   border-bottom: #0d6efd 1px solid;
 }
-.rdt_TableHead > div > div:nth-child(13) {
+.rdt_TableHead > div > div:nth-child(14) {
   border-right: #0d6efd 1px solid;
   border-bottom: #0d6efd 1px solid;
   border-top: #0d6efd 1px solid;
 }
 
+.rdt_TableHead > div > div:nth-child(n+8):nth-child(-n+14) {
+  color: #fefefe;
+  background-color: #0d6efd;
+}
 /*
 SELECTS COLUMNS:
   DUR, DUR CONT, YTW, YTW CONT, DXS, CNVX, WAL
 REPRESENTS 'RISK' SUBHEADER
 */
-.rdt_TableHead > div > div:nth-child(14) {
+.rdt_TableHead > div > div:nth-child(15) {
   border-left: #dc3545 1px solid;
   border-bottom: #dc3545 1px solid;
   border-top: #dc3545 1px solid;
 }
-.rdt_TableHead > div > div:nth-child(15),
 .rdt_TableHead > div > div:nth-child(16),
 .rdt_TableHead > div > div:nth-child(17),
 .rdt_TableHead > div > div:nth-child(18),
-.rdt_TableHead > div > div:nth-child(19) {
+.rdt_TableHead > div > div:nth-child(19),
+.rdt_TableHead > div > div:nth-child(20) {
   border-top: #dc3545 1px solid;
   border-bottom: #dc3545 1px solid;
 }
-.rdt_TableHead > div > div:nth-child(20) {
+.rdt_TableHead > div > div:nth-child(21) {
   border-right: #dc3545 1px solid;
   border-bottom: #dc3545 1px solid;
   border-top: #dc3545 1px solid;
+}
+
+.rdt_TableHead > div > div:nth-child(n+15):nth-child(-n+21) {
+  color: #fefefe;
+  background-color: #dc3545;
 }
 /*
 SELECTS COLUMNS:
   AGGREGATE RATING, CARLTON (MOODY, SP, FITCH) RATING
 REPRESENTS 'RATING' SUBHEADER
 */
-.rdt_TableHead > div > div:nth-child(21) {
+.rdt_TableHead > div > div:nth-child(22) {
   border-left: #ffc107 1px solid;
   border-bottom: #ffc107 1px solid;
   border-top: #ffc107 1px solid;
 }
-.rdt_TableHead > div > div:nth-child(22),
-.rdt_TableHead > div > div:nth-child(23) {
+.rdt_TableHead > div > div:nth-child(23),
+.rdt_TableHead > div > div:nth-child(24) {
   border-top: #ffc107 1px solid;
   border-bottom: #ffc107 1px solid;
 }
-.rdt_TableHead > div > div:nth-child(24) {
+.rdt_TableHead > div > div:nth-child(25) {
   border-right: #ffc107 1px solid;
   border-bottom: #ffc107 1px solid;
   border-top: #ffc107 1px solid;
+}
+
+.rdt_TableHead > div > div:nth-child(n+22):nth-child(-n+25) {
+  background-color: #ffc107;
 }
 /*
 SELECTS COLUMNS:
@@ -165,6 +179,10 @@ REPRESENTS 'KRD' SUBHEADER
   border-bottom: #0dcaf0 1px solid;
   border-top: #0dcaf0 1px solid;
 }
+
+.rdt_TableHead > div > div:nth-child(n+26):nth-child(-n+34) {
+  background-color: #0dcaf0;
+}
 /*
 SELECTS COLUMNS:
   BOOK GAIN LOSS, DOD GAIN LOSS
@@ -181,6 +199,10 @@ REPRESENTS 'PERFORMANCE' SUBHEADER
   border-top: black 1px solid;
 }
 
+.rdt_TableHead > div > div:nth-child(n+36):nth-child(-n+37) {
+  background-color: black;
+  color: #fefefe;
+}
 /*
 RESPONSIBLE FOR DISPLAYING 'LEGEND' DROPDOWN CONTENTS 
 HORIZONTALLY AS OPPOSED TO VERTICALLY. 
