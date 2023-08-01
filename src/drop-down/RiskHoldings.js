@@ -466,10 +466,9 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             cell: row => 
             <div>
                 <CustomMaterialMenu size="small" row={row} handleModalOpen={handleModalOpen}/>
-                {modalData &&
+                {/*modalData &&
                     <PopModal data={modalData} isOpen={isModalOpen} onClose={handleModalClose}/>
-                }
-                
+                */}
             </div>,
             allowOverFlow: true,
             button: true,
@@ -831,6 +830,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             {
                 tabIndex >= 0 && 
                 <div>
+                    <PopModal data={modalData} isOpen={isModalOpen} onClose={handleModalClose}/>
                     <Tabs selectedIndex={tabIndex} onSelect={handleTabOnSelect}>
                         <TabList>
                             <Tab>Risk Holdings</Tab>

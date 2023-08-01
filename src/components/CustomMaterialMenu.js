@@ -63,7 +63,7 @@ export default function CustomMaterialMenu({ row, handleModalOpen}) {
                 'aria-labelledby': 'basic-button',
             }}
         >
-            <MenuItem onClick={handleUSPTradeModal}>USP Trade</MenuItem>
+            <MenuItem onClick={handleUSPTradeModal}>Recent Trade</MenuItem>
             <MenuItem onClick={handleClose}>Option 2</MenuItem>
             <MenuItem onClick={handleClose}>Option 3</MenuItem>
         </Menu>

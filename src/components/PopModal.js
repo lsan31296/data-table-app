@@ -129,12 +129,12 @@ export default function PopModal({ data, isOpen, onClose }) {
     }, []);
     */
 
-
+    /*
     if (!data) {
         return(
             <h1>Loading...</h1>
         )
-    } else {
+    } else { */
     return (
         <div>
         {/*<Button onClick={handleOpen}>Open modal</Button> */}
@@ -166,4 +166,4 @@ export default function PopModal({ data, isOpen, onClose }) {
         </div>
     );
     }
-}
+//}
