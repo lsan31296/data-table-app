@@ -97,6 +97,11 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
         setIsModalOpen(false);
     }
 
+    const handleCloseButton = () => {
+        //Wei's idea.
+        document.getElementById('remove-tab-button').click();
+    }
+
     const handleAddTabClick = (event) => {
         console.log("Tab Index before adding tab: ", tabIndex);
         console.log("TabList Array Length Before: ", tabListArr.length)
@@ -109,14 +114,14 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
         setTabListArr([
             ...tabListArr,
             <Tab>
-                Risk Holdings #{tabListArr.length + 2} <button onClick={handleRemoveSelectedTabClick} type="button" class="btn-close" aria-label="Close"></button>
+                Risk Holdings #{tabListArr.length + 2} <button onClick={handleCloseButton} type="button" class="btn-close" aria-label="Close"></button>
             </Tab>
         ]);
         //Set tab index to newly created tab
         setTabIndex(tabListArr.length+1);
         console.log("TabIndex set to: ", tabListArr.length+1);
         console.log("TabList Array Length After: ", tabListArr.length);
-        /*
+        
         //Insert New Tab Panel
         setTabPanelArr([
             ...tabPanelArr,
@@ -141,7 +146,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
                 />
             </TabPanel>
         ]);
-        */
+        
         console.log("Tab Panel Array Length: ", tabPanelArr.length);
     };
     const handleRemoveSelectedTabClick = async (event) => {
@@ -830,7 +835,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
                         <TabList>
                             <Tab>Risk Holdings</Tab>
                             {tabListArr}
-                            {/* <button className="btn btn-sm btn-danger" id="remove-tab-button" onClick={handleRemoveSelectedTabClick}>Remove Tab</button> */}
+                            <button className="btn btn-sm btn-danger" id="remove-tab-button" onClick={handleRemoveSelectedTabClick}>Remove Tab</button>
                             <button className="btn btn-sm btn-primary" id="add-tab-button" type="button" onClick={handleAddTabClick}>Add Tab</button>
                         </TabList>
                         
