@@ -7,15 +7,15 @@
 const SubHeaderComponent =
         
         <div className="btn-group dropstart">
-            <button id="horizontal-dropdown-btn" type="button" className="btn btn-sm btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+            <button id="horizontal-dropdown-btn" type="button" className="btn btn-sm btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="false">
                 Legend
             </button>
             <ul className="dropdown-menu" aria-labelledby="horizontal-dropdown-btn" id="horizontal-dropdown-list">
-                <li className="dropdown-item"><button type="button" className="btn btn-sm btn-primary">Position</button></li>
-                <li className="dropdown-item"><button type="button" className="btn btn-sm btn-danger">Risk</button></li>
-                <li className="dropdown-item"><button type="button" className="btn btn-sm btn-warning">Rating</button></li>
-                <li className="dropdown-item"><button type="button" className="btn btn-sm btn-info">KRD</button></li>
-                <li className="dropdown-item"><button type="button" className="btn btn-sm btn-dark">Performance</button></li>
+                <li className="dropdown-item-text"><button id="legend-position-button" type="button" className="btn btn-sm">Position</button></li>
+                <li className="dropdown-item-text"><button id="legend-risk-button" type="button" className="btn btn-sm">Risk</button></li>
+                <li className="dropdown-item-text"><button id="legend-rating-button" type="button" className="btn btn-sm">Rating</button></li>
+                <li className="dropdown-item-text"><button id="legend-krd-button" type="button" className="btn btn-sm">KRD</button></li>
+                <li className="dropdown-item-text"><button id="legend-performance-button" type="button" className="btn btn-sm">Performance</button></li>
             </ul>
         </div>
         

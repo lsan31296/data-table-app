@@ -75,60 +75,60 @@ p a:active {
 /* BEGINNING OF SUBHEADER GROUP SELECTIONS
 SELECTS COLUMNS IN RISKHOLDINGS TALBE HEAD ROW: 
 
-  PRICE, OAS, WEIGHT, ORIG FACE, CURR FACE, MV, Factor
+  PRICE, WEIGHT, ORIG FACE, CURR FACE, MV, Factor
 AND APPLIES BLACK BORDERS AROUND GROUP OF COLUMNS
 REPRESENTS 'POSITION' SUBHEADER
 */
 .rdt_TableHead > div > div:nth-child(8) {
-  border-left: #0d6efd 1px solid;
-  border-bottom: #0d6efd 1px solid;
-  border-top: #0d6efd 1px solid;
+  border-left: #1c298c 1px solid;
+  border-bottom: #1c298c 1px solid;
+  border-top: #1c298c 1px solid;
 }
 .rdt_TableHead > div > div:nth-child(9),
 .rdt_TableHead > div > div:nth-child(10),
 .rdt_TableHead > div > div:nth-child(11),
-.rdt_TableHead > div > div:nth-child(12),
-.rdt_TableHead > div > div:nth-child(13) {
-  border-top: #0d6efd 1px solid;
-  border-bottom: #0d6efd 1px solid;
+.rdt_TableHead > div > div:nth-child(12) {
+  border-top: #1c298c 1px solid;
+  border-bottom: #1c298c 1px solid;
 }
-.rdt_TableHead > div > div:nth-child(14) {
-  border-right: #0d6efd 1px solid;
-  border-bottom: #0d6efd 1px solid;
-  border-top: #0d6efd 1px solid;
+.rdt_TableHead > div > div:nth-child(13) {
+  border-right: #1c298c 1px solid;
+  border-bottom: #1c298c 1px solid;
+  border-top: #1c298c 1px solid;
 }
 
-.rdt_TableHead > div > div:nth-child(n+8):nth-child(-n+14) {
+.rdt_TableHead > div > div:nth-child(n+8):nth-child(-n+13) {
   color: #fefefe;
-  background-color: #0d6efd;
+  background-color: #1c298c;
 }
 /*
 SELECTS COLUMNS:
-  DUR, DUR CONT, YTW, YTW CONT, DXS, CNVX, WAL
+  DUR, DUR CONT, YTW, YTW CONT, DXS, CNVX, WAL, OAS
 REPRESENTS 'RISK' SUBHEADER
 */
-.rdt_TableHead > div > div:nth-child(15) {
-  border-left: #dc3545 1px solid;
-  border-bottom: #dc3545 1px solid;
-  border-top: #dc3545 1px solid;
+.rdt_TableHead > div > div:nth-child(14) {
+  border-left: #4d1c8c 1px solid;
+  border-bottom: #4d1c8c 1px solid;
+  border-top: #4d1c8c 1px solid;
 }
+.rdt_TableHead > div > div:nth-child(15),
 .rdt_TableHead > div > div:nth-child(16),
 .rdt_TableHead > div > div:nth-child(17),
 .rdt_TableHead > div > div:nth-child(18),
 .rdt_TableHead > div > div:nth-child(19),
 .rdt_TableHead > div > div:nth-child(20) {
-  border-top: #dc3545 1px solid;
-  border-bottom: #dc3545 1px solid;
+  border-top: #4d1c8c 1px solid;
+  border-bottom: #4d1c8c 1px solid;
 }
 .rdt_TableHead > div > div:nth-child(21) {
-  border-right: #dc3545 1px solid;
-  border-bottom: #dc3545 1px solid;
-  border-top: #dc3545 1px solid;
+  border-right: #4d1c8c 1px solid;
+  border-bottom: #4d1c8c 1px solid;
+  border-top: #4d1c8c 1px solid;
 }
 
-.rdt_TableHead > div > div:nth-child(n+15):nth-child(-n+21) {
+.rdt_TableHead > div > div:nth-child(n+14):nth-child(-n+21) {
   color: #fefefe;
-  background-color: #dc3545;
+  background-color: #4d1c8c;
 }
 /*
 SELECTS COLUMNS:
@@ -136,23 +136,24 @@ SELECTS COLUMNS:
 REPRESENTS 'RATING' SUBHEADER
 */
 .rdt_TableHead > div > div:nth-child(22) {
-  border-left: #ffc107 1px solid;
-  border-bottom: #ffc107 1px solid;
-  border-top: #ffc107 1px solid;
+  border-left: #8c1c54 1px solid;
+  border-bottom: #8c1c54 1px solid;
+  border-top: #8c1c54 1px solid;
 }
 .rdt_TableHead > div > div:nth-child(23),
 .rdt_TableHead > div > div:nth-child(24) {
-  border-top: #ffc107 1px solid;
-  border-bottom: #ffc107 1px solid;
+  border-top: #8c1c54 1px solid;
+  border-bottom: #8c1c54 1px solid;
 }
 .rdt_TableHead > div > div:nth-child(25) {
-  border-right: #ffc107 1px solid;
-  border-bottom: #ffc107 1px solid;
-  border-top: #ffc107 1px solid;
+  border-right: #8c1c54 1px solid;
+  border-bottom: #8c1c54 1px solid;
+  border-top: #8c1c54 1px solid;
 }
 
 .rdt_TableHead > div > div:nth-child(n+22):nth-child(-n+25) {
-  background-color: #ffc107;
+  background-color: #8c1c54;
+  color: #fefefe;
 }
 /*
 SELECTS COLUMNS:
@@ -160,9 +161,9 @@ SELECTS COLUMNS:
 REPRESENTS 'KRD' SUBHEADER
 */
 .rdt_TableHead > div > div:nth-child(26) {
-  border-left: #0dcaf0 1px solid;
-  border-bottom: #0dcaf0 1px solid;
-  border-top: #0dcaf0 1px solid;
+  border-left: #1c8c63 1px solid;
+  border-bottom: #1c8c63 1px solid;
+  border-top: #1c8c63 1px solid;
 }
 .rdt_TableHead > div > div:nth-child(27),
 .rdt_TableHead > div > div:nth-child(28),
@@ -171,17 +172,18 @@ REPRESENTS 'KRD' SUBHEADER
 .rdt_TableHead > div > div:nth-child(31),
 .rdt_TableHead > div > div:nth-child(32),
 .rdt_TableHead > div > div:nth-child(33) {
-  border-top: #0dcaf0 1px solid;
-  border-bottom: #0dcaf0 1px solid;
+  border-top: #1c8c63 1px solid;
+  border-bottom: #1c8c63 1px solid;
 }
 .rdt_TableHead > div > div:nth-child(34) {
-  border-right: #0dcaf0 1px solid;
-  border-bottom: #0dcaf0 1px solid;
-  border-top: #0dcaf0 1px solid;
+  border-right: #1c8c63 1px solid;
+  border-bottom: #1c8c63 1px solid;
+  border-top: #1c8c63 1px solid;
 }
 
 .rdt_TableHead > div > div:nth-child(n+26):nth-child(-n+34) {
-  background-color: #0dcaf0;
+  background-color: #1c8c63;
+  color: #fefefe;
 }
 /*
 SELECTS COLUMNS:
@@ -199,7 +201,7 @@ REPRESENTS 'PERFORMANCE' SUBHEADER
   border-top: black 1px solid;
 }
 
-.rdt_TableHead > div > div:nth-child(n+36):nth-child(-n+37) {
+.rdt_TableHead > div > div:nth-child(n+35):nth-child(-n+37) {
   background-color: black;
   color: #fefefe;
 }
@@ -215,4 +217,24 @@ HORIZONTALLY AS OPPOSED TO VERTICALLY.
   border-right: 0;
   border-bottom: .3em solid transparent;
   border-left: .3em solid;
+}
+#legend-position-button {
+  background-color: #1c298c;
+  color: #fefefe;
+}
+#legend-risk-button {
+  background-color: #4d1c8c;
+  color: #fefefe;
+}
+#legend-rating-button {
+  background-color: #8c1c54;
+  color: #fefefe;
+}
+#legend-krd-button {
+  background-color: #1c8c63;
+  color: #fefefe;
+}
+#legend-performance-button {
+  background-color: black;
+  color: #fefefe;
 }

@@ -137,7 +137,8 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             ...tabPanelArr,
             <TabPanel>
             <DataTable
-                    title={<h3 style={{ color: "white" }}>Risk Holdings: {hashMap[`tab${tabIndex+1}`].tableStyle[`${hashMap[`tab${tabIndex+1}`].req.positionView}`].title} View</h3>}
+                    //title={<h3 style={{ color: "white" }}>Risk Holdings: {hashMap[`tab${tabIndex+1}`].tableStyle[`${hashMap[`tab${tabIndex+1}`].req.positionView}`].title} View</h3>}
+                    title={<div style={{ display: "flex", justifyContent: "space-between"}}> <h3 style={{ color: "white" }}>Risk Holdings: {hashMap[`tab${tabIndex+1}`].tableStyle[`${hashMap[`tab${tabIndex+1}`].req.positionView}`].title} View</h3> <h3 style={{ color: 'white'}}>{hashMap[`tab${tabIndex+1}`].req.aoDate}</h3> </div>}
                     subHeader subHeaderComponent={SubHeaderComponent}  
                     columns={columnHeaders}
                     data={hashMap[`tab${tabIndex+1}`].data}
@@ -224,7 +225,8 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
         <TabPanel>
         <DataTable
         //Problem here, this is why it doesn't show proper header color.
-                title={<h3 style={{ color: "white" }}>Risk Holdings: {hashMap[`tab${tabIndex}`].tableStyle[`${hashMap[`tab${tabIndex}`].req.positionView}`].title} View</h3>}
+                //title={<h3 style={{ color: "white" }}>Risk Holdings: {hashMap[`tab${tabIndex}`].tableStyle[`${hashMap[`tab${tabIndex}`].req.positionView}`].title} View</h3>}
+                title={<div style={{ display: "flex", justifyContent: "space-between"}}> <h3 style={{ color: "white" }}>Risk Holdings: {hashMap[`tab${tabIndex}`].tableStyle[`${hashMap[`tab${tabIndex}`].req.positionView}`].title} View</h3> <h3 style={{ color: 'white'}}>{hashMap[`tab${tabIndex}`].req.aoDate}</h3> </div>}
                 subHeader subHeaderComponent={SubHeaderComponent}  
                 columns={columnHeaders}
                 data={[]}
@@ -265,7 +267,8 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             <TabPanel>
             <DataTable
             //Problem here, this is why it doesn't show proper header color.
-                    title={<h3 style={{ color: "white" }}>Risk Holdings: {hashMap[`tab${tabIndex}`].tableStyle[`${hashMap[`tab${tabIndex}`].req.positionView}`].title} View</h3>}
+                    //title={<h3 style={{ color: "white" }}>Risk Holdings: {hashMap[`tab${tabIndex}`].tableStyle[`${hashMap[`tab${tabIndex}`].req.positionView}`].title} View</h3>}
+                    title={<div style={{ display: "flex", justifyContent: "space-between"}}> <h3 style={{ color: "white" }}>Risk Holdings: {hashMap[`tab${tabIndex}`].tableStyle[`${hashMap[`tab${tabIndex}`].req.positionView}`].title} View</h3> <h3 style={{ color: 'white'}}>{hashMap[`tab${tabIndex}`].req.aoDate}</h3> </div>}
                     subHeader subHeaderComponent={SubHeaderComponent}  
                     columns={columnHeaders}
                     data={[]}
@@ -305,7 +308,8 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             <TabPanel>
             <DataTable
             //Problem here, this is why it doesn't show proper header color.
-                    title={<h3 style={{ color: "white" }}>Risk Holdings: {hashMap[`tab${tabIndex}`].tableStyle[`${hashMap[`tab${tabIndex}`].req.positionView}`].title} View</h3>}
+                    //title={<h3 style={{ color: "white" }}>Risk Holdings: {hashMap[`tab${tabIndex}`].tableStyle[`${hashMap[`tab${tabIndex}`].req.positionView}`].title} View</h3>}
+                    title={<div style={{ display: "flex", justifyContent: "space-between"}}> <h3 style={{ color: "white" }}>Risk Holdings: {hashMap[`tab${tabIndex}`].tableStyle[`${hashMap[`tab${tabIndex}`].req.positionView}`].title} View</h3> <h3 style={{ color: 'white'}}>{hashMap[`tab${tabIndex}`].req.aoDate}</h3> </div>}
                     subHeader subHeaderComponent={SubHeaderComponent}  
                     columns={columnHeaders}
                     data={[]}
@@ -373,7 +377,8 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             <TabPanel>
             <DataTable
             //Problem here, this is why it doesn't show proper header color.
-                    title={<h3 style={{ color: "white" }}>Risk Holdings: {hashMap[`tab${tabIndex}`].tableStyle[`${hashMap[`tab${tabIndex}`].req.positionView}`].title} View</h3>}
+                    //title={<h3 style={{ color: "white" }}>Risk Holdings: {hashMap[`tab${tabIndex}`].tableStyle[`${hashMap[`tab${tabIndex}`].req.positionView}`].title} View</h3>}
+                    title={<div style={{ display: "flex", justifyContent: "space-between"}}> <h3 style={{ color: "white" }}>Risk Holdings: {hashMap[`tab${tabIndex}`].tableStyle[`${hashMap[`tab${tabIndex}`].req.positionView}`].title} View</h3> <h3 style={{ color: 'white'}}>{hashMap[`tab${tabIndex}`].req.aoDate}</h3> </div>}
                     subHeader subHeaderComponent={SubHeaderComponent}  
                     columns={columnHeaders}
                     data={resData}
@@ -430,7 +435,8 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             <TabPanel>
             <DataTable
             //Problem here, this is why it doesn't show proper header color.
-                    title={<h3 style={{ color: "white" }}>Risk Holdings: {hashMap[`tab${tabIndex}`].tableStyle[`${hashMap[`tab${tabIndex}`].req.positionView}`].title} View</h3>}
+                    //title={<h3 style={{ color: "white" }}>Risk Holdings: {hashMap[`tab${tabIndex}`].tableStyle[`${hashMap[`tab${tabIndex}`].req.positionView}`].title} View</h3>}
+                    title={<div style={{ display: "flex", justifyContent: "space-between"}}> <h3 style={{ color: "white" }}>Risk Holdings: {hashMap[`tab${tabIndex}`].tableStyle[`${hashMap[`tab${tabIndex}`].req.positionView}`].title} View</h3> <h3 style={{ color: 'white'}}>{hashMap[`tab${tabIndex}`].req.aoDate}</h3> </div>}
                     subHeader subHeaderComponent={SubHeaderComponent}  
                     columns={columnHeaders}
                     data={[]}
@@ -471,6 +477,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             selector: (row) => formatAccountName(row.account_name),
             sortable: true,
             minWidth: "135px",
+            center: true,
         },
         {
             cell: row => 
@@ -480,7 +487,8 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             allowOverFlow: true,
             button: true,
             minWidth: "40px",
-            compact: true
+            compact: true,
+            center: true,
         },
         { 
             name: "BBG Cusip", 
@@ -488,6 +496,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             sortable: true,
             maxWidth: "10px",
             compact: true,
+            center: true,
         },
         {
             name: "Sec Name",
@@ -495,6 +504,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             sortable: true,
             compact: true,
             minWidth: "125px",
+            center: true,
         },
         {
             name: "Coupon",
@@ -502,14 +512,16 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             sortable: true,
             compact: true,
             minWidth: "70px",
-            format: (row) => numberFormatter2.format(row.coupon)
+            format: (row) => numberFormatter2.format(row.coupon),
+            center: true,
         },
         {
             name: "Maturity",
             selector: (row) => row.maturity,
             sortable: true,
             compact: true,
-            minWidth: "80px"
+            minWidth: "80px",
+            center: true,
         },
         {
             name: "Price",
@@ -517,20 +529,15 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             sortable: true,
             minWidth: "50px",
             compact: true,
+            center: true,
         },
         {
-            name: "OAS",
-            selector: (row) => numberFormatter0.format(row.oas),
-            sortable: true,
-            compact: true,
-            minWidth: "50px"
-        },
-        {
-            name: "Weight",
+            name: "Wght",
             selector: (row) => formatWeight(row.weight),
             sortable: true,
             minWidth: "65px",
             compact: true,
+            center: true,
         },
         {
             name: "Orig Face",
@@ -539,76 +546,95 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             compact: true,
             minWidth: "80px",
             format: (row) => dollarFormatter0.format(row.orig_face),
+            center: true,
         },
         {
             name: "Curr Face",
             selector: (row) => dollarFormatter0.format(row.curent_face),
             sortable: true,
             compact: true,
-            minWidth: "80px"
+            minWidth: "80px",
+            center: true,
         },
         {
             name: "MKT Val",
-            selector: (row) => dollarFormatter.format(row.mv),
+            selector: (row) => dollarFormatter0.format(row.mv),
             sortable: true,
             compact: true,
-            minWidth: '110px'
+            minWidth: '110px',
+            center: true,
         },
         {
             name: "Factor",
             selector: (row) => numberFormatter2.format(row.factor),
             sortable: true,
             compact: true,
-            minWidth: "60px"
+            minWidth: "60px",
+            center: true,
         },
         {
             name: "DUR",
             selector: (row) => numberFormatter2.format(row.dur),
             sortable: true,
             compact: true,
-            minWidth: "50px"
+            minWidth: "50px",
+            center: true,
         },
         {
             name: "DUR Cont",
             selector: (row) => numberFormatter2.format(row.durCont),
             sortable: true,
             compact: true,
-            minWidth: "80px"
+            minWidth: "80px",
+            center: true,
         },
         {
             name: "YTW",
             selector: (row) => numberFormatter2.format(row.ytw),
             sortable: true,
             compact: true,
-            minWidth: "60px"
+            minWidth: "60px",
+            center: true,
         },
         {
             name: "YTW Cont",
             selector: (row) => numberFormatter2.format(row.ytwCont),
             sortable: true,
             compact: true,
-            minWidth: "85px"
+            minWidth: "85px",
+            center: true,
         },
         {
             name: "DxS",
-            selector: (row) => numberFormatter2.format(row.dxS),
+            selector: (row) => numberFormatter0.format(row.dxS),
             sortable: true,
             compact: true,
-            minWidth: "75px"
+            minWidth: "75px",
+            center: true,
         },
         {
-            name: "Convexity",
+            name: "CONVX",
             selector: (row) => numberFormatter2.format(row.cnvx),
             sortable: true,
             compact: true,
-            minWidth: "79px"
+            minWidth: "79px",
+            center: true,
         },
         {
             name: "WAL",
             selector: (row) => numberFormatter2.format(row.wal),
             sortable: true,
             compact: true,
-            minWidth: "60px"
+            minWidth: "60px",
+            center: true,
+        },
+        {
+            name: "OAS",
+            selector: (row) => numberFormatter0.format(row.oas),
+            sortable: true,
+            compact: true,
+            minWidth: "50px",
+            center: true,
         },
         {
             name: "Agg RTG",
@@ -616,6 +642,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             sortable: true,
             compact: true,
             minWidth: "75px",
+            center: true,
         },
         {
             name: "Moody",
@@ -623,6 +650,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             sortable: true,
             compact: true,
             minWidth: "65px",
+            center: true,
         },
         {
             name: "SP",
@@ -630,6 +658,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             sortable: true,
             compact: true,
             minWidth: "30px",
+            center: true,
             //maxWidth: "60px",
         },
         {
@@ -638,90 +667,115 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             sortable: true,
             compact: true,
             minWidth: "40px",
+            center: true,
         },
         {
             name: "6M",
             selector: (row) => numberFormatter2.format(row.krD_6M),
             sortable: true,
             compact: true,
-            minWidth: "50px"
+            minWidth: "50px",
+            center: true,
         },
         {
             name: "1YR",
             selector: (row) => numberFormatter2.format(row.krD_1YR),
             sortable: true,
             compact: true,
-            minWidth: "50px"
+            minWidth: "50px",
+            center: true,
         },
         {
             name: "2YR",
             selector: (row) => numberFormatter2.format(row.krD_2YR),
             sortable: true,
             compact: true,
-            minWidth: "50px"
+            minWidth: "50px",
+            center: true,
         },
         {
             name: "3YR",
             selector: (row) => numberFormatter2.format(row.krD_3YR),
             sortable: true,
             compact: true,
-            minWidth: "50px"
+            minWidth: "50px",
+            center: true,
         },
         {
             name: "5YR",
             selector: (row) => numberFormatter2.format(row.krD_5YR),
             sortable: true,
             compact: true,
-            minWidth: "50px"
+            minWidth: "50px",
+            center: true,
         },
         {
             name: "7YR",
             selector: (row) => numberFormatter2.format(row.krD_7YR),
             sortable: true,
             compact: true,
-            minWidth: "50px"
+            minWidth: "50px",
+            center: true,
         },
         {
             name: "10YR",
             selector: (row) => numberFormatter2.format(row.krD_10YR),
             sortable: true,
             compact: true,
-            minWidth: "50px"
+            minWidth: "50px",
+            center: true,
         },
         {
             name: "20YR",
             selector: (row) => numberFormatter2.format(row.krD_20YR),
             sortable: true,
             compact: true,
-            minWidth: "50px"
+            minWidth: "50px",
+            center: true,
         },
         {
             name: "30YR",
             selector: (row) => numberFormatter2.format(row.krD_30YR),
             sortable: true,
             compact: true,
-            minWidth: "50px"
-        },
-        {
-            name: "Orig Trade Date",
-            selector: (row) => row.original_trade_date.slice(0,10),
-            sortable: true,
-            compact: true,
-            minWidth: "120px"
+            minWidth: "50px",
+            center: true,
         },
         {
             name: "Book G/L",
-            selector: (row) => numberFormatter2.format(row.book_gain_loss),
+            selector: (row) => numberFormatter0.format(row.book_gain_loss),
             sortable: true,
             compact: true,
-            minWidth: "80px"
+            minWidth: "80px",
+            conditionalCellStyles: [
+                {
+                    when: (row) => row.book_gain_loss < 0,
+                    style: { color: 'red' }
+                }
+            ],
+            center: true,
         },
         {
             name: "DOD G/L",
-            selector: (row) => numberFormatter2.format(row.dod_gain_loss),
+            selector: (row) => numberFormatter0.format(row.dod_gain_loss),
             sortable: true,
             compact: true,
-            minWidth: "80px"
+            minWidth: "80px",
+            conditionalCellStyles: [
+                {
+                    when: (row) => row.dod_gain_loss < 0,
+                    style: { color: 'red' }
+                }
+            ],
+            center: true,
+        },
+        {
+            name: "Orig Trd Date",
+            selector: (row) => row.original_trade_date.slice(0,10),
+            sortable: true,
+            compact: true,
+            minWidth: "120px",
+            center: true,
         },
     ];
     const customStyles = {
@@ -776,7 +830,6 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             }
         },
     ]
-    //Set modal columns configurations here
 
 
     
@@ -853,7 +906,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
 
                         <TabPanel>
                         <DataTable
-                            title={<h3 style={{ color: "white" }}>Risk Holdings: {hashMap.tab0.tableStyle[`${hashMap.tab0.req.positionView}`].title} View</h3>}
+                            title={<div style={{ display: "flex", justifyContent: "space-between"}}> <h3 style={{ color: "white" }}>Risk Holdings: {hashMap.tab0.tableStyle[`${hashMap.tab0.req.positionView}`].title} View</h3> <h3 style={{ color: 'white'}}>{hashMap.tab0.req.aoDate}</h3> </div>}
                             subHeader subHeaderComponent={SubHeaderComponent}  
                             columns={columnHeaders}
                             data={hashMap.tab0.data}
