@@ -81,6 +81,8 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
     const [hashMap, setHashMap] = useState({...initialHashState});
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [modalData, setModalData] = useState(null);
+    const [modalTitle, setModalTitle] = useState(null);
+    const [modalColumns, setModalColumns] = useState([]);
     const rowsForSelect = removeUnwanteds(dropDownData).map((account, index) => (
         { 
             value: account.apx_portfolio_code,  
@@ -89,10 +91,18 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
     ));
 
     //HANDLER FUNCTIONS DECLARED HERE
-    const handleModalOpen = (uspTradeRes) => {
+    const handleRecentTradeModalOpen = (uspTradeRes, title, recentTradeModalColumns) => {
         setModalData(uspTradeRes);
+        setModalTitle(title);
+        setModalColumns(recentTradeModalColumns);
         setIsModalOpen(true);
     };
+    const handleSecurityDetailModalOpen =  (securityDetailRes, title, securityDetailModal) => {
+        setModalData(securityDetailRes);
+        setModalTitle(title);
+        setModalColumns(securityDetailModal);
+        setIsModalOpen(true);
+    }
     const handleModalClose = () => {
         setIsModalOpen(false);
     }
@@ -465,7 +475,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
         {
             cell: row => 
             <div>
-                <CustomMaterialMenu size="small" row={row} handleModalOpen={handleModalOpen}/>
+                <CustomMaterialMenu size="small" row={row} handleModalOption1Open={handleRecentTradeModalOpen} handleModalOption2Open={handleSecurityDetailModalOpen}/>
             </div>,
             allowOverFlow: true,
             button: true,
@@ -766,6 +776,8 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             }
         },
     ]
+    //Set modal columns configurations here
+
 
     
     /* RENDERED ON UI */
@@ -828,7 +840,8 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             {
                 tabIndex >= 0 && 
                 <div>
-                    <PopModal data={modalData} isOpen={isModalOpen} onClose={handleModalClose}/>
+                    <PopModal data={modalData} isOpen={isModalOpen} onClose={handleModalClose} columns={modalColumns} modalTitle={modalTitle}/>
+
                     <Tabs selectedIndex={tabIndex} onSelect={handleTabOnSelect}>
                         <TabList>
                             <Tab>Risk Holdings</Tab>
