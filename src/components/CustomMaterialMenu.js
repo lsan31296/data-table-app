@@ -3,8 +3,7 @@ import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { /*FaRegCopy, FaShareAlt, */ FaEllipsisV } from 'react-icons/fa';
-import { getUspTrade } from '../api';
-import PopModal from './PopModal';
+import { getUspTrade, getSecurityDetail } from '../api';
 
 export default function CustomMaterialMenu({ row, handleModalOption1Open, handleModalOption2Open}) {
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -132,37 +131,116 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
     };
     const handleModalClickSecurityDetail = async(event) => {
         //Mock data, just need to implement middle-tier endpoint and call here for 'securityDetailRes'
-        const securityDetailRes = [{ID: '41', Cusip: '31381K3Q0', Ticker: 'FN', Name: 'FN 463507', LastTradeableDate: null }];
+        //const securityDetailRes = [{ID: '41', Cusip: '31381K3Q0', Ticker: 'FN', Name: 'FN 463507', LastTradeableDate: null }];
+        const securityDetailRes = await getSecurityDetail({ cusip: row.bbg_cusip});
+        //console.log("securityDetailRes: ", securityDetailData);
         const title = 'Security Detail';
         const securityDetailModalColumns = [
             {
                 name: 'ID',
-                selector: (row) => row.ID,
+                selector: (row) => row.id,
                 compact: true,
+                minWidth: '60px',
             },
             {
                 name: 'CUSIP',
-                selector: (row) => row.Cusip,
+                selector: (row) => row.cusip,
                 compact: true,
+                minWidth: '80px'
             }, 
             {
                 name: 'Ticker',
-                selector: (row) => row.Ticker,
+                selector: (row) => row.ticker,
                 compact: true
             },
             {
                 name: 'Name',
-                selector: (row) => row.Name,
+                selector: (row) => row.name,
                 compact: true,
+                maxWidth: '150px'
             },
             {
                 name: 'LT Date',
-                selector: (row) => row.LastTradeableDate,
+                selector: (row) => row.lastTradeableDate,
                 compact: true,
             },
+            {
+                name: 'Last Price',
+                selector: (row) => row.lastPrice,
+                compact: true,
+            },
+            {
+                name: 'Issuer',
+                selector: (row) => row.issuer,
+                compact: true,
+            },
+            {
+                name: 'Sec Type',
+                selector: (row) => row.security_typ,
+                compact: true,
+            },
+            {
+                name: 'GICS Industry Group',
+                selector: (row) => row.gics_industry_group,
+                compact: true,
+                minWidth: '150px'
+            },
+            {
+                name: 'GICS Sec',
+                selector: (row) => row.gics_sector,
+                compact: true,
+            },
+            {
+                name: 'BICS 2 Ind Group Name',
+                selector: (row) => row.bics_level_2_industry_group_name,
+                compact: true,
+                minWidth: '160px',
+            },
+            {
+                name: 'EXCH Code',
+                selector: (row) => row.exch_code,
+                compact: true,
+            },
+            {
+                name: 'Primary EXCH Name',
+                selector: (row) => row.primary_exchange_name,
+                compact: true,
+                minWidth: '120px'
+            },
+            {
+                name: 'Ind Group',
+                selector: (row) => row.industry_group,
+                compact: true,
+            },
+            {
+                name: 'Country',
+                selector: (row) => row.country,
+                compact: true,
+            },
+            {
+                name: 'Market Sec Des',
+                selector: (row) => row.market_sector_des,
+                compact: true,
+            },
+            {
+                name: '144A Flag',
+                selector: (row) => row.one_four_four_a_flag,
+                compact: true,
+            },
+            {
+                name: 'Muni Issue Szie',
+                selector: (row) => row.muni_issue_size,
+                compact: true,
+            },
+            {
+                name: 'Mtg Agency Backed',
+                selector: (row) => row.mtg_is_agency_backed,
+                compact: true,
+                minWidth: '110px'
+            }
         ]
         console.log("Selected modal option 'Security Detail'.");
-        
+
         if (securityDetailRes.length === 0) {
             alert(`This security has no details to display.`);
         } else {

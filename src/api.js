@@ -151,3 +151,12 @@ export async function getUspTrade(params) {
     //console.log(url);
     return await fetchJson(url, {headers}, []);
 }
+
+export async function getSecurityDetail(params) {
+    console.log("Params: ", params);
+    const url = new URL(`${API_BASE_URL}/get-security-detail`);
+    Object.entries(params).forEach(([key, value]) => {
+        url.searchParams.append(key, value.toString())
+    });
+    return await fetchJson(url, {headers}, []);
+}
