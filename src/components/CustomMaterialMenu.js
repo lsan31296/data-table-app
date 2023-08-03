@@ -3,9 +3,9 @@ import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { /*FaRegCopy, FaShareAlt, */ FaEllipsisV } from 'react-icons/fa';
-import { getUspTrade, getSecurityDetail } from '../api';
+import { getUspTrade, getSecurityDetail, getPriceHistory } from '../api';
 
-export default function CustomMaterialMenu({ row, handleModalOption1Open, handleModalOption2Open}) {
+export default function CustomMaterialMenu({ row, handleModalOption1Open, handleModalOption2Open, handleModalOption3Open}) {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
     //const [openModal, setOpenModal] = React.useState(false);
@@ -129,11 +129,8 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
         });
         */
     };
-    const handleModalClickSecurityDetail = async(event) => {
-        //Mock data, just need to implement middle-tier endpoint and call here for 'securityDetailRes'
-        //const securityDetailRes = [{ID: '41', Cusip: '31381K3Q0', Ticker: 'FN', Name: 'FN 463507', LastTradeableDate: null }];
+    const handleModalClickSecurityDetail = async(event) => {       
         const securityDetailRes = await getSecurityDetail({ cusip: row.bbg_cusip});
-        //console.log("securityDetailRes: ", securityDetailData);
         const title = 'Security Detail';
         const securityDetailModalColumns = [
             {
@@ -239,12 +236,40 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 minWidth: '110px'
             }
         ]
-        console.log("Selected modal option 'Security Detail'.");
 
         if (securityDetailRes.length === 0) {
             alert(`This security has no details to display.`);
         } else {
             handleModalOption2Open(securityDetailRes, title, securityDetailModalColumns);
+        }
+    }
+    const handleModalClickPriceHistory = async(event) => {
+        //Mock data, just need to implement middle-tier endpoint and call here for 'priceHistoryRes' 
+        //const priceHistoryRes = [{ aoDate: '2023-08-02', cusip: '00091XAA5', priceValue: '100.003'}];
+        const priceHistoryRes = await getPriceHistory({ cusip: row.bbg_cusip });
+        const title = 'Price History';
+        const priceHistoryModalColumns = [
+            {
+                name:'AO Date',
+                selector: (row) => row.aoDate,
+                compact: true,
+            },
+            {
+                name: 'CUSIP',
+                selector: (row) => row.cusip,
+                compact: true,
+            },
+            {
+                name: 'PriceValue',
+                selector: (row) => row.priceValue,
+                compact: true,
+            }
+        ];
+        
+        if (priceHistoryRes.length === 0) {
+            alert(`This CUSIP has no Price History.`);
+        } else {
+            handleModalOption3Open(priceHistoryRes, title, priceHistoryModalColumns);
         }
     }
 
@@ -273,7 +298,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
         >
             <MenuItem onClick={handleModalClickRecentTrade}>Recent Trade</MenuItem>
             <MenuItem onClick={handleModalClickSecurityDetail}>Security Detail</MenuItem>
-            <MenuItem onClick={handleClose}>Price History</MenuItem>
+            <MenuItem onClick={handleModalClickPriceHistory}>Price History</MenuItem>
         </Menu>
     </div>
     );

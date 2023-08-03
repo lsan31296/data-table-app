@@ -160,3 +160,12 @@ export async function getSecurityDetail(params) {
     });
     return await fetchJson(url, {headers}, []);
 }
+
+export async function getPriceHistory(params) {
+    console.log("Params: ", params);
+    const url = new URL(`${API_BASE_URL}/get-price-history`);
+    Object.entries(params).forEach(([key, value]) => {
+        url.searchParams.append(key, value.toString())
+    });
+    return await fetchJson(url, {headers}, []);
+}

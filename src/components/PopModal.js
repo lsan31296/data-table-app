@@ -45,6 +45,10 @@ export default function PopModal({ data, isOpen, onClose, columns, modalTitle })
                     <DataTable
                         columns={columns}
                         data={data}
+                        highlightOnHover
+                        striped
+                        fixedHeader
+                        fixedHeaderScrollHeight='650px'
                     />
                 </div>
 
