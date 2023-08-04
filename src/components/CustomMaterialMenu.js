@@ -251,7 +251,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
         const priceHistoryModalColumns = [
             {
                 name:'AO Date',
-                selector: (row) => row.aoDate,
+                selector: (row) => (row.aoDate).slice(0,10),
                 compact: true,
             },
             {
