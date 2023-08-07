@@ -7,6 +7,7 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 //import { getUspTrade } from '../api';
 import DataTable from 'react-data-table-component';
+import ExportCSV from '../ExportCSV';
 
 const style = {
     position: 'absolute',
@@ -40,7 +41,13 @@ export default function PopModal({ data, isOpen, onClose, columns, modalTitle })
                     Data Table Here.
                 </Typography>
                 */}
-                <Typography id="modal-modal-title" variant="h6" component="h2">{modalTitle}</Typography>
+                <Typography style={{ display: "flex", justifyContent: "space-between" }} id="modal-modal-title" variant="h6" component="h2">
+                    {modalTitle}
+                    {
+                    data && 
+                        <ExportCSV csvData={data} fileName={`${modalTitle} for ${data[0].cusip}`}/>
+                    }
+                </Typography>
                 <div id="modal-modal-description">
                     <DataTable
                         columns={columns}
