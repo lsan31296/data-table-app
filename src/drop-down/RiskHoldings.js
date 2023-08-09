@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { filterRiskAccounts, dollarFormatter, numberFormatter0, numberFormatter2, formatWeight, addDataIntoCache, removeUnwanteds, formatAccountName, fileNameConstructor, removeAndRenamObjectProps, dollarFormatter0 } from "../utils/helperFunctions";
+import { filterRiskAccounts, dollarFormatter, numberFormatter0, numberFormatter2, formatWeight, addDataIntoCache, removeUnwanteds, formatAccountName, fileNameConstructor, removeAndRenamObjectProps, dollarFormatter0, today, lastBusinessDay } from "../utils/helperFunctions";
 import { getRiskHoldings } from "../api";
 import DataTable from "react-data-table-component";
 import ExpandedTable from "../data-table/ExpandedTable";
@@ -298,18 +298,39 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
         ])
     };
     const handleRadioButtonClick = ({ target }) => {
-        setBodyReq({...bodyReq, positionView: target.value })
-        setHashMap({
-            ...hashMap,
-            [`tab${tabIndex}`]: {
-                ...hashMap[`tab${tabIndex}`],
-                data: [],
-                req: {
-                    ...hashMap[`tab${tabIndex}`].req,
-                    positionView: target.value
+        //Set condition here: If Intrday view is selected (ID), then...
+        if (target.value === "ID") {
+            console.log("ID Hit, ao_Date should be set to: ", today());
+            //set the datepicker state variable to today's date
+            setBodyReq({...bodyReq, positionView: target.value, aoDate: today() });
+            //And set in hashMap for sending request
+            setHashMap({
+                ...hashMap,
+                [`tab${tabIndex}`]: {
+                    ...hashMap[`tab${tabIndex}`],
+                    data: [],
+                    req: {
+                        ...hashMap[`tab${tabIndex}`].req, 
+                        aoDate: today(), //Set form aoDate to value of selected date from datepicker
+                        positionView: target.value
+                    }
                 }
-            }
-        })
+            });
+        } else {
+            setBodyReq({...bodyReq, positionView: target.value });
+            setHashMap({
+                ...hashMap,
+                [`tab${tabIndex}`]: {
+                    ...hashMap[`tab${tabIndex}`],
+                    data: [],
+                    req: {
+                        ...hashMap[`tab${tabIndex}`].req,
+                        positionView: target.value,
+                    }
+                }
+            })
+        }
+
         tabPanelArr[tabIndex-1] = 
             <TabPanel>
             <DataTable
