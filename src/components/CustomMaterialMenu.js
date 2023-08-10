@@ -3,9 +3,9 @@ import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { /*FaRegCopy, FaShareAlt, */ FaEllipsisV } from 'react-icons/fa';
-import { getUspTrade, getSecurityDetail, getPriceHistory } from '../api';
+import { getUspTrade, getSecurityDetail, getPriceHistory, getShowLoans } from '../api';
 
-export default function CustomMaterialMenu({ row, handleModalOption1Open, handleModalOption2Open, handleModalOption3Open}) {
+export default function CustomMaterialMenu({ row, handleModalOption1Open, handleModalOption2Open, handleModalOption3Open, handleModalOption4Open}) {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
     //const [openModal, setOpenModal] = React.useState(false);
@@ -271,8 +271,29 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
         } else {
             handleModalOption3Open(priceHistoryRes, title, priceHistoryModalColumns);
         }
-    }
-
+    };
+    const handleModalClickShowLoans = async(event) => {
+        const showLoansRes = await getShowLoans({ cusip: row.bbg_cusip });
+        const title = 'Show Loans';
+        const showLoansModalColumns = [
+            {
+                name: 'Cusip',
+                selector: (row) => row.cusip,
+                compact: true,
+            },
+            {
+                name: 'Loan ID',
+                selector: (row) => row.loand_id,
+                compact: true,
+            }
+        ];
+        
+        if (showLoansRes.length === 0) {
+            alert(`This CUSIP has no Loans to show.`);
+        } else {
+            handleModalOption4Open(showLoansRes, title, showLoansModalColumns);
+        }
+    };
 
     return (
     <div style={{ minWidth: "25px"}}>
@@ -299,6 +320,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
             <MenuItem onClick={handleModalClickRecentTrade}>Recent Trade</MenuItem>
             <MenuItem onClick={handleModalClickSecurityDetail}>Security Detail</MenuItem>
             <MenuItem onClick={handleModalClickPriceHistory}>Price History</MenuItem>
+            <MenuItem onClick={handleModalClickShowLoans}>Show Loans</MenuItem>
         </Menu>
     </div>
     );

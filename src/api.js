@@ -169,3 +169,21 @@ export async function getPriceHistory(params) {
     });
     return await fetchJson(url, {headers}, []);
 }
+
+export async function getShowLoans(params) {
+    const showLoansRes = [
+        {
+            cusip: '31288CVS7',
+            loand_id: '1245'
+        },
+        {
+            cusip: '31288CVS7',
+            loand_id: '1233',
+        },
+        {
+            cusip: '31288CVS7',
+            loand_id: '1247'
+        },
+    ];
+    return showLoansRes;
+}

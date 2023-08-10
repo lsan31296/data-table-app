@@ -90,7 +90,8 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
         }
     ));
 
-    //HANDLER FUNCTIONS DECLARED HERE
+//HANDLER FUNCTIONS DECLARED HERE
+    //MODAL HANDLERS HERE
     const handleRecentTradeModalOpen = (uspTradeRes, title, recentTradeModalColumns) => {
         setModalData(uspTradeRes);
         setModalTitle(title);
@@ -109,15 +110,20 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
         setModalColumns(priceHistoryModalColumns);
         setIsModalOpen(true);
     };
+    const handleShowLoansModalOpen = (showLoansRes, title, showLoansModalColumns) => {
+        setModalData(showLoansRes);
+        setModalTitle(title);
+        setModalColumns(showLoansModalColumns);
+        setIsModalOpen(true);
+    };
     const handleModalClose = () => {
         setIsModalOpen(false);
     }
-
+    //RISK HOLDINGS HANDLERS HERE
     const handleCloseButton = () => {
         //Wei's idea.
         document.getElementById('remove-tab-button').click();
     }
-
     const handleAddTabClick = (event) => {
         console.log("Tab Index before adding tab: ", tabIndex);
         console.log("TabList Array Length Before: ", tabListArr.length)
@@ -509,7 +515,10 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
         {
             cell: row => 
             <div>
-                <CustomMaterialMenu size="small" row={row} handleModalOption1Open={handleRecentTradeModalOpen} handleModalOption2Open={handleSecurityDetailModalOpen} handleModalOption3Open={handlePriceHistoryModalOpen}/>
+                <CustomMaterialMenu size="small" row={row} handleModalOption1Open={handleRecentTradeModalOpen} 
+                    handleModalOption2Open={handleSecurityDetailModalOpen} handleModalOption3Open={handlePriceHistoryModalOpen}
+                    handleModalOption4Open={handleShowLoansModalOpen}
+                />
             </div>,
             allowOverFlow: true,
             button: true,
