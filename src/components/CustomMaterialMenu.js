@@ -28,89 +28,105 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 name: "Trade Date",
                 selector: (row) => row.trade_date.slice(0,10),
                 compact: true,
+                reorder: true,
             },
             {
                 name: "Settle Date",
                 selector: (row) => row.settle_date.slice(0,10),
                 compact: true,
+                reorder: true,
             },
             {
                 name: "Transaction Type",
                 selector: (row) => row.trans_type,
                 compact: true,
+                reorder: true,
             }, 
             {
                 name: "Account",
                 selector: (row) => row.account,
                 compact: true,
+                reorder: true,
                 minWidth: "60px",
             }, 
             {
                 name: "Advent Portfolio ID",
                 selector: (row) => row.advPortfolioId,
                 compact: true,
+                reorder: true,
                 minWidth: "120px",
             },
             {
                 name: "Advent Security ID",
                 selector: (row) => row.advSecurityId,
                 compact: true,
+                reorder: true,
                 minWidth: "120px",
             },
             {
                 name: "Security Name",
                 selector: (row) => row.sec_name,
                 compact: true,
+                reorder: true,
                 minWidth: "86px"
             },
             {
                 name: "Pool Name",
                 selector: (row) => row.pool_name,
                 compact: true,
+                reorder: true,
                 minWidth: "86px",
             },
             {
                 name: "CUSIP",
                 selector: (row) => row.cusip,
                 compact: true,
+                reorder: true,
                 minWidth: "90px",
             },
             {
                 name: "Symbol",
                 selector: (row) => row.symbol,
                 compact: true,
+                reorder: true,
             },
             {
                 name: "Original Face",
                 selector: (row) => row.orig_face,
                 compact: true,
+                reorder: true,
             },
             {
                 name: "Current Face",
                 selector: (row) => row.curr_face,
                 compact: true,
+                reorder: true,
             },
             {
                 name: "Price",
                 selector: (row) => row.price,
                 compact: true,
+                reorder: true,
                 minWidth: "75px",
             },
             {
                 name: "Accrued",
                 selector: (row) => row.accrued,
                 compact: true,
+                reorder: true,
                 minWidth: "80px",
             },
             {
                 name: "Net Money",
                 selector: (row) => row.net_money,
                 compact: true,
+                reorder: true,
             },
             {
                 name: "Dealer",
                 selector: (row) => row.dealer,
                 compact: true,
+                reorder: true,
             },
         ];
 
@@ -137,102 +153,121 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 name: 'ID',
                 selector: (row) => row.id,
                 compact: true,
+                reorder: true,
                 minWidth: '60px',
             },
             {
                 name: 'CUSIP',
                 selector: (row) => row.cusip,
                 compact: true,
+                reorder: true,
                 minWidth: '80px'
             }, 
             {
                 name: 'Ticker',
                 selector: (row) => row.ticker,
-                compact: true
+                compact: true,
+                reorder: true
             },
             {
                 name: 'Name',
                 selector: (row) => row.name,
                 compact: true,
+                reorder: true,
                 maxWidth: '150px'
             },
             {
                 name: 'LT Date',
                 selector: (row) => row.lastTradeableDate,
                 compact: true,
+                reorder: true,
             },
             {
                 name: 'Last Price',
                 selector: (row) => row.lastPrice,
                 compact: true,
+                reorder: true,
             },
             {
                 name: 'Issuer',
                 selector: (row) => row.issuer,
                 compact: true,
+                reorder: true,
             },
             {
                 name: 'Sec Type',
                 selector: (row) => row.security_typ,
                 compact: true,
+                reorder: true,
             },
             {
                 name: 'GICS Industry Group',
                 selector: (row) => row.gics_industry_group,
                 compact: true,
+                reorder: true,
                 minWidth: '150px'
             },
             {
                 name: 'GICS Sec',
                 selector: (row) => row.gics_sector,
                 compact: true,
+                reorder: true,
             },
             {
                 name: 'BICS 2 Ind Group Name',
                 selector: (row) => row.bics_level_2_industry_group_name,
                 compact: true,
+                reorder: true,
                 minWidth: '160px',
             },
             {
                 name: 'EXCH Code',
                 selector: (row) => row.exch_code,
                 compact: true,
+                reorder: true,
             },
             {
                 name: 'Primary EXCH Name',
                 selector: (row) => row.primary_exchange_name,
                 compact: true,
+                reorder: true,
                 minWidth: '120px'
             },
             {
                 name: 'Ind Group',
                 selector: (row) => row.industry_group,
                 compact: true,
+                reorder: true,
             },
             {
                 name: 'Country',
                 selector: (row) => row.country,
                 compact: true,
+                reorder: true,
             },
             {
                 name: 'Market Sec Des',
                 selector: (row) => row.market_sector_des,
                 compact: true,
+                reorder: true,
             },
             {
                 name: '144A Flag',
                 selector: (row) => row.one_four_four_a_flag,
                 compact: true,
+                reorder: true,
             },
             {
                 name: 'Muni Issue Szie',
                 selector: (row) => row.muni_issue_size,
                 compact: true,
+                reorder: true,
             },
             {
                 name: 'Mtg Agency Backed',
                 selector: (row) => row.mtg_is_agency_backed,
                 compact: true,
+                reorder: true,
                 minWidth: '110px'
             }
         ]
@@ -253,16 +288,21 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 name:'AO Date',
                 selector: (row) => (row.aoDate).slice(0,10),
                 compact: true,
+                reorder: true,
+                sortable: true,
             },
             {
                 name: 'CUSIP',
                 selector: (row) => row.cusip,
                 compact: true,
+                reorder: true,
             },
             {
                 name: 'PriceValue',
                 selector: (row) => row.priceValue,
                 compact: true,
+                reorder: true,
+                sortable: true,
             }
         ];
         
@@ -278,14 +318,1824 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
         const showLoansModalColumns = [
             {
                 name: 'Cusip',
-                selector: (row) => row.cusip,
+                selector: (row, index) => {
+                    if (!row.cusip) {
+                        showLoansModalColumns[0].omit = true;
+                        return;
+                    }
+                    return row.cusip
+                },
                 compact: true,
+                reorder: true,
             },
             {
                 name: 'Loan ID',
-                selector: (row) => row.loand_id,
+                selector: (row) => {
+                    if (!row.loandId) {
+                        showLoansModalColumns[1].omit = true;
+                        return;
+                    }
+                    return row.loandId;
+                },
                 compact: true,
-            }
+                reorder: true,
+            },
+            {
+                name: 'Issuer',
+                selector: (row) => {
+                    if(!row.issuer) {
+                        showLoansModalColumns[2].omit = true;
+                        return;
+                    }
+                    return row.issuer;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Security Name',
+                selector: (row,index) => {
+                    if (!row.securityName) {
+                        showLoansModalColumns[3].omit = true;
+                        return;
+                    }
+                    return row.securityName;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Rehab',
+                selector: (row,index) => {
+                    if (!row.rehab) {
+                        showLoansModalColumns[4].omit = true;
+                        return;
+                    }
+                    return <input className="form-check-input" type="checkbox" value="" disabled checked={row.rehab === true ? true : false }/>;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Affordable',
+                selector: (row,index) => {
+                    if (!row.affordable) {
+                        showLoansModalColumns[5].omit = true;
+                        return;
+                    }
+                    return <input className="form-check-input" type="checkbox" value="" disabled checked={row.affordable === true ? true : false }/>
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Arts cul',
+                selector: (row,index) => {
+                    if (!row.artsCul) {
+                        showLoansModalColumns[6].omit = true;
+                        return;
+                    }
+                    return <input className="form-check-input" type="checkbox" value="" disabled checked={row.artsCul === true ? true : false }/>
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Dis Rec',
+                selector: (row,index) => {
+                    if (!row.disRec) {
+                        showLoansModalColumns[7].omit = true;
+                        return;
+                    }
+                    return <input className="form-check-input" type="checkbox" value="" disabled checked={row.disRec === true ? true : false }/>
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Educ',
+                selector: (row,index) => {
+                    if (!row.educ) {
+                        showLoansModalColumns[8].omit = true;
+                        return;
+                    }
+                    return <input className="form-check-input" type="checkbox" value="" disabled checked={row.educ === true ? true : false }/>
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Dis Rec',
+                selector: (row,index) => {
+                    if (!row.disRec) {
+                        showLoansModalColumns[9].omit = true;
+                        return;
+                    }
+                    return <input className="form-check-input" type="checkbox" value="" disabled checked={row.disRec === true ? true : false }/>
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'EntDev',
+                selector: (row,index) => {
+                    if (!row.entDev) {
+                        showLoansModalColumns[10].omit = true;
+                        return;
+                    }
+                    return <input className="form-check-input" type="checkbox" value="" disabled checked={row.entDev === true ? true : false }/>
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Green',
+                selector: (row,index) => {
+                    if (!row.green) {
+                        showLoansModalColumns[11].omit = true;
+                        return;
+                    }
+                    return <input className="form-check-input" type="checkbox" value="" disabled checked={row.green === true ? true : false }/>
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Gender',
+                selector: (row,index) => {
+                    if (!row.gender) {
+                        showLoansModalColumns[12].omit = true;
+                        return;
+                    }
+                    return <input className="form-check-input" type="checkbox" value="" disabled checked={row.gender === true ? true : false }/>
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Gov',
+                selector: (row,index) => {
+                    if (!row.gov) {
+                        showLoansModalColumns[13].omit = true;
+                        return;
+                    }
+                    return <input className="form-check-input" type="checkbox" value="" disabled checked={row.gov === true ? true : false }/>
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Healthy',
+                selector: (row,index) => {
+                    if (!row.healthy) {
+                        showLoansModalColumns[14].omit = true;
+                        return;
+                    }
+                    return <input className="form-check-input" type="checkbox" value="" disabled checked={row.healthy === true ? true : false }/>
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Human Empathy',
+                selector: (row,index) => {
+                    if (!row.humEmp) {
+                        showLoansModalColumns[15].omit = true;
+                        return;
+                    }
+                    return <input className="form-check-input" type="checkbox" value="" disabled checked={row.humEmp === true ? true : false }/>
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Minority',
+                selector: (row,index) => {
+                    if (!row.minority) {
+                        showLoansModalColumns[16].omit = true;
+                        return;
+                    }
+                    return <input className="form-check-input" type="checkbox" value="" disabled checked={row.minority === true ? true : false }/>
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Revit',
+                selector: (row,index) => {
+                    if (!row.revit) {
+                        showLoansModalColumns[17].omit = true;
+                        return;
+                    }
+                    return <input className="form-check-input" type="checkbox" value="" disabled checked={row.revit === true ? true : false }/>
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Rural',
+                selector: (row,index) => {
+                    if (!row.rural) {
+                        showLoansModalColumns[18].omit = true;
+                        return;
+                    }
+                    return <input className="form-check-input" type="checkbox" value="" disabled checked={row.rural === true ? true : false }/>
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Seniors',
+                selector: (row,index) => {
+                    if (!row.seniors) {
+                        showLoansModalColumns[19].omit = true;
+                        return;
+                    }
+                    return <input className="form-check-input" type="checkbox" value="" disabled checked={row.seniors === true ? true : false }/>
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Agricultural',
+                selector: (row,index) => {
+                    if (!row.agr) {
+                        showLoansModalColumns[20].omit = true;
+                        return;
+                    }
+                    return <input className="form-check-input" type="checkbox" value="" disabled checked={row.agr === true ? true : false }/>
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'TOD',
+                selector: (row,index) => {
+                    if (!row.tod) {
+                        showLoansModalColumns[21].omit = true;
+                        return;
+                    }
+                    return <input className="form-check-input" type="checkbox" value="" disabled checked={row.tod === true ? true : false }/>
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Economic',
+                selector: (row,index) => {
+                    if (!row.economic) {
+                        showLoansModalColumns[22].omit = true;
+                        return;
+                    }
+                    return <input className="form-check-input" type="checkbox" value="" disabled checked={row.economic === true ? true : false }/>
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Faith',
+                selector: (row,index) => {
+                    if (!row.faith) {
+                        showLoansModalColumns[23].omit = true;
+                        return;
+                    }
+                    return <input className="form-check-input" type="checkbox" value="" disabled checked={row.faith === true ? true : false }/>
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'mCares',
+                selector: (row,index) => {
+                    if (!row.mCares) {
+                        showLoansModalColumns[24].omit = true;
+                        return;
+                    }
+                    return <input className="form-check-input" type="checkbox" value="" disabled checked={row.mCares === true ? true : false }/>
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'COVID',
+                selector: (row,index) => {
+                    if (!row.covid) {
+                        showLoansModalColumns[25].omit = true;
+                        return;
+                    }
+                    return <input className="form-check-input" type="checkbox" value="" disabled checked={row.covid === true ? true : false }/>
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'mCares Initiative',
+                selector: (row,index) => {
+                    if (!row.mCaresInitiative) {
+                        showLoansModalColumns[26].omit = true;
+                        return;
+                    }
+                    return <input className="form-check-input" type="checkbox" value="" disabled checked={row.mCaresInitiative === true ? true : false }/>
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'COVID Initiative',
+                selector: (row,index) => {
+                    if (!row.covidInitiative) {
+                        showLoansModalColumns[27].omit = true;
+                        return;
+                    }
+                    return <input className="form-check-input" type="checkbox" value="" disabled checked={row.covidInitiative === true ? true : false }/>
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Security ID',
+                selector: (row,index) => {
+                    if (!row.securityId) {
+                        showLoansModalColumns[28].omit = true;
+                        return;
+                    }
+                    return row.securityId;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Number',
+                selector: (row,index) => {
+                    if (!row.number) {
+                        showLoansModalColumns[29].omit = true;
+                        return;
+                    }
+                    return row.number;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Rate',
+                selector: (row,index) => {
+                    if (!row.rate) {
+                        showLoansModalColumns[30].omit = true;
+                        return;
+                    }
+                    return row.rate;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Amount',
+                selector: (row,index) => {
+                    if (!row.amount) {
+                        showLoansModalColumns[31].omit = true;
+                        return;
+                    }
+                    return row.amount;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'FICO',
+                selector: (row,index) => {
+                    if (!row.fico) {
+                        showLoansModalColumns[32].omit = true;
+                        return;
+                    }
+                    return row.fico;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Term',
+                selector: (row,index) => {
+                    if (!row.term) {
+                        showLoansModalColumns[33].omit = true;
+                        return;
+                    }
+                    return row.term;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'LTV',
+                selector: (row,index) => {
+                    if (!row.ltv) {
+                        showLoansModalColumns[34].omit = true;
+                        return;
+                    }
+                    return row.ltv;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Occupancy',
+                selector: (row,index) => {
+                    if (!row.occupancy) {
+                        showLoansModalColumns[35].omit = true;
+                        return;
+                    }
+                    return row.occupancy;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Security Type',
+                selector: (row,index) => {
+                    if (!row.securityType) {
+                        showLoansModalColumns[36].omit = true;
+                        return;
+                    }
+                    return row.securityType;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Address',
+                selector: (row,index) => {
+                    if (!row.address) {
+                        showLoansModalColumns[37].omit = true;
+                        return;
+                    }
+                    return row.address;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'City ID',
+                selector: (row,index) => {
+                    if (!row.cityId) {
+                        showLoansModalColumns[38].omit = true;
+                        return;
+                    }
+                    return row.cityId;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'City',
+                selector: (row,index) => {
+                    if (!row.city) {
+                        showLoansModalColumns[39].omit = true;
+                        return;
+                    }
+                    return row.city;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'State ID',
+                selector: (row,index) => {
+                    if (!row.stateId) {
+                        showLoansModalColumns[40].omit = true;
+                        return;
+                    }
+                    return row.stateId;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'State',
+                selector: (row,index) => {
+                    if (!row.state) {
+                        showLoansModalColumns[41].omit = true;
+                        return;
+                    }
+                    return row.state;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'State County Code',
+                selector: (row,index) => {
+                    if (!row.stateCountyCode) {
+                        showLoansModalColumns[42].omit = true;
+                        return;
+                    }
+                    return row.stateCountyCode;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Class Code',
+                selector: (row,index) => {
+                    if (!row.classCode) {
+                        showLoansModalColumns[43].omit = true;
+                        return;
+                    }
+                    return row.classCode;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'County',
+                selector: (row,index) => {
+                    if (!row.county) {
+                        showLoansModalColumns[44].omit = true;
+                        return;
+                    }
+                    return row.county;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Is PPC',
+                selector: (row,index) => {
+                    if (!row.isPPC) {
+                        showLoansModalColumns[45].omit = true;
+                        return;
+                    }
+                    return row.isPPC;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Zip Code',
+                selector: (row,index) => {
+                    if (!row.zipCode) {
+                        showLoansModalColumns[46].omit = true;
+                        return;
+                    }
+                    return row.zipCode;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Annual Income',
+                selector: (row,index) => {
+                    if (!row.annualIncome) {
+                        showLoansModalColumns[47].omit = true;
+                        return;
+                    }
+                    return row.annualIncome;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'MSA Number',
+                selector: (row,index) => {
+                    if (!row.msaNumber) {
+                        showLoansModalColumns[48].omit = true;
+                        return;
+                    }
+                    return row.msaNumber;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Percent Median',
+                selector: (row,index) => {
+                    if (!row.percentMedian) {
+                        showLoansModalColumns[49].omit = true;
+                        return;
+                    }
+                    return row.percentMedian;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'MFI ID',
+                selector: (row,index) => {
+                    if (!row.mfiId) {
+                        showLoansModalColumns[50].omit = true;
+                        return;
+                    }
+                    return row.mfiId;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Census Tract',
+                selector: (row,index) => {
+                    if (!row.censusTract) {
+                        showLoansModalColumns[51].omit = true;
+                        return;
+                    }
+                    return row.censusTract;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'LI Ratio',
+                selector: (row,index) => {
+                    if (!row.liRatio) {
+                        showLoansModalColumns[52].omit = true;
+                        return;
+                    }
+                    return row.liRatio;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'CCM Percent Of MF',
+                selector: (row,index) => {
+                    if (!row.ccmPercentOfMf) {
+                        showLoansModalColumns[53].omit = true;
+                        return;
+                    }
+                    return row.ccmPercentOfMf;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Expr 1',
+                selector: (row,index) => {
+                    if (!row.expr1) {
+                        showLoansModalColumns[54].omit = true;
+                        return;
+                    }
+                    return row.expr1;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Race',
+                selector: (row,index) => {
+                    if (!row.race) {
+                        showLoansModalColumns[55].omit = true;
+                        return;
+                    }
+                    return row.race;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Ethnicity',
+                selector: (row,index) => {
+                    if (!row.ethnicity) {
+                        showLoansModalColumns[56].omit = true;
+                        return;
+                    }
+                    return row.ethnicity;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'FFIEC MSA Code',
+                selector: (row,index) => {
+                    if (!row.ffiecMsaCode) {
+                        showLoansModalColumns[57].omit = true;
+                        return;
+                    }
+                    return row.ffiecMsaCode;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'FFIEC County Code',
+                selector: (row,index) => {
+                    if (!row.ffiecCountyCode) {
+                        showLoansModalColumns[58].omit = true;
+                        return;
+                    }
+                    return row.ffiecCountyCode;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'FFIEC Census Tract',
+                selector: (row,index) => {
+                    if (!row.ffiecCensusTract) {
+                        showLoansModalColumns[59].omit = true;
+                        return;
+                    }
+                    return row.ffiecCensusTract;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'FFIEC County Name',
+                selector: (row,index) => {
+                    if (!row.ffiecCountyName) {
+                        showLoansModalColumns[60].omit = true;
+                        return;
+                    }
+                    return row.ffiecCountyName;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'FFIEC Income Level',
+                selector: (row,index) => {
+                    if (!row.ffiecIncomeLevel) {
+                        showLoansModalColumns[61].omit = true;
+                        return;
+                    }
+                    return row.ffiecIncomeLevel;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'FFIEC Distressed',
+                selector: (row,index) => {
+                    if (!row.ffiecDistressed) {
+                        showLoansModalColumns[62].omit = true;
+                        return;
+                    }
+                    return row.ffiecDistressed;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'FFIEC MFI',
+                selector: (row,index) => {
+                    if (!row.ffiecMfi) {
+                        showLoansModalColumns[63].omit = true;
+                        return;
+                    }
+                    return row.ffiecMfi;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'FFIEC Tract Percent Minority',
+                selector: (row,index) => {
+                    if (!row.ffiecTractPercentMinority) {
+                        showLoansModalColumns[64].omit = true;
+                        return;
+                    }
+                    return row.ffiecTractPercentMinority;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'FFIEC Percent Poverty',
+                selector: (row,index) => {
+                    if (!row.ffiecPercentPoverty) {
+                        showLoansModalColumns[65].omit = true;
+                        return;
+                    }
+                    return row.ffiecPercentPoverty;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'FFIEC State Code',
+                selector: (row,index) => {
+                    if (!row.ffiecStateCode) {
+                        showLoansModalColumns[66].omit = true;
+                        return;
+                    }
+                    return row.ffiecStateCode;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'FFIEC MSA MFI Percent',
+                selector: (row,index) => {
+                    if (!row.ffiecMsamfiPercent) {
+                        showLoansModalColumns[67].omit = true;
+                        return;
+                    }
+                    return row.ffiecMsamfiPercent;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'FFIEC State',
+                selector: (row,index) => {
+                    if (!row.ffiecState) {
+                        showLoansModalColumns[68].omit = true;
+                        return;
+                    }
+                    return row.ffiecState;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'FFIEC Zipo Code',
+                selector: (row,index) => {
+                    if (!row.ffiecZipoCode) {
+                        showLoansModalColumns[69].omit = true;
+                        return;
+                    }
+                    return row.ffiecZipoCode;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Walk Score',
+                selector: (row,index) => {
+                    if (!row.walkScore) {
+                        showLoansModalColumns[70].omit = true;
+                        return;
+                    }
+                    return row.walkScore;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Walk Score Description',
+                selector: (row,index) => {
+                    if (!row.walkScoreDescription) {
+                        showLoansModalColumns[71].omit = true;
+                        return;
+                    }
+                    return row.walkScoreDescription;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Bike Score',
+                selector: (row,index) => {
+                    if (!row.bikeScore) {
+                        showLoansModalColumns[72].omit = true;
+                        return;
+                    }
+                    return row.bikeScore;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Bike Score Description',
+                selector: (row,index) => {
+                    if (!row.bikeScoreDescription) {
+                        showLoansModalColumns[73].omit = true;
+                        return;
+                    }
+                    return row.bikeScoreDescription;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Transit Score',
+                selector: (row,index) => {
+                    if (!row.transitScore) {
+                        showLoansModalColumns[74].omit = true;
+                        return;
+                    }
+                    return row.transitScore;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Transit Score Description',
+                selector: (row,index) => {
+                    if (!row.transitScoreDescription) {
+                        showLoansModalColumns[75].omit = true;
+                        return;
+                    }
+                    return row.transitScoreDescription;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Latitude',
+                selector: (row,index) => {
+                    if (!row.latitude) {
+                        showLoansModalColumns[76].omit = true;
+                        return;
+                    }
+                    return row.latitude;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Longitude',
+                selector: (row,index) => {
+                    if (!row.longitude) {
+                        showLoansModalColumns[77].omit = true;
+                        return;
+                    }
+                    return row.longitude;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Gender 2',
+                selector: (row,index) => {
+                    if (!row.gender2) {
+                        showLoansModalColumns[78].omit = true;
+                        return;
+                    }
+                    return row.gender2;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Race 2',
+                selector: (row,index) => {
+                    if (!row.race2) {
+                        showLoansModalColumns[79].omit = true;
+                        return;
+                    }
+                    return row.race2;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Ethnicity 2',
+                selector: (row,index) => {
+                    if (!row.ethnicity2) {
+                        showLoansModalColumns[80].omit = true;
+                        return;
+                    }
+                    return row.ethnicity2;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Pool Number',
+                selector: (row,index) => {
+                    if (!row.poolNumber) {
+                        showLoansModalColumns[81].omit = true;
+                        return;
+                    }
+                    return row.poolNumber;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Expr 2',
+                selector: (row,index) => {
+                    if (!row.expr2) {
+                        showLoansModalColumns[82].omit = true;
+                        return;
+                    }
+                    return row.expr2;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Orig Amount',
+                selector: (row,index) => {
+                    if (!row.originalAmount) {
+                        showLoansModalColumns[83].omit = true;
+                        return;
+                    }
+                    return row.originalAmount;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Curr Factor',
+                selector: (row,index) => {
+                    if (!row.currentFactor) {
+                        showLoansModalColumns[84].omit = true;
+                        return;
+                    }
+                    return row.currentFactor;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Curr Amount',
+                selector: (row,index) => {
+                    if (!row.currentAmount) {
+                        showLoansModalColumns[85].omit = true;
+                        return;
+                    }
+                    return row.currentAmount;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Property Name',
+                selector: (row,index) => {
+                    if (!row.propertyName) {
+                        showLoansModalColumns[86].omit = true;
+                        return;
+                    }
+                    return row.propertyName;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Issue Date',
+                selector: (row,index) => {
+                    if (!row.issueDate) {
+                        showLoansModalColumns[87].omit = true;
+                        return;
+                    }
+                    return row.issueDate.slice(0,10);
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Maturity Date',
+                selector: (row,index) => {
+                    if (!row.maturityDate) {
+                        showLoansModalColumns[88].omit = true;
+                        return;
+                    }
+                    return row.maturityDate.slice(0,10);
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Affordable ID',
+                selector: (row,index) => {
+                    if (!row.affordableId) {
+                        showLoansModalColumns[89].omit = true;
+                        return;
+                    }
+                    return row.affordableId;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'FHA Case Number',
+                selector: (row,index) => {
+                    if (!row.fhaCasNumber) {
+                        showLoansModalColumns[90].omit = true;
+                        return;
+                    }
+                    return row.fhaCasNumber;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Acknowledge Unaffordable',
+                selector: (row,index) => {
+                    if (!row.acknowledgeUnaffordable) {
+                        showLoansModalColumns[91].omit = true;
+                        return;
+                    }
+                    return <input className="form-check-input" type="checkbox" value="" disabled checked={row.acknowledgeUnaffordable === true ? true : false }/>;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Unaffordable Comment',
+                selector: (row,index) => {
+                    if (!row.unaffordableComment) {
+                        showLoansModalColumns[92].omit = true;
+                        return;
+                    }
+                    return row.unaffordableComment;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Unaffordable Overriding User ID',
+                selector: (row,index) => {
+                    if (!row.unaffordableOverridingUserId) {
+                        showLoansModalColumns[93].omit = true;
+                        return;
+                    }
+                    return row.unaffordableOverridingUserId;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'MFI',
+                selector: (row,index) => {
+                    if (!row.mfi) {
+                        showLoansModalColumns[94].omit = true;
+                        return;
+                    }
+                    return row.mfi;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Units A',
+                selector: (row,index) => {
+                    if (!row.unitsA) {
+                        showLoansModalColumns[95].omit = true;
+                        return;
+                    }
+                    return row.unitsB;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Units B',
+                selector: (row,index) => {
+                    if (!row.unitsB) {
+                        showLoansModalColumns[96].omit = true;
+                        return;
+                    }
+                    return row.unitsB;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Non CRA Qualified',
+                selector: (row,index) => {
+                    if (!row.nonCraQualified) {
+                        showLoansModalColumns[97].omit = true;
+                        return;
+                    }
+                    return <input className="form-check-input" type="checkbox" value="" disabled checked={row.nonCraQualified === true ? true : false }/>;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Contract',
+                selector: (row,index) => {
+                    if (!row.contract) {
+                        showLoansModalColumns[98].omit = true;
+                        return;
+                    }
+                    return row.contract;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Contract Start Date',
+                selector: (row,index) => {
+                    if (!row.contractStartDate) {
+                        showLoansModalColumns[99].omit = true;
+                        return;
+                    }
+                    return row.contractStartDate.slice(0,10);
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Contract End Date',
+                selector: (row,index) => {
+                    if (!row.contractEndDate) {
+                        showLoansModalColumns[100].omit = true;
+                        return;
+                    }
+                    return row.contractEndDate.slice(0,10);
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Create Date',
+                selector: (row,index) => {
+                    if (!row.createDate) {
+                        showLoansModalColumns[101].omit = true;
+                        return;
+                    }
+                    return row.createDate.slice(0,10);
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'FFIEC Looked Up',
+                selector: (row,index) => {
+                    if (!row.ffiecLookedUp) {
+                        showLoansModalColumns[102].omit = true;
+                        return;
+                    }
+                    return <input className="form-check-input" type="checkbox" value="" disabled checked={row.ffiecLookedUp === true ? true : false }/>;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Recap Loan',
+                selector: (row,index) => {
+                    if (!row.recapLoan) {
+                        showLoansModalColumns[103].omit = true;
+                        return;
+                    }
+                    return <input className="form-check-input" type="checkbox" value="" disabled checked={row.recapLoan === true ? true : false }/>;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Tracker Loan ID',
+                selector: (row,index) => {
+                    if (!row.trackerLoanId) {
+                        showLoansModalColumns[104].omit = true;
+                        return;
+                    }
+                    return row.trackerLoanId;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'General Text',
+                selector: (row,index) => {
+                    if (!row.generalText) {
+                        showLoansModalColumns[105].omit = true;
+                        return;
+                    }
+                    return row.generalText;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Google Addres',
+                selector: (row,index) => {
+                    if (!row.googleAddress) {
+                        showLoansModalColumns[106].omit = true;
+                        return;
+                    }
+                    return row.googleAddress;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Tracker Loan ID',
+                selector: (row,index) => {
+                    if (!row.trackerLoanId) {
+                        showLoansModalColumns[107].omit = true;
+                        return;
+                    }
+                    return row.trackerLoanId;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Google Looked Up',
+                selector: (row,index) => {
+                    if (!row.googleLookedUp) {
+                        showLoansModalColumns[108].omit = true;
+                        return;
+                    }
+                    return <input className="form-check-input" type="checkbox" value="" disabled checked={row.googleLookedUp === true ? true : false }/>;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Difficult Development Area',
+                selector: (row,index) => {
+                    if (!row.difficultDevelopmentArea) {
+                        showLoansModalColumns[109].omit = true;
+                        return;
+                    }
+                    return <input className="form-check-input" type="checkbox" value="" disabled checked={row.difficultDevelopmentArea === true ? true : false }/>;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Rural Census Tract and MSA',
+                selector: (row,index) => {
+                    if (!row.ruralCensusTractAndMsa) {
+                        showLoansModalColumns[110].omit = true;
+                        return;
+                    }
+                    return <input className="form-check-input" type="checkbox" value="" disabled checked={row.ruralCensusTractAndMsa === true ? true : false }/>;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Persistent Poverty County',
+                selector: (row,index) => {
+                    if (!row.persistentPovertyCounty) {
+                        showLoansModalColumns[111].omit = true;
+                        return;
+                    }
+                    return <input className="form-check-input" type="checkbox" value="" disabled checked={row.persistentPovertyCounty === true ? true : false }/>;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'FFIEC Lookup Date',
+                selector: (row,index) => {
+                    if (!row.ffiecLookupDate) {
+                        showLoansModalColumns[112].omit = true;
+                        return;
+                    }
+                    return row.ffiecLookupDate.slice(0,10);
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Walk Score Lookup Date',
+                selector: (row,index) => {
+                    if (!row.walkScoreLookupDate) {
+                        showLoansModalColumns[113].omit = true;
+                        return;
+                    }
+                    return row.walkScoreLookupDate.slice(0,10);
+                },
+                compact: true,
+                reorder: true,
+                minWidth: "140px",
+            },
+            {
+                name: 'Recap Lookup Date',
+                selector: (row,index) => {
+                    if (!row.recapLookupDate) {
+                        showLoansModalColumns[114].omit = true;
+                        return;
+                    }
+                    return row.recapLookupDate.slice(0,10);
+                },
+                compact: true,
+                reorder: true,
+                minWidth: "120px"
+            },
+            {
+                name: 'Difficult Dev Area Lookup Date',
+                selector: (row,index) => {
+                    if (!row.difficultDevelopmentAreaLookupDate) {
+                        showLoansModalColumns[115].omit = true;
+                        return;
+                    }
+                    return row.difficultDevelopmentAreaLookupDate.slice(0,10);
+                },
+                compact: true,
+                reorder: true,
+                minWidth: "185px",
+            },
+            {
+                name: 'Persistent Poverty County Lookup Date',
+                selector: (row,index) => {
+                    if (!row.persistentPovertyCountyLookupDate) {
+                        showLoansModalColumns[116].omit = true;
+                        return;
+                    }
+                    return row.persistentPovertyCountyLookupDate.slice(0,10);
+                },
+                compact: true,
+                reorder: true,
+                minWidth: "240px",
+            },
+            {
+                name: 'Geo Coded Date',
+                selector: (row,index) => {
+                    if (!row.geoCodedDate) {
+                        showLoansModalColumns[117].omit = true;
+                        return;
+                    }
+                    return row.geoCodedDate.slice(0,10);
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Census Data Date',
+                selector: (row,index) => {
+                    if (!row.censusDataDate) {
+                        showLoansModalColumns[118].omit = true;
+                        return;
+                    }
+                    return row.censusDataDate.slice(0,10);
+                },
+                compact: true,
+                reorder: true,
+                minWidth: "120px",
+            },
+            {
+                name: 'Rural Census Tract and MSA Lookup Date',
+                selector: (row,index) => {
+                    if (!row.ruralCensusTractAndMsaLookupDate) {
+                        showLoansModalColumns[119].omit = true;
+                        return;
+                    }
+                    return row.ruralCensusTractAndMsaLookupDate.slice(0,10);
+                },
+                compact: true,
+                reorder: true,
+                minWidth: "240px",
+            },
+            {
+                name: 'Units C',
+                selector: (row,index) => {
+                    if (!row.unitsC) {
+                        showLoansModalColumns[120].omit = true;
+                        return;
+                    }
+                    return row.unitsC;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Units D',
+                selector: (row,index) => {
+                    if (!row.unitsD) {
+                        showLoansModalColumns[121].omit = true;
+                        return;
+                    }
+                    return row.unitsD;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Expr 3',
+                selector: (row,index) => {
+                    if (!row.expr3) {
+                        showLoansModalColumns[122].omit = true;
+                        return;
+                    }
+                    return row.expr3;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'MSA Code',
+                selector: (row,index) => {
+                    if (!row.msaCode) {
+                        showLoansModalColumns[123].omit = true;
+                        return;
+                    }
+                    return row.msaCode;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'MSA Name',
+                selector: (row,index) => {
+                    if (!row.msaName) {
+                        showLoansModalColumns[124].omit = true;
+                        return;
+                    }
+                    return row.msaName;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Source',
+                selector: (row,index) => {
+                    if (!row.source) {
+                        showLoansModalColumns[125].omit = true;
+                        return;
+                    }
+                    return row.source;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Year',
+                selector: (row,index) => {
+                    if (!row.year) {
+                        showLoansModalColumns[126].omit = true;
+                        return;
+                    }
+                    return row.year;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Use As Current',
+                selector: (row,index) => {
+                    if (!row.useAsCurrent) {
+                        showLoansModalColumns[127].omit = true;
+                        return;
+                    }
+                    return <input className="form-check-input" type="checkbox" value="" disabled checked={row.useAsCurrent === true ? true : false }/>;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Record Type',
+                selector: (row,index) => {
+                    if (!row.recordType) {
+                        showLoansModalColumns[128].omit = true;
+                        return;
+                    }
+                    return row.recordType;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Property ID',
+                selector: (row,index) => {
+                    if (!row.propertyId) {
+                        showLoansModalColumns[129].omit = true;
+                        return;
+                    }
+                    return row.propertyId;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Expr 4',
+                selector: (row,index) => {
+                    if (!row.expr4) {
+                        showLoansModalColumns[130].omit = true;
+                        return;
+                    }
+                    return row.expr4;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Affordable Address',
+                selector: (row,index) => {
+                    if (!row.affordableAddress) {
+                        showLoansModalColumns[131].omit = true;
+                        return;
+                    }
+                    return row.affordableAddress;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Affordable City',
+                selector: (row,index) => {
+                    if (!row.affordableCity) {
+                        showLoansModalColumns[132].omit = true;
+                        return;
+                    }
+                    return row.affordableCity;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Affordable State',
+                selector: (row,index) => {
+                    if (!row.affordableState) {
+                        showLoansModalColumns[133].omit = true;
+                        return;
+                    }
+                    return row.affordableState;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Affordable Zip',
+                selector: (row,index) => {
+                    if (!row.affordableZip) {
+                        showLoansModalColumns[134].omit = true;
+                        return;
+                    }
+                    return row.affordableZip;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Affordable County Code',
+                selector: (row,index) => {
+                    if (!row.affordableCountyCode) {
+                        showLoansModalColumns[135].omit = true;
+                        return;
+                    }
+                    return row.affordableCountyCode;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Affordable County',
+                selector: (row,index) => {
+                    if (!row.affordableCounty) {
+                        showLoansModalColumns[136].omit = true;
+                        return;
+                    }
+                    return row.affordableCounty;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Total Units',
+                selector: (row,index) => {
+                    if (!row.totalUnits) {
+                        showLoansModalColumns[137].omit = true;
+                        return;
+                    }
+                    return row.totalUnits;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Tracs Overall Expiration Date',
+                selector: (row,index) => {
+                    if (!row.tracsOverallExpirationDate) {
+                        showLoansModalColumns[138].omit = true;
+                        return;
+                    }
+                    return row.tracsOverallExpirationDate.slice(0,10);
+                },
+                compact: true,
+                reorder: true,
+                minWidth: "190px"
+            },
+            {
+                name: 'Tracs Status Name',
+                selector: (row,index) => {
+                    if (!row.tracsStatusName) {
+                        showLoansModalColumns[139].omit = true;
+                        return;
+                    }
+                    return row.tracsStatusName;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Assisted Units Count',
+                selector: (row,index) => {
+                    if (!row.assistedUnitsCount) {
+                        showLoansModalColumns[140].omit = true;
+                        return;
+                    }
+                    return row.assistedUnitsCount;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'HUD ID',
+                selector: (row,index) => {
+                    if (!row.hudId) {
+                        showLoansModalColumns[141].omit = true;
+                        return;
+                    }
+                    return row.hudId;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'N Units',
+                selector: (row,index) => {
+                    if (!row.nUnits) {
+                        showLoansModalColumns[142].omit = true;
+                        return;
+                    }
+                    return row.nUnits;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'LI Units',
+                selector: (row,index) => {
+                    if (!row.liUnits) {
+                        showLoansModalColumns[143].omit = true;
+                        return;
+                    }
+                    return row.liUnits;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Year Allocation',
+                selector: (row,index) => {
+                    if (!row.yrAlloc) {
+                        showLoansModalColumns[144].omit = true;
+                        return;
+                    }
+                    return row.yrAlloc;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Custom',
+                selector: (row,index) => {
+                    if (!row.custom) {
+                        showLoansModalColumns[145].omit = true;
+                        return;
+                    }
+                    return <input className="form-check-input" type="checkbox" value="" disabled checked={row.custom === true ? true : false }/>;;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Is Legacy',
+                selector: (row,index) => {
+                    if (!row.isLegacy) {
+                        showLoansModalColumns[146].omit = true;
+                        return;
+                    }
+                    return <input className="form-check-input" type="checkbox" value="" disabled checked={row.isLegacy === true ? true : false }/>;;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Is Rolled Up',
+                selector: (row,index) => {
+                    if (!row.isRolledUp) {
+                        showLoansModalColumns[147].omit = true;
+                        return;
+                    }
+                    return <input className="form-check-input" type="checkbox" value="" disabled checked={row.isRolledUp === true ? true : false }/>;;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Is Dated Mismatched',
+                selector: (row,index) => {
+                    if (!row.isDateMismatch) {
+                        showLoansModalColumns[148].omit = true;
+                        return;
+                    }
+                    return <input className="form-check-input" type="checkbox" value="" disabled checked={row.isDateMismatch === true ? true : false }/>;;
+                },
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: 'Tracs Effective Date',
+                selector: (row,index) => {
+                    if (!row.tracsEffectiveDate) {
+                        showLoansModalColumns[149].omit = true;
+                        return;
+                    }
+                    return row.tracsEffectiveDate.slice(0,10);
+                },
+                compact: true,
+                reorder: true,
+                minWidth: "140px"
+            },
+            {
+                name: 'Contract Number',
+                selector: (row,index) => {
+                    if (!row.contractNumber) {
+                        showLoansModalColumns[150].omit = true;
+                        return;
+                    }
+                    return row.contractNumber;
+                },
+                compact: true,
+                reorder: true,
+            },
         ];
         
         if (showLoansRes.length === 0) {

@@ -153,7 +153,6 @@ export async function getUspTrade(params) {
 }
 
 export async function getSecurityDetail(params) {
-    console.log("Params: ", params);
     const url = new URL(`${API_BASE_URL}/get-security-detail`);
     Object.entries(params).forEach(([key, value]) => {
         url.searchParams.append(key, value.toString())
@@ -162,7 +161,6 @@ export async function getSecurityDetail(params) {
 }
 
 export async function getPriceHistory(params) {
-    console.log("Params: ", params);
     const url = new URL(`${API_BASE_URL}/get-price-history`);
     Object.entries(params).forEach(([key, value]) => {
         url.searchParams.append(key, value.toString())
@@ -171,19 +169,9 @@ export async function getPriceHistory(params) {
 }
 
 export async function getShowLoans(params) {
-    const showLoansRes = [
-        {
-            cusip: '31288CVS7',
-            loand_id: '1245'
-        },
-        {
-            cusip: '31288CVS7',
-            loand_id: '1233',
-        },
-        {
-            cusip: '31288CVS7',
-            loand_id: '1247'
-        },
-    ];
-    return showLoansRes;
+    const url = new URL(`${API_BASE_URL}/get-show-loans`);
+    Object.entries(params).forEach(([key, value]) => {
+        url.searchParams.append(key, value.toString())
+    });
+    return await fetchJson(url, {headers}, []);
 }

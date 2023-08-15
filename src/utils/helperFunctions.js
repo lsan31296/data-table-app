@@ -306,3 +306,10 @@ export function removeAndRenamObjectProps(tabIndexToRemove, hash) {
 
     return tempHash;
 }
+
+export function isColumnNull(rowData) {
+    console.log("Called isColumnNull()!");
+    console.log(rowData);
+
+    return true;
+}
