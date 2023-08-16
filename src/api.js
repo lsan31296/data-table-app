@@ -2,7 +2,8 @@
 import data from './data-table/data.json';
 //import multiData from './data-table/multiSelectData.json';
 
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "http://localhost:5000"
+//const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "http://localhost:5000"
+const API_BASE_URL = "http://localhost:5000";
 
 //Defines the default headers for these function to work with 'json-server'
 const headers = new Headers();
@@ -173,5 +174,13 @@ export async function getShowLoans(params) {
     Object.entries(params).forEach(([key, value]) => {
         url.searchParams.append(key, value.toString())
     });
+    return await fetchJson(url, {headers}, []);
+}
+
+export async function getAccountDetails(params) {
+    const url = new URL(`${API_BASE_URL}/get-account-details`);
+    Object.entries(params).forEach(([key, value]) => {
+        url.searchParams.append(key, value.toString())
+    })
     return await fetchJson(url, {headers}, []);
 }

@@ -3,7 +3,7 @@ import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { /*FaRegCopy, FaShareAlt, */ FaEllipsisV } from 'react-icons/fa';
-import { getUspTrade, getSecurityDetail, getPriceHistory, getShowLoans } from '../api';
+import { getUspTrade, getSecurityDetail, getPriceHistory, getShowLoans, getAccountDetails } from '../api';
 
 export default function CustomMaterialMenu({ row, handleModalOption1Open, handleModalOption2Open, handleModalOption3Open, handleModalOption4Open, handleModalOption5Open}) {
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -2138,8 +2138,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
         }
     };
     const handleModalClickAccountDetails = async(event) => {
-        console.log("Clicked Account Details Modal Option!");
-        const accountDetailsRes = [{ id: 86, name: "(ASCN) - Ascension Alpha Fund, LLC", number: "AQZ92", ticker: "ASCN", apxPortfolioCode: "ASCN", openDate: "2021-02-24", closeDate: null, version: .0000000000135092, custodianId: 9, imaId: 2, compositeAffiliationId: null, trackerId: 125, apxPortfolioId: 1467, deliveryInstructions: 'S:\\Trading\\CCM Onboarding\\Delivery Instructions\\Northern Trust\\Ascension\\Ascension - Northern Trust SSIs.pdf', faxNumber: "1-312-630-6266", faxCoverTo: "Northern Trust Company  (312) 630-6266  Phone: (312) 557-7970", faxPhone: "1-312-557-7970", faxCoverSubject: "Ascension Alpha Fund, LLC - #AQZ92", faxCoverBody: "", apxCustodian: "Northern Trust", mgrCode: null }];
+        const accountDetailsRes = await getAccountDetails({ apxPortfolioCode: row.account });
         const title = 'Account Details';
         const accountDetailsModalColumns = [
             {
@@ -2174,19 +2173,13 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
             },
             {
                 name: "Open Date",
-                selector: (row) => row.openDate,
+                selector: (row) => row.openDate.slice(0,10),
                 compact: true,
                 reorder: true,
             },
             {
                 name: "Close Date",
-                selector: (row) => row.closeDate,
-                compact: true,
-                reorder: true,
-            },
-            {
-                name: "Version",
-                selector: (row) => row.version,
+                selector: (row) => row.closeDate.slice(0,10),
                 compact: true,
                 reorder: true,
             },
