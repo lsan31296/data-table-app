@@ -5,7 +5,7 @@ import MenuItem from '@mui/material/MenuItem';
 import { /*FaRegCopy, FaShareAlt, */ FaEllipsisV } from 'react-icons/fa';
 import { getUspTrade, getSecurityDetail, getPriceHistory, getShowLoans } from '../api';
 
-export default function CustomMaterialMenu({ row, handleModalOption1Open, handleModalOption2Open, handleModalOption3Open, handleModalOption4Open}) {
+export default function CustomMaterialMenu({ row, handleModalOption1Open, handleModalOption2Open, handleModalOption3Open, handleModalOption4Open, handleModalOption5Open}) {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
     //const [openModal, setOpenModal] = React.useState(false);
@@ -137,13 +137,6 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
             //setOpenModal(true);
             handleModalOption1Open(uspTradeRes, title, recentTradeModalColumns);
         }
-        /*
-        var rowData = JSON.stringify({ account: row.account, bbg_cusip: row.bbg_cusip });
-        navigator.clipboard.writeText(rowData)
-        .then(() => {
-            alert(`Account and BBG CUSIP copied to clipboard!`);
-        });
-        */
     };
     const handleModalClickSecurityDetail = async(event) => {       
         const securityDetailRes = await getSecurityDetail({ cusip: row.bbg_cusip});
@@ -2144,6 +2137,145 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
             handleModalOption4Open(showLoansRes, title, showLoansModalColumns);
         }
     };
+    const handleModalClickAccountDetails = async(event) => {
+        console.log("Clicked Account Details Modal Option!");
+        const accountDetailsRes = [{ id: 86, name: "(ASCN) - Ascension Alpha Fund, LLC", number: "AQZ92", ticker: "ASCN", apxPortfolioCode: "ASCN", openDate: "2021-02-24", closeDate: null, version: .0000000000135092, custodianId: 9, imaId: 2, compositeAffiliationId: null, trackerId: 125, apxPortfolioId: 1467, deliveryInstructions: 'S:\\Trading\\CCM Onboarding\\Delivery Instructions\\Northern Trust\\Ascension\\Ascension - Northern Trust SSIs.pdf', faxNumber: "1-312-630-6266", faxCoverTo: "Northern Trust Company  (312) 630-6266  Phone: (312) 557-7970", faxPhone: "1-312-557-7970", faxCoverSubject: "Ascension Alpha Fund, LLC - #AQZ92", faxCoverBody: "", apxCustodian: "Northern Trust", mgrCode: null }];
+        const title = 'Account Details';
+        const accountDetailsModalColumns = [
+            {
+                name: "ID",
+                selector: (row) => row.id,
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: "Name",
+                selector: (row) => row.name,
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: "Number",
+                selector: (row) => row.number,
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: "Ticker",
+                selector: (row) => row.ticker,
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: "APX Portfolio Code",
+                selector: (row) => row.apxPortfolioCode,
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: "Open Date",
+                selector: (row) => row.openDate,
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: "Close Date",
+                selector: (row) => row.closeDate,
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: "Version",
+                selector: (row) => row.version,
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: "Custodian ID",
+                selector: (row) => row.custodianId,
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: "IMA ID",
+                selector: (row) => row.imaId,
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: "Composite Affiliation ID",
+                selector: (row) => row.compositeAffiliationId,
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: "Tracker ID",
+                selector: (row) => row.trackerId,
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: "APX Portfolio ID",
+                selector: (row) => row.apxPortfolioId,
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: "Delivery Instructions",
+                selector: (row) => row.deliveryInstructions,
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: "Fax Number",
+                selector: (row) => row.faxNumber,
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: "Fax Cover To",
+                selector: (row) => row.faxCoverTo,
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: "Fax Phone",
+                selector: (row) => row.faxPhone,
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: "Fax Cover Subject",
+                selector: (row) => row.faxCoverSubject,
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: "Fax Cover Body",
+                selector: (row) => row.faxCoverBody,
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: "APX Custodian",
+                selector: (row) => row.apxCustodian,
+                compact: true,
+                reorder: true,
+            },
+            {
+                name: "MGR Code",
+                selector: (row) => row.mgrCode,
+                compact: true,
+                reorder: true,
+            },
+        ]
+
+        if (accountDetailsRes.length === 0) {
+            alert(`This account has no details to show!`);
+        } else {
+            handleModalOption5Open(accountDetailsRes, title, accountDetailsModalColumns);
+        }
+    };
 
     return (
     <div style={{ minWidth: "25px"}}>
@@ -2171,6 +2303,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
             <MenuItem onClick={handleModalClickSecurityDetail}>Security Detail</MenuItem>
             <MenuItem onClick={handleModalClickPriceHistory}>Price History</MenuItem>
             <MenuItem onClick={handleModalClickShowLoans}>Show Loans</MenuItem>
+            <MenuItem onClick={handleModalClickAccountDetails} >Account Details</MenuItem>
         </Menu>
     </div>
     );

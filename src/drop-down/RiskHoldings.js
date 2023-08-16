@@ -116,6 +116,12 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
         setModalColumns(showLoansModalColumns);
         setIsModalOpen(true);
     };
+    const handleAccountDetailsModalOpen = (accountDetailsRes, title, accountDetailsModalColumns) => {
+        setModalData(accountDetailsRes);
+        setModalTitle(title);
+        setModalColumns(accountDetailsModalColumns);
+        setIsModalOpen(true);
+    };
     const handleModalClose = () => {
         setIsModalOpen(false);
     }
@@ -517,7 +523,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             <div>
                 <CustomMaterialMenu size="small" row={row} handleModalOption1Open={handleRecentTradeModalOpen} 
                     handleModalOption2Open={handleSecurityDetailModalOpen} handleModalOption3Open={handlePriceHistoryModalOpen}
-                    handleModalOption4Open={handleShowLoansModalOpen}
+                    handleModalOption4Open={handleShowLoansModalOpen} handleModalOption5Open={handleAccountDetailsModalOpen}
                 />
             </div>,
             allowOverFlow: true,
