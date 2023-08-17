@@ -131,7 +131,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
         ];
 
         if (uspTradeRes.length === 0) {
-            alert(`This cusip does not have an USP Trade data.`);
+            alert(`No recent trade has been located for this CUSIP.`);
         } else {
             //Insert modal here!
             //setOpenModal(true);
@@ -2132,7 +2132,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
         ];
         
         if (showLoansRes.length === 0) {
-            alert(`This CUSIP has no Loans to show.`);
+            alert(`No underlying loans has been found for this CUSIP.`);
         } else {
             handleModalOption4Open(showLoansRes, title, showLoansModalColumns);
         }
@@ -2292,11 +2292,11 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 'aria-labelledby': 'basic-button',
             }}
         >
-            <MenuItem onClick={handleModalClickRecentTrade}>Recent Trade</MenuItem>
+            <MenuItem onClick={handleModalClickAccountDetails} >Account Details</MenuItem>
+            <MenuItem onClick={handleModalClickRecentTrade}>Recent Trades</MenuItem>
             <MenuItem onClick={handleModalClickSecurityDetail}>Security Detail</MenuItem>
             <MenuItem onClick={handleModalClickPriceHistory}>Price History</MenuItem>
-            <MenuItem onClick={handleModalClickShowLoans}>Show Loans</MenuItem>
-            <MenuItem onClick={handleModalClickAccountDetails} >Account Details</MenuItem>
+            <MenuItem onClick={handleModalClickShowLoans}>Underlying Loans</MenuItem>            
         </Menu>
     </div>
     );
