@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { filterRiskAccounts, dollarFormatter, numberFormatter0, numberFormatter2, formatWeight, addDataIntoCache, removeUnwanteds, formatAccountName, fileNameConstructor, removeAndRenamObjectProps, dollarFormatter0, today, lastBusinessDay } from "../utils/helperFunctions";
+import { filterRiskAccounts, dollarFormatter, numberFormatter0, numberFormatter2, formatWeight, addDataIntoCache, removeUnwanteds, formatAccountName, fileNameConstructor, removeAndRenamObjectProps, dollarFormatter0, today, lastBusinessDay, dateFormatter } from "../utils/helperFunctions";
 import { getRiskHoldings } from "../api";
 import DataTable from "react-data-table-component";
 import ExpandedTable from "../data-table/ExpandedTable";
@@ -813,7 +813,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
         },
         {
             name: "Orig Trd Date",
-            selector: (row) => row.original_trade_date.slice(0,10),
+            selector: (row) => dateFormatter(row.original_trade_date),
             sortable: true,
             compact: true,
             minWidth: "120px",

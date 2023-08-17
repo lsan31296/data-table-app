@@ -307,9 +307,10 @@ export function removeAndRenamObjectProps(tabIndexToRemove, hash) {
     return tempHash;
 }
 
-export function isColumnNull(rowData) {
-    console.log("Called isColumnNull()!");
-    console.log(rowData);
-
-    return true;
+export function dateFormatter(date) {
+    if(date.includes('0001-01-01')) {
+        return "";
+    } else {
+        return date.slice(0,10);
+    }
 }

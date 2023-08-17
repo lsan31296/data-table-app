@@ -4,6 +4,8 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { /*FaRegCopy, FaShareAlt, */ FaEllipsisV } from 'react-icons/fa';
 import { getUspTrade, getSecurityDetail, getPriceHistory, getShowLoans, getAccountDetails } from '../api';
+import { dateFormatter, dollarFormatter, dollarFormatter0, formatWeight } from '../utils/helperFunctions';
+import CustomCell from './CustomCell';
 
 export default function CustomMaterialMenu({ row, handleModalOption1Open, handleModalOption2Open, handleModalOption3Open, handleModalOption4Open, handleModalOption5Open}) {
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -26,13 +28,13 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
         const recentTradeModalColumns = [
             {
                 name: "Trade Date",
-                selector: (row) => row.trade_date.slice(0,10),
+                selector: (row) => dateFormatter(row.trade_date),
                 compact: true,
                 reorder: true,
             },
             {
                 name: "Settle Date",
-                selector: (row) => row.settle_date.slice(0,10),
+                selector: (row) => dateFormatter(row.settle_date),
                 compact: true,
                 reorder: true,
             },
@@ -92,33 +94,33 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
             },
             {
                 name: "Original Face",
-                selector: (row) => row.orig_face,
+                selector: (row) => dollarFormatter0.format(row.orig_face),
                 compact: true,
                 reorder: true,
             },
             {
                 name: "Current Face",
-                selector: (row) => row.curr_face,
+                selector: (row) => dollarFormatter0.format(row.curr_face),
                 compact: true,
                 reorder: true,
             },
             {
                 name: "Price",
-                selector: (row) => row.price,
+                selector: (row) => dollarFormatter.format(row.price),
                 compact: true,
                 reorder: true,
                 minWidth: "75px",
             },
             {
                 name: "Accrued",
-                selector: (row) => row.accrued,
+                selector: (row) => dollarFormatter.format(row.accrued),
                 compact: true,
                 reorder: true,
                 minWidth: "80px",
             },
             {
                 name: "Net Money",
-                selector: (row) => row.net_money,
+                selector: (row) => dollarFormatter.format(row.net_money),
                 compact: true,
                 reorder: true,
             },
@@ -171,13 +173,13 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
             },
             {
                 name: 'LT Date',
-                selector: (row) => row.lastTradeableDate,
+                selector: (row) => dateFormatter(row.lastTradeableDate),
                 compact: true,
                 reorder: true,
             },
             {
                 name: 'Last Price',
-                selector: (row) => row.lastPrice,
+                selector: (row) => dollarFormatter.format(row.lastPrice),
                 compact: true,
                 reorder: true,
             },
@@ -279,7 +281,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
         const priceHistoryModalColumns = [
             {
                 name:'AO Date',
-                selector: (row) => (row.aoDate).slice(0,10),
+                selector: (row) => dateFormatter(row.aoDate),
                 compact: true,
                 reorder: true,
                 sortable: true,
@@ -292,7 +294,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
             },
             {
                 name: 'PriceValue',
-                selector: (row) => row.priceValue,
+                selector: (row) => dollarFormatter.format(row.priceValue),
                 compact: true,
                 reorder: true,
                 sortable: true,
@@ -676,7 +678,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                         showLoansModalColumns[30].omit = true;
                         return;
                     }
-                    return row.rate;
+                    return formatWeight(row.rate);
                 },
                 compact: true,
                 reorder: true,
@@ -688,7 +690,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                         showLoansModalColumns[31].omit = true;
                         return;
                     }
-                    return row.amount;
+                    return dollarFormatter0.format(row.amount);
                 },
                 compact: true,
                 reorder: true,
@@ -880,7 +882,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                         showLoansModalColumns[47].omit = true;
                         return;
                     }
-                    return row.annualIncome;
+                    return dollarFormatter.format(row.annualIncome);
                 },
                 compact: true,
                 reorder: true,
@@ -1360,7 +1362,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                         showLoansModalColumns[87].omit = true;
                         return;
                     }
-                    return row.issueDate.slice(0,10);
+                    return dateFormatter(row.issueDate);
                 },
                 compact: true,
                 reorder: true,
@@ -1372,7 +1374,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                         showLoansModalColumns[88].omit = true;
                         return;
                     }
-                    return row.maturityDate.slice(0,10);
+                    return dateFormatter(row.maturityDate);
                 },
                 compact: true,
                 reorder: true,
@@ -1504,7 +1506,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                         showLoansModalColumns[99].omit = true;
                         return;
                     }
-                    return row.contractStartDate.slice(0,10);
+                    return dateFormatter(row.contractStartDate);
                 },
                 compact: true,
                 reorder: true,
@@ -1516,7 +1518,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                         showLoansModalColumns[100].omit = true;
                         return;
                     }
-                    return row.contractEndDate.slice(0,10);
+                    return dateFormatter(row.contractEndDate);
                 },
                 compact: true,
                 reorder: true,
@@ -1528,7 +1530,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                         showLoansModalColumns[101].omit = true;
                         return;
                     }
-                    return row.createDate.slice(0,10);
+                    return dateFormatter(row.createDate);
                 },
                 compact: true,
                 reorder: true,
@@ -1660,7 +1662,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                         showLoansModalColumns[112].omit = true;
                         return;
                     }
-                    return row.ffiecLookupDate.slice(0,10);
+                    return dateFormatter(row.ffiecLookupDate);
                 },
                 compact: true,
                 reorder: true,
@@ -1672,7 +1674,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                         showLoansModalColumns[113].omit = true;
                         return;
                     }
-                    return row.walkScoreLookupDate.slice(0,10);
+                    return dateFormatter(row.walkScoreLookupDate);
                 },
                 compact: true,
                 reorder: true,
@@ -1685,7 +1687,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                         showLoansModalColumns[114].omit = true;
                         return;
                     }
-                    return row.recapLookupDate.slice(0,10);
+                    return dateFormatter(row.recapLookupDate);
                 },
                 compact: true,
                 reorder: true,
@@ -1698,7 +1700,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                         showLoansModalColumns[115].omit = true;
                         return;
                     }
-                    return row.difficultDevelopmentAreaLookupDate.slice(0,10);
+                    return dateFormatter(row.difficultDevelopmentAreaLookupDate);
                 },
                 compact: true,
                 reorder: true,
@@ -1711,7 +1713,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                         showLoansModalColumns[116].omit = true;
                         return;
                     }
-                    return row.persistentPovertyCountyLookupDate.slice(0,10);
+                    return dateFormatter(row.persistentPovertyCountyLookupDate);
                 },
                 compact: true,
                 reorder: true,
@@ -1724,7 +1726,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                         showLoansModalColumns[117].omit = true;
                         return;
                     }
-                    return row.geoCodedDate.slice(0,10);
+                    return dateFormatter(row.geoCodedDate);
                 },
                 compact: true,
                 reorder: true,
@@ -1736,7 +1738,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                         showLoansModalColumns[118].omit = true;
                         return;
                     }
-                    return row.censusDataDate.slice(0,10);
+                    return dateFormatter(row.censusDataDate);
                 },
                 compact: true,
                 reorder: true,
@@ -1749,7 +1751,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                         showLoansModalColumns[119].omit = true;
                         return;
                     }
-                    return row.ruralCensusTractAndMsaLookupDate.slice(0,10);
+                    return dateFormatter(row.ruralCensusTractAndMsaLookupDate);
                 },
                 compact: true,
                 reorder: true,
@@ -1978,7 +1980,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                         showLoansModalColumns[138].omit = true;
                         return;
                     }
-                    return row.tracsOverallExpirationDate.slice(0,10);
+                    return dateFormatter(row.tracsOverallExpirationDate);
                 },
                 compact: true,
                 reorder: true,
@@ -2111,7 +2113,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                         showLoansModalColumns[149].omit = true;
                         return;
                     }
-                    return row.tracsEffectiveDate.slice(0,10);
+                    return dateFormatter(row.tracsEffectiveDate);
                 },
                 compact: true,
                 reorder: true,
@@ -2173,13 +2175,13 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
             },
             {
                 name: "Open Date",
-                selector: (row) => row.openDate.slice(0,10),
+                selector: (row) => dateFormatter(row.openDate),
                 compact: true,
                 reorder: true,
             },
             {
                 name: "Close Date",
-                selector: (row) => row.closeDate.slice(0,10),
+                selector: (row) => dateFormatter(row.closeDate),
                 compact: true,
                 reorder: true,
             },
@@ -2216,6 +2218,8 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
             {
                 name: "Delivery Instructions",
                 selector: (row) => row.deliveryInstructions,
+                minWidth: '200px',
+                cell: (row) => <CustomCell cellData={row.deliveryInstructions} /> ,
                 compact: true,
                 reorder: true,
             },
