@@ -135,6 +135,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
         console.log("TabList Array Length Before: ", tabListArr.length)
         //Insert New Tab in hashMap to save dynamic state variables, set state
         hashMap[`tab${tabListArr.length+1}`] = initialHashTabState;
+        hashMap[`tab${tabListArr.length+1}`].req.positionView = bodyReq.positionView;
         setHashMap({
             ...hashMap,
         });
@@ -375,6 +376,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
         event.preventDefault();
         console.log("Hit Search!. Tab Index: ", tabIndex)
         console.log("Hit Search: ", hashMap[`tab${tabIndex}`].req);
+        console.log("Body Req: ", bodyReq);
         //IF search is hit and bodyReq.accounts is empty, stop process 
         if (bodyReq.accounts.length === 0) {
             alert("Must select an account value to search in drop down.");
@@ -397,10 +399,8 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
                 }
             })
         }
-        const resData = await getRiskHoldings(
-            (hashMap[`tab${tabIndex}`].req.accounts.length === 0 && bodyReq.accounts.length > 0) ? bodyReq
-            : bodyReq//hashMap[`tab${tabIndex}`].req
-        );
+        
+        const resData = await getRiskHoldings(bodyReq);
         //If a current tab is selected, set that tab's data array to response from getRiskHoldings API (resData)
         if (tabIndex >= 0) {
             setHashMap({
