@@ -171,6 +171,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
                     fixedHeader
                     fixedHeaderScrollHeight="710px"
                     onRowDoubleClicked={handleDoubleClick}
+                    pagination
                     //title={<h1 style={{ border: "red solid 2px"}}>Header</h1>}
                     //subHeaderComponent={<h3 style={{ border: "green solid 2px" }}>SubHeader</h3>}
                 />
@@ -259,6 +260,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
                 fixedHeader
                 fixedHeaderScrollHeight="710px"
                 onRowDoubleClicked={handleDoubleClick}
+                pagination
                 //title={<h1 style={{ border: "red solid 2px"}}>Header</h1>}
                 //subHeaderComponent={<h3 style={{ border: "green solid 2px" }}>SubHeader</h3>}
             />
@@ -301,6 +303,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
                     fixedHeader
                     fixedHeaderScrollHeight="710px"
                     onRowDoubleClicked={handleDoubleClick}
+                    pagination
                     //title={<h1 style={{ border: "red solid 2px"}}>Header</h1>}
                     //subHeaderComponent={<h3 style={{ border: "green solid 2px" }}>SubHeader</h3>}
                 />
@@ -363,6 +366,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
                     fixedHeader
                     fixedHeaderScrollHeight="710px"
                     onRowDoubleClicked={handleDoubleClick}
+                    pagination
                     //title={<h1 style={{ border: "red solid 2px"}}>Header</h1>}
                     //subHeaderComponent={<h3 style={{ border: "green solid 2px" }}>SubHeader</h3>}
                 />
@@ -431,6 +435,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
                     fixedHeader
                     fixedHeaderScrollHeight="710px"
                     onRowDoubleClicked={handleDoubleClick}
+                    pagination
                     //title={<h1 style={{ border: "red solid 2px"}}>Header</h1>}
                     //subHeaderComponent={<h3 style={{ border: "green solid 2px" }}>SubHeader</h3>}
                 />
@@ -489,6 +494,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
                     fixedHeader
                     fixedHeaderScrollHeight="710px"
                     onRowDoubleClicked={handleDoubleClick}
+                    pagination
                     //title={<h1 style={{ border: "red solid 2px"}}>Header</h1>}
                     //subHeaderComponent={<h3 style={{ border: "green solid 2px" }}>SubHeader</h3>}
                 />
@@ -961,6 +967,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
                             fixedHeader
                             fixedHeaderScrollHeight="710px"
                             onRowDoubleClicked={handleDoubleClick}
+                            pagination
                         />
                         </TabPanel>
                         {tabPanelArr}
