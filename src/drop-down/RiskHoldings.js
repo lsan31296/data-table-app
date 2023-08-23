@@ -169,9 +169,11 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
                     //expandOnRowClicked //NEEDED TO BE REMOVED IN ORDER TO ALLOW DOUBLE CLICK HANDLER TO OCCUR
                     expandableRowsComponent={ExpandedTable}
                     fixedHeader
-                    fixedHeaderScrollHeight="710px"
+                    //fixedHeaderScrollHeight="710px"
                     onRowDoubleClicked={handleDoubleClick}
-                    pagination
+                    pagination paginationPerPage={10000} 
+                    paginationRowsPerPageOptions={[100, 200, 300, 400, 500, 1000, 10000]}
+                    paginationComponentOptions={{ selectAllRowsItem: true, selectAllRowsItemText: "All" }}
                     //title={<h1 style={{ border: "red solid 2px"}}>Header</h1>}
                     //subHeaderComponent={<h3 style={{ border: "green solid 2px" }}>SubHeader</h3>}
                 />
@@ -258,9 +260,11 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
                 //expandOnRowClicked //NEEDED TO BE REMOVED IN ORDER TO ALLOW DOUBLE CLICK HANDLER TO OCCUR
                 expandableRowsComponent={ExpandedTable}
                 fixedHeader
-                fixedHeaderScrollHeight="710px"
+                //fixedHeaderScrollHeight="710px"
                 onRowDoubleClicked={handleDoubleClick}
-                pagination
+                pagination paginationPerPage={10000} 
+                paginationRowsPerPageOptions={[100, 200, 300, 400, 500, 1000, 10000]}
+                paginationComponentOptions={{ selectAllRowsItem: true, selectAllRowsItemText: "All" }}
                 //title={<h1 style={{ border: "red solid 2px"}}>Header</h1>}
                 //subHeaderComponent={<h3 style={{ border: "green solid 2px" }}>SubHeader</h3>}
             />
@@ -288,24 +292,26 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             <TabPanel>
             <DataTable
             //Problem here, this is why it doesn't show proper header color.
-                    //title={<h3 style={{ color: "white" }}>Risk Holdings: {hashMap[`tab${tabIndex}`].tableStyle[`${hashMap[`tab${tabIndex}`].req.positionView}`].title} View</h3>}
-                    title={<div style={{ display: "flex", justifyContent: "space-between"}}> <h3 style={{ color: "white" }}>Risk Holdings: {hashMap[`tab${tabIndex}`].tableStyle[`${hashMap[`tab${tabIndex}`].req.positionView}`].title} View</h3> <h3 style={{ color: 'white'}}>{hashMap[`tab${tabIndex}`].req.aoDate}</h3> </div>}
-                    subHeader subHeaderComponent={SubHeaderComponent}  
-                    columns={columnHeaders}
-                    data={[]}
-                    highlightOnHover
-                    striped
-                    customStyles={customStyles}
-                    conditionalRowStyles={conditionalRowStyles}
-                    expandableRows
-                    //expandOnRowClicked //NEEDED TO BE REMOVED IN ORDER TO ALLOW DOUBLE CLICK HANDLER TO OCCUR
-                    expandableRowsComponent={ExpandedTable}
-                    fixedHeader
-                    fixedHeaderScrollHeight="710px"
-                    onRowDoubleClicked={handleDoubleClick}
-                    pagination
-                    //title={<h1 style={{ border: "red solid 2px"}}>Header</h1>}
-                    //subHeaderComponent={<h3 style={{ border: "green solid 2px" }}>SubHeader</h3>}
+                //title={<h3 style={{ color: "white" }}>Risk Holdings: {hashMap[`tab${tabIndex}`].tableStyle[`${hashMap[`tab${tabIndex}`].req.positionView}`].title} View</h3>}
+                title={<div style={{ display: "flex", justifyContent: "space-between"}}> <h3 style={{ color: "white" }}>Risk Holdings: {hashMap[`tab${tabIndex}`].tableStyle[`${hashMap[`tab${tabIndex}`].req.positionView}`].title} View</h3> <h3 style={{ color: 'white'}}>{hashMap[`tab${tabIndex}`].req.aoDate}</h3> </div>}
+                subHeader subHeaderComponent={SubHeaderComponent}  
+                columns={columnHeaders}
+                data={[]}
+                highlightOnHover
+                striped
+                customStyles={customStyles}
+                conditionalRowStyles={conditionalRowStyles}
+                expandableRows
+                //expandOnRowClicked //NEEDED TO BE REMOVED IN ORDER TO ALLOW DOUBLE CLICK HANDLER TO OCCUR
+                expandableRowsComponent={ExpandedTable}
+                fixedHeader
+                //fixedHeaderScrollHeight="710px"
+                onRowDoubleClicked={handleDoubleClick}
+                pagination paginationPerPage={10000} 
+                paginationRowsPerPageOptions={[100, 200, 300, 400, 500, 1000, 10000]}
+                paginationComponentOptions={{ selectAllRowsItem: true, selectAllRowsItemText: "All" }}
+                //title={<h1 style={{ border: "red solid 2px"}}>Header</h1>}
+                //subHeaderComponent={<h3 style={{ border: "green solid 2px" }}>SubHeader</h3>}
                 />
             </TabPanel>;
         
@@ -364,9 +370,11 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
                     //expandOnRowClicked //NEEDED TO BE REMOVED IN ORDER TO ALLOW DOUBLE CLICK HANDLER TO OCCUR
                     expandableRowsComponent={ExpandedTable}
                     fixedHeader
-                    fixedHeaderScrollHeight="710px"
+                    //fixedHeaderScrollHeight="710px"
                     onRowDoubleClicked={handleDoubleClick}
-                    pagination
+                    pagination paginationPerPage={10000} 
+                    paginationRowsPerPageOptions={[100, 200, 300, 400, 500, 1000, 10000]}
+                    paginationComponentOptions={{ selectAllRowsItem: true, selectAllRowsItemText: "All" }}
                     //title={<h1 style={{ border: "red solid 2px"}}>Header</h1>}
                     //subHeaderComponent={<h3 style={{ border: "green solid 2px" }}>SubHeader</h3>}
                 />
@@ -433,9 +441,11 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
                     //expandOnRowClicked //NEEDED TO BE REMOVED IN ORDER TO ALLOW DOUBLE CLICK HANDLER TO OCCUR
                     expandableRowsComponent={ExpandedTable}
                     fixedHeader
-                    fixedHeaderScrollHeight="710px"
+                    //fixedHeaderScrollHeight="710px"
                     onRowDoubleClicked={handleDoubleClick}
-                    pagination
+                    pagination paginationPerPage={10000} 
+                    paginationRowsPerPageOptions={[100, 200, 300, 400, 500, 1000, 10000]}
+                    paginationComponentOptions={{ selectAllRowsItem: true, selectAllRowsItemText: "All" }}
                     //title={<h1 style={{ border: "red solid 2px"}}>Header</h1>}
                     //subHeaderComponent={<h3 style={{ border: "green solid 2px" }}>SubHeader</h3>}
                 />
@@ -492,9 +502,11 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
                     //expandOnRowClicked //NEEDED TO BE REMOVED IN ORDER TO ALLOW DOUBLE CLICK HANDLER TO OCCUR
                     expandableRowsComponent={ExpandedTable}
                     fixedHeader
-                    fixedHeaderScrollHeight="710px"
+                    //fixedHeaderScrollHeight="710px"
                     onRowDoubleClicked={handleDoubleClick}
-                    pagination
+                    pagination paginationPerPage={10000} 
+                    paginationRowsPerPageOptions={[100, 200, 300, 400, 500, 1000, 10000]}
+                    paginationComponentOptions={{ selectAllRowsItem: true, selectAllRowsItemText: "All" }}
                     //title={<h1 style={{ border: "red solid 2px"}}>Header</h1>}
                     //subHeaderComponent={<h3 style={{ border: "green solid 2px" }}>SubHeader</h3>}
                 />
@@ -883,7 +895,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
     
     /* RENDERED ON UI */
     return (
-        <div style={{ padding: hashMap[`tab${tabIndex}`].data.length > 0 ? "30px 4% 100px 4%" :"1% 4%", backgroundColor: "#F2F2F2",  /*border: "solid 2px green"*/ }}>
+        <div style={{ padding: hashMap[`tab${tabIndex}`].data.length > 0 ? "0px 2% 100px 2%" :"1% 4%", backgroundColor: "#F2F2F2",  /*border: "solid 2px green"*/ }}>
 
             <form onSubmit={handleSearchButton}>
                 <MultiSelectMenu name="multiSelect" required={true} rowsForSelect={rowsForSelect} handleMultiSelectChange={handleMultiSelectChange} handleMenuClose={handleMenuClose}/>
@@ -965,9 +977,11 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
                             expandableRows
                             expandableRowsComponent={ExpandedTable}
                             fixedHeader
-                            fixedHeaderScrollHeight="710px"
+                            //fixedHeaderScrollHeight="710px"
                             onRowDoubleClicked={handleDoubleClick}
-                            pagination
+                            pagination paginationPerPage={10000} 
+                            paginationRowsPerPageOptions={[100, 200, 300, 400, 500, 1000, 10000]}
+                            paginationComponentOptions={{ selectAllRowsItem: true, selectAllRowsItemText: "All" }}
                         />
                         </TabPanel>
                         {tabPanelArr}

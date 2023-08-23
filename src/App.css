@@ -238,3 +238,7 @@ HORIZONTALLY AS OPPOSED TO VERTICALLY.
   background-color: black;
   color: #fefefe;
 }
+
+#logo {
+  height: 30px
+}

@@ -70,7 +70,8 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 selector: (row) => row.sec_name,
                 compact: true,
                 reorder: true,
-                minWidth: "86px"
+                minWidth: "86px",
+                wrap: true,
             },
             {
                 name: "Pool Name",
@@ -78,6 +79,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 compact: true,
                 reorder: true,
                 minWidth: "86px",
+                wrap: true, 
             },
             {
                 name: "CUSIP",
@@ -129,6 +131,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 selector: (row) => row.dealer,
                 compact: true,
                 reorder: true,
+                wrap: true,
             },
         ];
 
@@ -169,7 +172,8 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 selector: (row) => row.name,
                 compact: true,
                 reorder: true,
-                maxWidth: '150px'
+                maxWidth: '150px',
+                wrap: true,
             },
             {
                 name: 'LT Date',
@@ -188,6 +192,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 selector: (row) => row.issuer,
                 compact: true,
                 reorder: true,
+                wrap: true,
             },
             {
                 name: 'Sec Type',
@@ -233,6 +238,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 selector: (row) => row.industry_group,
                 compact: true,
                 reorder: true,
+                wrap: true,
             },
             {
                 name: 'Country',
@@ -346,6 +352,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                wrap: true,
             },
             {
                 name: 'Security Name',
@@ -358,6 +365,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                wrap: true,
             },
             {
                 name: 'Rehab',
@@ -814,6 +822,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                wrap: true,
             },
             {
                 name: 'State County Code',
@@ -2154,6 +2163,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 selector: (row) => row.name,
                 compact: true,
                 reorder: true,
+                wrap: true,
             },
             {
                 name: "Number",
@@ -2234,6 +2244,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 selector: (row) => row.faxCoverTo,
                 compact: true,
                 reorder: true,
+                wrap: true,
             },
             {
                 name: "Fax Phone",
@@ -2252,6 +2263,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 selector: (row) => row.faxCoverBody,
                 compact: true,
                 reorder: true,
+                wrap: true,
             },
             {
                 name: "APX Custodian",
