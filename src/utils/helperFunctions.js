@@ -1,4 +1,5 @@
 import data from '../data-table/data.json'
+import dayjs from "dayjs";
 //This file is used as a space to home lengthy helper functions, keeping code modular
 
 function convertArrayOfObjectsToCSV(dataArray) {
@@ -132,7 +133,7 @@ export function filterRiskAccounts(arrayOfRiskAccounts, json) {
  * @returns {string}
  * specified date in the format YYYY-MM-DD
  */
-function asDateString(newDate) {
+export function asDateString(newDate) {
     return `${newDate.getFullYear().toString(10)}-${(newDate.getMonth() + 1).toString(10).padStart(2, "0")}-${newDate.getDate().toString(10).padStart(2, "0")}`;
 }
 
@@ -313,4 +314,9 @@ export function dateFormatter(date) {
     } else {
         return date.slice(0,10);
     }
+}
+
+export function sqlDateToDateString(date) {
+    if(date === "") return;
+    return dayjs(date).format("MM/DD/YYYY");
 }

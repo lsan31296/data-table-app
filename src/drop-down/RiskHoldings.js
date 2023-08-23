@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { filterRiskAccounts, dollarFormatter, numberFormatter0, numberFormatter2, formatWeight, addDataIntoCache, removeUnwanteds, formatAccountName, fileNameConstructor, removeAndRenamObjectProps, dollarFormatter0, today, lastBusinessDay, dateFormatter } from "../utils/helperFunctions";
+import { filterRiskAccounts, dollarFormatter, numberFormatter0, numberFormatter2, formatWeight, addDataIntoCache, removeUnwanteds, formatAccountName, fileNameConstructor, removeAndRenamObjectProps, dollarFormatter0, today, lastBusinessDay, dateFormatter, sqlDateToDateString } from "../utils/helperFunctions";
 import { getRiskHoldings } from "../api";
 import DataTable from "react-data-table-component";
 import ExpandedTable from "../data-table/ExpandedTable";
@@ -46,7 +46,8 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
     const initialHashTabState = {
         data: [],//resData for respective tab
         req: initialFormState,//bodyReq for respective tab
-        tableStyle: dataTableStyles
+        tableStyle: dataTableStyles,
+        dataTableTitle: ""
     }
     const initialHashState = {
         tab0: initialHashTabState
@@ -157,7 +158,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             <TabPanel>
             <DataTable
                     //title={<h3 style={{ color: "white" }}>Risk Holdings: {hashMap[`tab${tabIndex+1}`].tableStyle[`${hashMap[`tab${tabIndex+1}`].req.positionView}`].title} View</h3>}
-                    title={<div style={{ display: "flex", justifyContent: "space-between"}}> <h3 style={{ color: "white" }}>Risk Holdings: {hashMap[`tab${tabIndex+1}`].tableStyle[`${hashMap[`tab${tabIndex+1}`].req.positionView}`].title} View</h3> <h3 style={{ color: 'white'}}>{hashMap[`tab${tabIndex+1}`].req.aoDate}</h3> </div>}
+                    title={<div style={{ display: "flex", justifyContent: "space-between"}}> <h3 style={{ color: "white" }}> Risk Holdings: {hashMap[`tab${tabIndex+1}`].tableStyle[`${hashMap[`tab${tabIndex+1}`].req.positionView}`].title} View</h3> <h3 style={{ color: 'white'}}>{sqlDateToDateString(hashMap[`tab${tabIndex+1}`].req.aoDate)}</h3> </div>}
                     subHeader subHeaderComponent={SubHeaderComponent}  
                     columns={columnHeaders}
                     data={hashMap[`tab${tabIndex+1}`].data}
@@ -239,7 +240,8 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
                 {
                     ...hashMap[`tab${tabIndex}`].req,
                     //accounts: bodyReq.accounts
-                }
+                },
+                dataTableTitle: values.length > 0 ? formatAccountName(values[0].label) : "" 
             }
         })
 
@@ -248,7 +250,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
         <DataTable
         //Problem here, this is why it doesn't show proper header color.
                 //title={<h3 style={{ color: "white" }}>Risk Holdings: {hashMap[`tab${tabIndex}`].tableStyle[`${hashMap[`tab${tabIndex}`].req.positionView}`].title} View</h3>}
-                title={<div style={{ display: "flex", justifyContent: "space-between"}}> <h3 style={{ color: "white" }}>Risk Holdings: {hashMap[`tab${tabIndex}`].tableStyle[`${hashMap[`tab${tabIndex}`].req.positionView}`].title} View</h3> <h3 style={{ color: 'white'}}>{hashMap[`tab${tabIndex}`].req.aoDate}</h3> </div>}
+                title={<div style={{ display: "flex", justifyContent: "space-between"}}> <h3 style={{ color: "white" }}>{values.length > 0 ? formatAccountName(values[0].label) : ""} Risk Holdings: {hashMap[`tab${tabIndex}`].tableStyle[`${hashMap[`tab${tabIndex}`].req.positionView}`].title} View</h3> <h3 style={{ color: 'white'}}>{sqlDateToDateString(hashMap[`tab${tabIndex}`].req.aoDate)}</h3> </div>}
                 subHeader subHeaderComponent={SubHeaderComponent}  
                 columns={columnHeaders}
                 data={[]}
@@ -293,7 +295,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             <DataTable
             //Problem here, this is why it doesn't show proper header color.
                 //title={<h3 style={{ color: "white" }}>Risk Holdings: {hashMap[`tab${tabIndex}`].tableStyle[`${hashMap[`tab${tabIndex}`].req.positionView}`].title} View</h3>}
-                title={<div style={{ display: "flex", justifyContent: "space-between"}}> <h3 style={{ color: "white" }}>Risk Holdings: {hashMap[`tab${tabIndex}`].tableStyle[`${hashMap[`tab${tabIndex}`].req.positionView}`].title} View</h3> <h3 style={{ color: 'white'}}>{hashMap[`tab${tabIndex}`].req.aoDate}</h3> </div>}
+                title={<div style={{ display: "flex", justifyContent: "space-between"}}> <h3 style={{ color: "white" }}>{hashMap[`tab${tabIndex}`].dataTableTitle} Risk Holdings: {hashMap[`tab${tabIndex}`].tableStyle[`${hashMap[`tab${tabIndex}`].req.positionView}`].title} View</h3> <h3 style={{ color: 'white'}}>{sqlDateToDateString(hashMap[`tab${tabIndex}`].req.aoDate)}</h3> </div>}
                 subHeader subHeaderComponent={SubHeaderComponent}  
                 columns={columnHeaders}
                 data={[]}
@@ -358,7 +360,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             <DataTable
             //Problem here, this is why it doesn't show proper header color.
                     //title={<h3 style={{ color: "white" }}>Risk Holdings: {hashMap[`tab${tabIndex}`].tableStyle[`${hashMap[`tab${tabIndex}`].req.positionView}`].title} View</h3>}
-                    title={<div style={{ display: "flex", justifyContent: "space-between"}}> <h3 style={{ color: "white" }}>Risk Holdings: {hashMap[`tab${tabIndex}`].tableStyle[`${hashMap[`tab${tabIndex}`].req.positionView}`].title} View</h3> <h3 style={{ color: 'white'}}>{hashMap[`tab${tabIndex}`].req.aoDate}</h3> </div>}
+                    title={<div style={{ display: "flex", justifyContent: "space-between"}}> <h3 style={{ color: "white" }}>{hashMap[`tab${tabIndex}`].dataTableTitle} Risk Holdings: {hashMap[`tab${tabIndex}`].tableStyle[`${hashMap[`tab${tabIndex}`].req.positionView}`].title} View</h3> <h3 style={{ color: 'white'}}>{sqlDateToDateString(hashMap[`tab${tabIndex}`].req.aoDate)}</h3> </div>}
                     subHeader subHeaderComponent={SubHeaderComponent}  
                     columns={columnHeaders}
                     data={[]}
@@ -429,7 +431,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             <DataTable
             //Problem here, this is why it doesn't show proper header color.
                     //title={<h3 style={{ color: "white" }}>Risk Holdings: {hashMap[`tab${tabIndex}`].tableStyle[`${hashMap[`tab${tabIndex}`].req.positionView}`].title} View</h3>}
-                    title={<div style={{ display: "flex", justifyContent: "space-between"}}> <h3 style={{ color: "white" }}>Risk Holdings: {hashMap[`tab${tabIndex}`].tableStyle[`${hashMap[`tab${tabIndex}`].req.positionView}`].title} View</h3> <h3 style={{ color: 'white'}}>{hashMap[`tab${tabIndex}`].req.aoDate}</h3> </div>}
+                    title={<div style={{ display: "flex", justifyContent: "space-between"}}> <h3 style={{ color: "white" }}>{hashMap[`tab${tabIndex}`].dataTableTitle} Risk Holdings: {hashMap[`tab${tabIndex}`].tableStyle[`${hashMap[`tab${tabIndex}`].req.positionView}`].title} View</h3> <h3 style={{ color: 'white'}}>{sqlDateToDateString(hashMap[`tab${tabIndex}`].req.aoDate)}</h3> </div>}
                     subHeader subHeaderComponent={SubHeaderComponent}  
                     columns={columnHeaders}
                     data={resData}
@@ -490,7 +492,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             <DataTable
             //Problem here, this is why it doesn't show proper header color.
                     //title={<h3 style={{ color: "white" }}>Risk Holdings: {hashMap[`tab${tabIndex}`].tableStyle[`${hashMap[`tab${tabIndex}`].req.positionView}`].title} View</h3>}
-                    title={<div style={{ display: "flex", justifyContent: "space-between"}}> <h3 style={{ color: "white" }}>Risk Holdings: {hashMap[`tab${tabIndex}`].tableStyle[`${hashMap[`tab${tabIndex}`].req.positionView}`].title} View</h3> <h3 style={{ color: 'white'}}>{hashMap[`tab${tabIndex}`].req.aoDate}</h3> </div>}
+                    title={<div style={{ display: "flex", justifyContent: "space-between"}}> <h3 style={{ color: "white" }}>{hashMap[`tab${tabIndex}`].dataTableTitle} Risk Holdings: {hashMap[`tab${tabIndex}`].tableStyle[`${hashMap[`tab${tabIndex}`].req.positionView}`].title} View</h3> <h3 style={{ color: 'white'}}>{sqlDateToDateString(hashMap[`tab${tabIndex}`].req.aoDate)}</h3> </div>}
                     subHeader subHeaderComponent={SubHeaderComponent}  
                     columns={columnHeaders}
                     data={[]}
@@ -529,12 +531,42 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
     //Set react-data table configurations here
     const columnHeaders = [
         //Currently account_name and ticker are not working when being called to the middle-tier from its database.
+        /*
         { 
             name: "Account Name", 
             selector: (row) => formatAccountName(row.account_name),
             sortable: true,
             minWidth: "135px",
             center: true,
+        },
+        */
+        {
+            name: "Marketing Asset Group",
+            selector: (row) => row.marketingAssetGroup,
+            center: true,
+            compact: true,
+            minWidth: "160px"
+        },
+        {
+            name: "CS Group",
+            selector: (row) => row.carlton_SecurityGroup,
+            center: true,
+            compact: true,
+        },
+        {
+            name: "CS Type",
+            selector: (row) => row.carlton_SecurityType,
+            //center: true,
+            compact: true,
+            //allowOverFlow: true,
+            wrap: true,
+        },
+        {
+            name: "CS Sector",
+            selector: (row) => row.carlton_SecuritySector,
+            compact: true,
+            wrap: true,
+            //center: true,
         },
         {
             cell: row => 
@@ -563,8 +595,9 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             selector: (row) => row.sec_name,
             sortable: true,
             compact: true,
-            minWidth: "125px",
-            center: true,
+            //minWidth: "125px",
+            //center: true,
+            wrap: true,
         },
         {
             name: "Coupon",
@@ -959,14 +992,16 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
                         <TabList>
                             <Tab>Risk Holdings</Tab>
                             {tabListArr}
+                            
                             <button className="btn btn-sm btn-danger" id="remove-tab-button" onClick={handleRemoveSelectedTabClick}>Remove Tab</button>
                             <button className="btn btn-sm btn-primary" id="add-tab-button" type="button" onClick={handleAddTabClick}>Add Tab</button>
+                            
                         </TabList>
                         
 
                         <TabPanel>
                         <DataTable
-                            title={<div style={{ display: "flex", justifyContent: "space-between"}}> <h3 style={{ color: "white" }}>Risk Holdings: {hashMap.tab0.tableStyle[`${hashMap.tab0.req.positionView}`].title} View</h3> <h3 style={{ color: 'white'}}>{hashMap.tab0.req.aoDate}</h3> </div>}
+                            title={<div style={{ display: "flex", justifyContent: "space-between"}}> <h3 style={{ color: "white" }}>{hashMap.tab0.dataTableTitle} Risk Holdings: {hashMap.tab0.tableStyle[`${hashMap.tab0.req.positionView}`].title} View</h3> <h3 style={{ color: 'white'}}>{sqlDateToDateString(hashMap.tab0.req.aoDate)}</h3> </div>}
                             subHeader subHeaderComponent={SubHeaderComponent}  
                             columns={columnHeaders}
                             data={hashMap.tab0.data}

@@ -4,7 +4,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { /*FaRegCopy, FaShareAlt, */ FaEllipsisV } from 'react-icons/fa';
 import { getUspTrade, getSecurityDetail, getPriceHistory, getShowLoans, getAccountDetails } from '../api';
-import { dateFormatter, dollarFormatter, dollarFormatter0, formatWeight } from '../utils/helperFunctions';
+import { dateFormatter, dollarFormatter, dollarFormatter0, formatWeight, sqlDateToDateString } from '../utils/helperFunctions';
 import CustomCell from './CustomCell';
 
 export default function CustomMaterialMenu({ row, handleModalOption1Open, handleModalOption2Open, handleModalOption3Open, handleModalOption4Open, handleModalOption5Open}) {
@@ -28,13 +28,13 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
         const recentTradeModalColumns = [
             {
                 name: "Trade Date",
-                selector: (row) => dateFormatter(row.trade_date),
+                selector: (row) => sqlDateToDateString(dateFormatter(row.trade_date)),
                 compact: true,
                 reorder: true,
             },
             {
                 name: "Settle Date",
-                selector: (row) => dateFormatter(row.settle_date),
+                selector: (row) => sqlDateToDateString(dateFormatter(row.settle_date)),
                 compact: true,
                 reorder: true,
             },
@@ -177,7 +177,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
             },
             {
                 name: 'LT Date',
-                selector: (row) => dateFormatter(row.lastTradeableDate),
+                selector: (row) => sqlDateToDateString(dateFormatter(row.lastTradeableDate)),
                 compact: true,
                 reorder: true,
             },
@@ -287,7 +287,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
         const priceHistoryModalColumns = [
             {
                 name:'AO Date',
-                selector: (row) => dateFormatter(row.aoDate),
+                selector: (row) => sqlDateToDateString(dateFormatter(row.aoDate)),
                 compact: true,
                 reorder: true,
                 sortable: true,
@@ -1371,7 +1371,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                         showLoansModalColumns[87].omit = true;
                         return;
                     }
-                    return dateFormatter(row.issueDate);
+                    return sqlDateToDateString(dateFormatter(row.issueDate));
                 },
                 compact: true,
                 reorder: true,
@@ -1383,7 +1383,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                         showLoansModalColumns[88].omit = true;
                         return;
                     }
-                    return dateFormatter(row.maturityDate);
+                    return sqlDateToDateString(dateFormatter(row.maturityDate));
                 },
                 compact: true,
                 reorder: true,
@@ -1515,7 +1515,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                         showLoansModalColumns[99].omit = true;
                         return;
                     }
-                    return dateFormatter(row.contractStartDate);
+                    return sqlDateToDateString(dateFormatter(row.contractStartDate));
                 },
                 compact: true,
                 reorder: true,
@@ -1527,7 +1527,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                         showLoansModalColumns[100].omit = true;
                         return;
                     }
-                    return dateFormatter(row.contractEndDate);
+                    return sqlDateToDateString(dateFormatter(row.contractEndDate));
                 },
                 compact: true,
                 reorder: true,
@@ -1539,7 +1539,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                         showLoansModalColumns[101].omit = true;
                         return;
                     }
-                    return dateFormatter(row.createDate);
+                    return sqlDateToDateString(dateFormatter(row.createDate));
                 },
                 compact: true,
                 reorder: true,
@@ -1671,7 +1671,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                         showLoansModalColumns[112].omit = true;
                         return;
                     }
-                    return dateFormatter(row.ffiecLookupDate);
+                    return sqlDateToDateString(dateFormatter(row.ffiecLookupDate));
                 },
                 compact: true,
                 reorder: true,
@@ -1683,7 +1683,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                         showLoansModalColumns[113].omit = true;
                         return;
                     }
-                    return dateFormatter(row.walkScoreLookupDate);
+                    return sqlDateToDateString(dateFormatter(row.walkScoreLookupDate));
                 },
                 compact: true,
                 reorder: true,
@@ -1696,7 +1696,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                         showLoansModalColumns[114].omit = true;
                         return;
                     }
-                    return dateFormatter(row.recapLookupDate);
+                    return sqlDateToDateString(dateFormatter(row.recapLookupDate));
                 },
                 compact: true,
                 reorder: true,
@@ -1709,7 +1709,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                         showLoansModalColumns[115].omit = true;
                         return;
                     }
-                    return dateFormatter(row.difficultDevelopmentAreaLookupDate);
+                    return sqlDateToDateString(dateFormatter(row.difficultDevelopmentAreaLookupDate));
                 },
                 compact: true,
                 reorder: true,
@@ -1722,7 +1722,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                         showLoansModalColumns[116].omit = true;
                         return;
                     }
-                    return dateFormatter(row.persistentPovertyCountyLookupDate);
+                    return sqlDateToDateString(dateFormatter(row.persistentPovertyCountyLookupDate));
                 },
                 compact: true,
                 reorder: true,
@@ -1735,7 +1735,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                         showLoansModalColumns[117].omit = true;
                         return;
                     }
-                    return dateFormatter(row.geoCodedDate);
+                    return sqlDateToDateString(dateFormatter(row.geoCodedDate));
                 },
                 compact: true,
                 reorder: true,
@@ -1747,7 +1747,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                         showLoansModalColumns[118].omit = true;
                         return;
                     }
-                    return dateFormatter(row.censusDataDate);
+                    return sqlDateToDateString(dateFormatter(row.censusDataDate));
                 },
                 compact: true,
                 reorder: true,
@@ -1760,7 +1760,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                         showLoansModalColumns[119].omit = true;
                         return;
                     }
-                    return dateFormatter(row.ruralCensusTractAndMsaLookupDate);
+                    return sqlDateToDateString(dateFormatter(row.ruralCensusTractAndMsaLookupDate));
                 },
                 compact: true,
                 reorder: true,
@@ -1989,7 +1989,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                         showLoansModalColumns[138].omit = true;
                         return;
                     }
-                    return dateFormatter(row.tracsOverallExpirationDate);
+                    return sqlDateToDateString(dateFormatter(row.tracsOverallExpirationDate));
                 },
                 compact: true,
                 reorder: true,
@@ -2122,7 +2122,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                         showLoansModalColumns[149].omit = true;
                         return;
                     }
-                    return dateFormatter(row.tracsEffectiveDate);
+                    return sqlDateToDateString(dateFormatter(row.tracsEffectiveDate));
                 },
                 compact: true,
                 reorder: true,
@@ -2182,16 +2182,18 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 selector: (row) => row.apxPortfolioCode,
                 compact: true,
                 reorder: true,
+                wrap: true,
+                minWidth: "140px"
             },
             {
                 name: "Open Date",
-                selector: (row) => dateFormatter(row.openDate),
+                selector: (row) => sqlDateToDateString(dateFormatter(row.openDate)),
                 compact: true,
                 reorder: true,
             },
             {
                 name: "Close Date",
-                selector: (row) => dateFormatter(row.closeDate),
+                selector: (row) => sqlDateToDateString(dateFormatter(row.closeDate)),
                 compact: true,
                 reorder: true,
             },
@@ -2251,12 +2253,14 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 selector: (row) => row.faxPhone,
                 compact: true,
                 reorder: true,
+                wrap: true,
             },
             {
                 name: "Fax Cover Subject",
                 selector: (row) => row.faxCoverSubject,
                 compact: true,
                 reorder: true,
+                wrap: true,
             },
             {
                 name: "Fax Cover Body",
