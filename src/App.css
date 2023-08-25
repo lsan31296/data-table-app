@@ -40,10 +40,15 @@ a:active {
   background-color: #1B3668;
   color: white;
   text-align: center;
-  font-size: 12px;
+  font-size: 11px;
   position: fixed;
   bottom: 0;
   width: 100%;
+  height: 38px;
+}
+
+.footer p {
+  margin-bottom: 5px;
 }
 p a:link {
   color: lightblue;

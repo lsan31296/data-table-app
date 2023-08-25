@@ -22,3 +22,10 @@
     bottom: -8px;
     right: 0px;
 }
+
+#filter-bar {
+    float: right;
+    position: relative;
+    bottom: -8px;
+    right: 0px;
+}

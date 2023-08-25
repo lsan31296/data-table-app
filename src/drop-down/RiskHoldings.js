@@ -10,6 +10,7 @@ import './RiskHoldings.css';
 import SubHeaderComponent from "../data-table/SubHeaderComponent";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import PopModal from "../components/PopModal";
+import SingleSelectMenu from "./SingleSelectMenu";
 
 //This component is responsible for displaying a drop down menu which may be used for sending requests,
 //exporting selected accounts, etc.
@@ -47,7 +48,8 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
         data: [],//resData for respective tab
         req: initialFormState,//bodyReq for respective tab
         tableStyle: dataTableStyles,
-        dataTableTitle: ""
+        dataTableTitle: "",
+        currentRecords: [],
     }
     const initialHashState = {
         tab0: initialHashTabState
@@ -84,6 +86,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
     const [modalData, setModalData] = useState(null);
     const [modalTitle, setModalTitle] = useState(null);
     const [modalColumns, setModalColumns] = useState([]);
+    const [records, setRecords] = useState("");
     const rowsForSelect = removeUnwanteds(dropDownData).map((account, index) => (
         { 
             value: account.apx_portfolio_code,  
@@ -224,6 +227,54 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
         //console.log("Current Tab Index State: ", tabIndex);
         console.log("Current hashMap state after switching tabs: ", hashMap);
     };
+    const handleSingleSelectChange = (values, actionMeta) => {
+        console.log("Single Select Values: ", values);
+        setBodyReq({ ...bodyReq, accounts: values && values.value.length > 0 ? filterRiskAccounts([values], dropDownData) : bodyReq.accounts})
+        setHashMap({
+            ...hashMap,
+            [`tab${tabIndex}`]: {
+                ...hashMap[`tab${tabIndex}`],
+                data: [], //Resets data that appears in table anytime there is a change in the form. 
+                req: values && values.value.length > 0 ? {
+                    ...hashMap[`tab${tabIndex}`].req,
+                    accounts: [values.value] //Maps account name(s) to array with corresponding apxCode(s)
+                } :
+                {
+                    ...hashMap[`tab${tabIndex}`].req,
+                    //accounts: bodyReq.accounts
+                },
+                dataTableTitle: values && values.value.length > 0 ? formatAccountName(values.label) : "" 
+            }
+        })
+
+        tabPanelArr[tabIndex-1] = 
+        <TabPanel>
+        <DataTable
+        //Problem here, this is why it doesn't show proper header color.
+                //title={<h3 style={{ color: "white" }}>Risk Holdings: {hashMap[`tab${tabIndex}`].tableStyle[`${hashMap[`tab${tabIndex}`].req.positionView}`].title} View</h3>}
+                title={<div style={{ display: "flex", justifyContent: "space-between"}}> <h3 style={{ color: "white" }}>{values && values.value.length > 0 ? formatAccountName(values.label) : ""} Risk Holdings: {hashMap[`tab${tabIndex}`].tableStyle[`${hashMap[`tab${tabIndex}`].req.positionView}`].title} View</h3> <h3 style={{ color: 'white'}}>{sqlDateToDateString(hashMap[`tab${tabIndex}`].req.aoDate)}</h3> </div>}
+                subHeader subHeaderComponent={SubHeaderComponent}  
+                columns={columnHeaders}
+                data={[]}
+                highlightOnHover
+                striped
+                customStyles={customStyles}
+                conditionalRowStyles={conditionalRowStyles}
+                expandableRows
+                //expandOnRowClicked //NEEDED TO BE REMOVED IN ORDER TO ALLOW DOUBLE CLICK HANDLER TO OCCUR
+                expandableRowsComponent={ExpandedTable}
+                fixedHeader
+                //fixedHeaderScrollHeight="710px"
+                onRowDoubleClicked={handleDoubleClick}
+                pagination paginationPerPage={10000} 
+                paginationRowsPerPageOptions={[100, 200, 300, 400, 500, 1000, 10000]}
+                paginationComponentOptions={{ selectAllRowsItem: true, selectAllRowsItemText: "All" }}
+                //title={<h1 style={{ border: "red solid 2px"}}>Header</h1>}
+                //subHeaderComponent={<h3 style={{ border: "green solid 2px" }}>SubHeader</h3>}
+            />
+        </TabPanel>;
+        setTabPanelArr([...tabPanelArr]);
+    }
     const handleMultiSelectChange = (values, actionMeta) => {
         //console.log("Action Meta:", actionMeta);
         console.log("Multi Select values: " , values);
@@ -276,6 +327,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
     const handleMenuClose = async (actionMeta, values) => {
             console.log("Body Request: ", bodyReq);
             console.log("Account list from MultiSelect: ", hashMap[`tab${tabIndex}`].req.accounts);
+            console.log("hashMap: ", hashMap);
     };
     const handleDateChange = ({target}) => {
         setBodyReq({...bodyReq, aoDate: target.value })
@@ -396,7 +448,6 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             alert("Must select an account value to search in drop down.");
             return;
         }
-
         //IF tab is switched, and no additional dropdown value is selected, account list for tab req is empty.
         //So check the following condition...
         if (hashMap[`tab${tabIndex}`].req.accounts.length === 0 && bodyReq.accounts.length > 0) {
@@ -413,7 +464,6 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
                 }
             })
         }
-        
         const resData = await getRiskHoldings(bodyReq);
         //If a current tab is selected, set that tab's data array to response from getRiskHoldings API (resData)
         if (tabIndex >= 0) {
@@ -421,16 +471,15 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
                 ...hashMap,
                 [`tab${tabIndex}`]: {
                     ...hashMap[`tab${tabIndex}`],
-                    data: [...resData]
+                    data: [...resData],
+                    currentRecords: [...resData]
                 }
             })
         }
         if (tabIndex > 0) {
             tabPanelArr[tabIndex-1] = 
             <TabPanel>
-            <DataTable
-            //Problem here, this is why it doesn't show proper header color.
-                    //title={<h3 style={{ color: "white" }}>Risk Holdings: {hashMap[`tab${tabIndex}`].tableStyle[`${hashMap[`tab${tabIndex}`].req.positionView}`].title} View</h3>}
+                <DataTable
                     title={<div style={{ display: "flex", justifyContent: "space-between"}}> <h3 style={{ color: "white" }}>{hashMap[`tab${tabIndex}`].dataTableTitle} Risk Holdings: {hashMap[`tab${tabIndex}`].tableStyle[`${hashMap[`tab${tabIndex}`].req.positionView}`].title} View</h3> <h3 style={{ color: 'white'}}>{sqlDateToDateString(hashMap[`tab${tabIndex}`].req.aoDate)}</h3> </div>}
                     subHeader subHeaderComponent={SubHeaderComponent}  
                     columns={columnHeaders}
@@ -448,16 +497,12 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
                     pagination paginationPerPage={10000} 
                     paginationRowsPerPageOptions={[100, 200, 300, 400, 500, 1000, 10000]}
                     paginationComponentOptions={{ selectAllRowsItem: true, selectAllRowsItemText: "All" }}
-                    //title={<h1 style={{ border: "red solid 2px"}}>Header</h1>}
-                    //subHeaderComponent={<h3 style={{ border: "green solid 2px" }}>SubHeader</h3>}
                 />
             </TabPanel>;
-        
-        setTabPanelArr([
-            ...tabPanelArr,
-        ]);    
-    }
-
+            setTabPanelArr([
+                ...tabPanelArr,
+            ]);    
+        }
         //If resData exists
         if (resData.length > 0) {
             //then add bodyReq json into cache name, resData into cache data
@@ -527,6 +572,48 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             alert(`Row data copied to clipboard!`);
         });
     };
+    const handleFilter = ({target}) => {
+        const newData = hashMap[`tab${tabIndex}`].data.filter((row) => {
+            return row.bbg_cusip.toLowerCase().includes(target.value.toLowerCase())
+        })
+        setRecords(newData)
+        setHashMap({
+            ...hashMap,
+            [`tab${tabIndex}`]: {
+                ...hashMap[`tab${tabIndex}`],
+                currentRecords: [...newData]
+            }
+        })
+        if (tabIndex > 0) {
+        tabPanelArr[tabIndex-1] = 
+        <TabPanel>
+            <DataTable
+                title={<div style={{ display: "flex", justifyContent: "space-between"}}> <h3 style={{ color: "white" }}>{hashMap[`tab${tabIndex}`].dataTableTitle} Risk Holdings: {hashMap[`tab${tabIndex}`].tableStyle[`${hashMap[`tab${tabIndex}`].req.positionView}`].title} View</h3> <h3 style={{ color: 'white'}}>{sqlDateToDateString(hashMap[`tab${tabIndex}`].req.aoDate)}</h3> </div>}
+                subHeader subHeaderComponent={SubHeaderComponent}  
+                columns={columnHeaders}
+                data={newData}
+                highlightOnHover
+                striped
+                customStyles={customStyles}
+                conditionalRowStyles={conditionalRowStyles}
+                expandableRows
+                //expandOnRowClicked //NEEDED TO BE REMOVED IN ORDER TO ALLOW DOUBLE CLICK HANDLER TO OCCUR
+                expandableRowsComponent={ExpandedTable}
+                fixedHeader
+                //fixedHeaderScrollHeight="710px"
+                onRowDoubleClicked={handleDoubleClick}
+                pagination paginationPerPage={10000} 
+                paginationRowsPerPageOptions={[100, 200, 300, 400, 500, 1000, 10000]}
+                paginationComponentOptions={{ selectAllRowsItem: true, selectAllRowsItemText: "All" }}
+                //title={<h1 style={{ border: "red solid 2px"}}>Header</h1>}
+                //subHeaderComponent={<h3 style={{ border: "green solid 2px" }}>SubHeader</h3>}
+            />
+        </TabPanel>;
+        setTabPanelArr([
+            ...tabPanelArr,
+        ]);
+        }
+    }
 
     //Set react-data table configurations here
     const columnHeaders = [
@@ -930,14 +1017,19 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
     return (
         <div style={{ padding: hashMap[`tab${tabIndex}`].data.length > 0 ? "0px 2% 100px 2%" :"1% 4%", backgroundColor: "#F2F2F2",  /*border: "solid 2px green"*/ }}>
 
-            <form onSubmit={handleSearchButton}>
-                <MultiSelectMenu name="multiSelect" required={true} rowsForSelect={rowsForSelect} handleMultiSelectChange={handleMultiSelectChange} handleMenuClose={handleMenuClose}/>
-                
-                <div className="input-group">
+            <form id="risk-form" onSubmit={handleSearchButton}>
+
+                <div className="input-group row ps-3">
+
+                    <div className="input-group-text col-4">
+                    {/*<MultiSelectMenu name="multiSelect" required={true} rowsForSelect={rowsForSelect} handleMultiSelectChange={handleMultiSelectChange} handleMenuClose={handleMenuClose}/> */}
+                    <SingleSelectMenu name="singleSelect" required={true} rowsForSelect={rowsForSelect} handleSingleSelectChange={handleSingleSelectChange} handleMenuClose={handleMenuClose} />
+                    
                     <label htmlFor="aoDate"></label>
                     <input className="form-control" id="aoDate" type="date" name="aoDate" onChange={handleDateChange} value={hashMap[`tab${tabIndex}`].req.aoDate} pattern="\d{4}-\d{2}-\d{2}" placeholder="YYYY-MM-DD"/>
-                    
-                    <div className="input-group-text">
+                    </div>
+
+                    <div className="input-group-text col-3">
                         <div className="form-check pe-2">
                             <input className="form-check-input" type="radio" value="TD" name="RiskHoldingView" id="trade_date" onChange={handleRadioButtonClick} defaultChecked/>
                             <label className="form-check-label" htmlFor="trade_date">Trade Date</label>
@@ -956,7 +1048,8 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
                         </div>
                     </div>
 
-                    <div className="input-group-text">
+                    
+                    <div className="input-group-text col-4">
                         <div className="form-check form-switch pe-2">
                             <input className="form-check-input" type="radio" id="noAggSwitch" name="aggRows" value="n" onChange={handleAggSwitchChange} defaultChecked/>
                             <label className="form-check-label" htmlFor="noAggSwitch">No Aggregates</label>
@@ -978,10 +1071,13 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
                             <label className="form-check-label" htmlFor="secAggSwitch">Sector</label>
                         </div>
                     </div>
+
+                    <div className="input-group-text col-1">
+                            <button className="btn btn-sm btn-primary" id="search-button" type="submit">Search</button>
+                            <ExportCSV csvData={hashMap[`tab${tabIndex}`].data} fileName={fileNameConstructor(hashMap, tabIndex)} />
+                    </div>
                     
-                    <button className="btn btn-primary" type="submit">Search</button>
-                    <ExportCSV csvData={hashMap[`tab${tabIndex}`].data} fileName={fileNameConstructor(hashMap, tabIndex)} />
-                </div>  
+                </div>
             </form>
             {
                 tabIndex >= 0 && 
@@ -992,7 +1088,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
                         <TabList>
                             <Tab>Risk Holdings</Tab>
                             {tabListArr}
-                            
+                            <input id="filter-bar" placeholder="Filter..." type="text" onChange={handleFilter}/>
                             <button className="btn btn-sm btn-danger" id="remove-tab-button" onClick={handleRemoveSelectedTabClick}>Remove Tab</button>
                             <button className="btn btn-sm btn-primary" id="add-tab-button" type="button" onClick={handleAddTabClick}>Add Tab</button>
                             
@@ -1000,24 +1096,24 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
                         
 
                         <TabPanel>
-                        <DataTable
-                            title={<div style={{ display: "flex", justifyContent: "space-between"}}> <h3 style={{ color: "white" }}>{hashMap.tab0.dataTableTitle} Risk Holdings: {hashMap.tab0.tableStyle[`${hashMap.tab0.req.positionView}`].title} View</h3> <h3 style={{ color: 'white'}}>{sqlDateToDateString(hashMap.tab0.req.aoDate)}</h3> </div>}
-                            subHeader subHeaderComponent={SubHeaderComponent}  
-                            columns={columnHeaders}
-                            data={hashMap.tab0.data}
-                            highlightOnHover
-                            striped
-                            customStyles={customStyles}
-                            conditionalRowStyles={conditionalRowStyles}
-                            expandableRows
-                            expandableRowsComponent={ExpandedTable}
-                            fixedHeader
-                            //fixedHeaderScrollHeight="710px"
-                            onRowDoubleClicked={handleDoubleClick}
-                            pagination paginationPerPage={10000} 
-                            paginationRowsPerPageOptions={[100, 200, 300, 400, 500, 1000, 10000]}
-                            paginationComponentOptions={{ selectAllRowsItem: true, selectAllRowsItemText: "All" }}
-                        />
+                            <DataTable
+                                title={<div style={{ display: "flex", justifyContent: "space-between"}}> <h3 style={{ color: "white" }}>{hashMap.tab0.dataTableTitle} Risk Holdings: {hashMap.tab0.tableStyle[`${hashMap.tab0.req.positionView}`].title} View</h3> <h3 style={{ color: 'white'}}>{sqlDateToDateString(hashMap.tab0.req.aoDate)}</h3> </div>}
+                                subHeader subHeaderComponent={SubHeaderComponent}  
+                                columns={columnHeaders}
+                                data={hashMap.tab0.currentRecords}
+                                highlightOnHover
+                                striped
+                                customStyles={customStyles}
+                                conditionalRowStyles={conditionalRowStyles}
+                                expandableRows
+                                expandableRowsComponent={ExpandedTable}
+                                fixedHeader
+                                //fixedHeaderScrollHeight="710px"
+                                onRowDoubleClicked={handleDoubleClick}
+                                pagination paginationPerPage={10000} 
+                                paginationRowsPerPageOptions={[100, 200, 300, 400, 500, 1000, 10000]}
+                                paginationComponentOptions={{ selectAllRowsItem: true, selectAllRowsItemText: "All" }}
+                            />
                         </TabPanel>
                         {tabPanelArr}
 

@@ -4,7 +4,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { /*FaRegCopy, FaShareAlt, */ FaEllipsisV } from 'react-icons/fa';
 import { getUspTrade, getSecurityDetail, getPriceHistory, getShowLoans, getAccountDetails } from '../api';
-import { dateFormatter, dollarFormatter, dollarFormatter0, formatWeight, sqlDateToDateString } from '../utils/helperFunctions';
+import { dateFormatter, dollarFormatter, dollarFormatter0, formatWeight, numberFormatter2, sqlDateToDateString } from '../utils/helperFunctions';
 import CustomCell from './CustomCell';
 
 export default function CustomMaterialMenu({ row, handleModalOption1Open, handleModalOption2Open, handleModalOption3Open, handleModalOption4Open, handleModalOption5Open}) {
@@ -259,7 +259,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 reorder: true,
             },
             {
-                name: 'Muni Issue Szie',
+                name: 'Muni Issue Size',
                 selector: (row) => row.muni_issue_size,
                 compact: true,
                 reorder: true,
@@ -328,6 +328,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
                 name: 'Loan ID',
@@ -340,6 +341,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
                 name: 'Issuer',
@@ -352,6 +354,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
                 wrap: true,
             },
             {
@@ -365,6 +368,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
                 wrap: true,
             },
             {
@@ -378,6 +382,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
                 name: 'Affordable',
@@ -390,6 +395,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
                 name: 'Arts cul',
@@ -402,6 +408,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
                 name: 'Dis Rec',
@@ -414,6 +421,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
                 name: 'Educ',
@@ -426,6 +434,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
                 name: 'Dis Rec',
@@ -438,6 +447,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
                 name: 'EntDev',
@@ -450,6 +460,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
                 name: 'Green',
@@ -462,6 +473,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
                 name: 'Gender',
@@ -474,6 +486,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
                 name: 'Gov',
@@ -486,6 +499,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
                 name: 'Healthy',
@@ -498,6 +512,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
                 name: 'Human Empathy',
@@ -510,6 +525,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
                 name: 'Minority',
@@ -522,6 +538,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
                 name: 'Revit',
@@ -534,6 +551,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
                 name: 'Rural',
@@ -546,6 +564,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
                 name: 'Seniors',
@@ -558,6 +577,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
                 name: 'Agricultural',
@@ -570,6 +590,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
                 name: 'TOD',
@@ -582,6 +603,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
                 name: 'Economic',
@@ -594,6 +616,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
                 name: 'Faith',
@@ -606,6 +629,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
                 name: 'mCares',
@@ -618,6 +642,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
                 name: 'COVID',
@@ -630,9 +655,10 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
-                name: 'mCares Initiative',
+                name: <div>mCares Initiative</div>,
                 selector: (row,index) => {
                     if (!row.mCaresInitiative) {
                         showLoansModalColumns[26].omit = true;
@@ -642,9 +668,10 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
-                name: 'COVID Initiative',
+                name: <div>COVID Initiative</div>,
                 selector: (row,index) => {
                     if (!row.covidInitiative) {
                         showLoansModalColumns[27].omit = true;
@@ -654,6 +681,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
                 name: 'Security ID',
@@ -666,6 +694,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
                 name: 'Number',
@@ -678,6 +707,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
                 name: 'Rate',
@@ -690,6 +720,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
                 name: 'Amount',
@@ -702,6 +733,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
                 name: 'FICO',
@@ -714,6 +746,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
                 name: 'Term',
@@ -726,6 +759,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
                 name: 'LTV',
@@ -738,6 +772,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
                 name: 'Occupancy',
@@ -750,6 +785,8 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
+                wrap: true,
             },
             {
                 name: 'Security Type',
@@ -762,6 +799,8 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
+                wrap: true,
             },
             {
                 name: 'Address',
@@ -774,6 +813,8 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
+                wrap: true,
             },
             {
                 name: 'City ID',
@@ -786,6 +827,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
                 name: 'City',
@@ -798,6 +840,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
                 name: 'State ID',
@@ -810,6 +853,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
                 name: 'State',
@@ -822,10 +866,11 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
                 wrap: true,
             },
             {
-                name: 'State County Code',
+                name: <div>State County Code</div>,
                 selector: (row,index) => {
                     if (!row.stateCountyCode) {
                         showLoansModalColumns[42].omit = true;
@@ -835,6 +880,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
                 name: 'Class Code',
@@ -847,6 +893,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
                 name: 'County',
@@ -859,6 +906,8 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
+                wrap: true,
             },
             {
                 name: 'Is PPC',
@@ -871,6 +920,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
                 name: 'Zip Code',
@@ -883,6 +933,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
                 name: 'Annual Income',
@@ -895,6 +946,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
                 name: 'MSA Number',
@@ -907,6 +959,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
                 name: 'Percent Median',
@@ -919,6 +972,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
                 name: 'MFI ID',
@@ -931,6 +985,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
                 name: 'Census Tract',
@@ -943,6 +998,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
                 name: 'LI Ratio',
@@ -955,9 +1011,10 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
-                name: 'CCM Percent Of MF',
+                name: <div>CCM Percent Of MF</div>,
                 selector: (row,index) => {
                     if (!row.ccmPercentOfMf) {
                         showLoansModalColumns[53].omit = true;
@@ -967,6 +1024,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
                 name: 'Expr 1',
@@ -979,6 +1037,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
                 name: 'Race',
@@ -991,6 +1050,8 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
+                wrap: true,
             },
             {
                 name: 'Ethnicity',
@@ -1003,9 +1064,11 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
+                wrap: true,
             },
             {
-                name: 'FFIEC MSA Code',
+                name: <div>FFIEC MSA Code</div>,
                 selector: (row,index) => {
                     if (!row.ffiecMsaCode) {
                         showLoansModalColumns[57].omit = true;
@@ -1015,9 +1078,10 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
-                name: 'FFIEC County Code',
+                name: <div>FFIEC County Code</div>,
                 selector: (row,index) => {
                     if (!row.ffiecCountyCode) {
                         showLoansModalColumns[58].omit = true;
@@ -1027,9 +1091,10 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
-                name: 'FFIEC Census Tract',
+                name: <div>FFIEC Census Tract</div>,
                 selector: (row,index) => {
                     if (!row.ffiecCensusTract) {
                         showLoansModalColumns[59].omit = true;
@@ -1039,9 +1104,10 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
-                name: 'FFIEC County Name',
+                name: <div>FFIEC County Name</div>,
                 selector: (row,index) => {
                     if (!row.ffiecCountyName) {
                         showLoansModalColumns[60].omit = true;
@@ -1051,9 +1117,10 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
-                name: 'FFIEC Income Level',
+                name: <div>FFIEC Income Level</div>,
                 selector: (row,index) => {
                     if (!row.ffiecIncomeLevel) {
                         showLoansModalColumns[61].omit = true;
@@ -1063,9 +1130,10 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
-                name: 'FFIEC Distressed',
+                name: <div>FFIEC Distressed</div>,
                 selector: (row,index) => {
                     if (!row.ffiecDistressed) {
                         showLoansModalColumns[62].omit = true;
@@ -1075,9 +1143,10 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
-                name: 'FFIEC MFI',
+                name: <div>FFIEC MFI</div>,
                 selector: (row,index) => {
                     if (!row.ffiecMfi) {
                         showLoansModalColumns[63].omit = true;
@@ -1087,9 +1156,10 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
-                name: 'FFIEC Tract Percent Minority',
+                name: <div>FFIEC Tract Percent Minority</div>,
                 selector: (row,index) => {
                     if (!row.ffiecTractPercentMinority) {
                         showLoansModalColumns[64].omit = true;
@@ -1099,9 +1169,10 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
-                name: 'FFIEC Percent Poverty',
+                name: <div>FFIEC Percent Poverty</div>,
                 selector: (row,index) => {
                     if (!row.ffiecPercentPoverty) {
                         showLoansModalColumns[65].omit = true;
@@ -1111,9 +1182,10 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
-                name: 'FFIEC State Code',
+                name: <div>FFIEC State Code</div>,
                 selector: (row,index) => {
                     if (!row.ffiecStateCode) {
                         showLoansModalColumns[66].omit = true;
@@ -1123,9 +1195,10 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
-                name: 'FFIEC MSA MFI Percent',
+                name: <div>FFIEC MSA MFI Percent</div>,
                 selector: (row,index) => {
                     if (!row.ffiecMsamfiPercent) {
                         showLoansModalColumns[67].omit = true;
@@ -1135,9 +1208,10 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
-                name: 'FFIEC State',
+                name: <div>FFIEC State</div>,
                 selector: (row,index) => {
                     if (!row.ffiecState) {
                         showLoansModalColumns[68].omit = true;
@@ -1147,9 +1221,10 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
-                name: 'FFIEC Zipo Code',
+                name: <div>FFIEC Zipo Code</div>,
                 selector: (row,index) => {
                     if (!row.ffiecZipoCode) {
                         showLoansModalColumns[69].omit = true;
@@ -1159,6 +1234,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
                 name: 'Walk Score',
@@ -1171,9 +1247,10 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
-                name: 'Walk Score Description',
+                name: <div>Walk Score Description</div>,
                 selector: (row,index) => {
                     if (!row.walkScoreDescription) {
                         showLoansModalColumns[71].omit = true;
@@ -1183,6 +1260,8 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
+                wrap: true,
             },
             {
                 name: 'Bike Score',
@@ -1195,9 +1274,10 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
-                name: 'Bike Score Description',
+                name: <div>Bike Score Description</div>,
                 selector: (row,index) => {
                     if (!row.bikeScoreDescription) {
                         showLoansModalColumns[73].omit = true;
@@ -1207,6 +1287,8 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
+                wrap: true,
             },
             {
                 name: 'Transit Score',
@@ -1219,9 +1301,10 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
-                name: 'Transit Score Description',
+                name: <div>Transit Score Description</div>,
                 selector: (row,index) => {
                     if (!row.transitScoreDescription) {
                         showLoansModalColumns[75].omit = true;
@@ -1231,6 +1314,8 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
+                wrap: true,
             },
             {
                 name: 'Latitude',
@@ -1239,10 +1324,11 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                         showLoansModalColumns[76].omit = true;
                         return;
                     }
-                    return row.latitude;
+                    return numberFormatter2.format(row.latitude);
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
                 name: 'Longitude',
@@ -1251,10 +1337,11 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                         showLoansModalColumns[77].omit = true;
                         return;
                     }
-                    return row.longitude;
+                    return numberFormatter2.format(row.longitude);
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
                 name: 'Gender 2',
@@ -1267,6 +1354,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
                 name: 'Race 2',
@@ -1279,6 +1367,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
                 name: 'Ethnicity 2',
@@ -1291,6 +1380,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
                 name: 'Pool Number',
@@ -1303,6 +1393,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
                 name: 'Expr 2',
@@ -1315,6 +1406,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
                 name: 'Orig Amount',
@@ -1327,6 +1419,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
                 name: 'Curr Factor',
@@ -1339,6 +1432,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
                 name: 'Curr Amount',
@@ -1351,6 +1445,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
                 name: 'Property Name',
@@ -1363,11 +1458,13 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
+                wrap: true,
             },
             {
                 name: 'Issue Date',
                 selector: (row,index) => {
-                    if (!row.issueDate) {
+                    if (!sqlDateToDateString(dateFormatter(row.issueDate))) {
                         showLoansModalColumns[87].omit = true;
                         return;
                     }
@@ -1375,11 +1472,12 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
                 name: 'Maturity Date',
                 selector: (row,index) => {
-                    if (!row.maturityDate) {
+                    if (!sqlDateToDateString(dateFormatter(row.maturityDate))) {
                         showLoansModalColumns[88].omit = true;
                         return;
                     }
@@ -1387,6 +1485,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
                 name: 'Affordable ID',
@@ -1399,9 +1498,10 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
-                name: 'FHA Case Number',
+                name: <div>FHA Case Number</div>,
                 selector: (row,index) => {
                     if (!row.fhaCasNumber) {
                         showLoansModalColumns[90].omit = true;
@@ -1411,9 +1511,10 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
-                name: 'Acknowledge Unaffordable',
+                name: <div>Acknowledge Unaffordable</div>,
                 selector: (row,index) => {
                     if (!row.acknowledgeUnaffordable) {
                         showLoansModalColumns[91].omit = true;
@@ -1423,9 +1524,10 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
-                name: 'Unaffordable Comment',
+                name: <div>Unaffordable Comment</div>,
                 selector: (row,index) => {
                     if (!row.unaffordableComment) {
                         showLoansModalColumns[92].omit = true;
@@ -1435,9 +1537,10 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
-                name: 'Unaffordable Overriding User ID',
+                name: <div>Unaffordable Overriding User ID</div>,
                 selector: (row,index) => {
                     if (!row.unaffordableOverridingUserId) {
                         showLoansModalColumns[93].omit = true;
@@ -1447,6 +1550,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
                 name: 'MFI',
@@ -1459,6 +1563,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
                 name: 'Units A',
@@ -1471,6 +1576,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
                 name: 'Units B',
@@ -1483,9 +1589,10 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
-                name: 'Non CRA Qualified',
+                name: <div>Non CRA Qualified</div>,
                 selector: (row,index) => {
                     if (!row.nonCraQualified) {
                         showLoansModalColumns[97].omit = true;
@@ -1495,6 +1602,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
                 name: 'Contract',
@@ -1507,11 +1615,12 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
-                name: 'Contract Start Date',
+                name: <div>Contract Start Date</div>,
                 selector: (row,index) => {
-                    if (!row.contractStartDate) {
+                    if (!sqlDateToDateString(dateFormatter(row.contractStartDate))) {
                         showLoansModalColumns[99].omit = true;
                         return;
                     }
@@ -1519,11 +1628,12 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
-                name: 'Contract End Date',
+                name: <div>Contract End Date</div>,
                 selector: (row,index) => {
-                    if (!row.contractEndDate) {
+                    if (!sqlDateToDateString(dateFormatter(row.contractEndDate))) {
                         showLoansModalColumns[100].omit = true;
                         return;
                     }
@@ -1531,11 +1641,12 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
-                name: 'Create Date',
+                name: <div>Create Date</div>,
                 selector: (row,index) => {
-                    if (!row.createDate) {
+                    if (!sqlDateToDateString(dateFormatter(row.createDate))) {
                         showLoansModalColumns[101].omit = true;
                         return;
                     }
@@ -1543,9 +1654,10 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
-                name: 'FFIEC Looked Up',
+                name: <div>FFIEC Looked Up</div>,
                 selector: (row,index) => {
                     if (!row.ffiecLookedUp) {
                         showLoansModalColumns[102].omit = true;
@@ -1555,6 +1667,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
                 name: 'Recap Loan',
@@ -1567,9 +1680,10 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
-                name: 'Tracker Loan ID',
+                name: <div>Tracker Loan ID</div>,
                 selector: (row,index) => {
                     if (!row.trackerLoanId) {
                         showLoansModalColumns[104].omit = true;
@@ -1579,6 +1693,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
                 name: 'General Text',
@@ -1591,9 +1706,10 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
-                name: 'Google Addres',
+                name: <div>Google Address</div>,
                 selector: (row,index) => {
                     if (!row.googleAddress) {
                         showLoansModalColumns[106].omit = true;
@@ -1603,9 +1719,11 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
+                wrap: true,
             },
             {
-                name: 'Tracker Loan ID',
+                name: <div>Tracker Loan ID</div>,
                 selector: (row,index) => {
                     if (!row.trackerLoanId) {
                         showLoansModalColumns[107].omit = true;
@@ -1615,9 +1733,10 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
-                name: 'Google Looked Up',
+                name: <div>Google Looked Up</div>,
                 selector: (row,index) => {
                     if (!row.googleLookedUp) {
                         showLoansModalColumns[108].omit = true;
@@ -1627,9 +1746,10 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
-                name: 'Difficult Development Area',
+                name: <div>Difficult Development Area</div>,
                 selector: (row,index) => {
                     if (!row.difficultDevelopmentArea) {
                         showLoansModalColumns[109].omit = true;
@@ -1639,9 +1759,10 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
-                name: 'Rural Census Tract and MSA',
+                name: <div>Rural Census Tract and MSA</div>,
                 selector: (row,index) => {
                     if (!row.ruralCensusTractAndMsa) {
                         showLoansModalColumns[110].omit = true;
@@ -1651,9 +1772,10 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
-                name: 'Persistent Poverty County',
+                name: <div>Persistent Poverty County</div>,
                 selector: (row,index) => {
                     if (!row.persistentPovertyCounty) {
                         showLoansModalColumns[111].omit = true;
@@ -1663,11 +1785,12 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
-                name: 'FFIEC Lookup Date',
+                name: <div>FFIEC Lookup Date</div>,
                 selector: (row,index) => {
-                    if (!row.ffiecLookupDate) {
+                    if (!sqlDateToDateString(dateFormatter(row.ffiecLookupDate))) {
                         showLoansModalColumns[112].omit = true;
                         return;
                     }
@@ -1675,11 +1798,12 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
-                name: 'Walk Score Lookup Date',
+                name: <div>Walk Score Lookup Date</div>,
                 selector: (row,index) => {
-                    if (!row.walkScoreLookupDate) {
+                    if (!sqlDateToDateString(dateFormatter(row.walkScoreLookupDate))) {
                         showLoansModalColumns[113].omit = true;
                         return;
                     }
@@ -1687,12 +1811,12 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
-                minWidth: "140px",
+                center: true,
             },
             {
-                name: 'Recap Lookup Date',
+                name: <div>Recap Lookup Date</div>,
                 selector: (row,index) => {
-                    if (!row.recapLookupDate) {
+                    if (!sqlDateToDateString(dateFormatter(row.recapLookupDate))) {
                         showLoansModalColumns[114].omit = true;
                         return;
                     }
@@ -1700,12 +1824,12 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
-                minWidth: "120px"
+                center: true,
             },
             {
-                name: 'Difficult Dev Area Lookup Date',
+                name: <div>Difficult Dev Area Lookup Date</div>,
                 selector: (row,index) => {
-                    if (!row.difficultDevelopmentAreaLookupDate) {
+                    if (!sqlDateToDateString(dateFormatter(row.difficultDevelopmentAreaLookupDate))) {
                         showLoansModalColumns[115].omit = true;
                         return;
                     }
@@ -1713,12 +1837,12 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
-                minWidth: "185px",
+                center: true,
             },
             {
-                name: 'Persistent Poverty County Lookup Date',
+                name: <div>Persistent Poverty County Lookup Date</div>,
                 selector: (row,index) => {
-                    if (!row.persistentPovertyCountyLookupDate) {
+                    if (!sqlDateToDateString(dateFormatter(row.persistentPovertyCountyLookupDate))) {
                         showLoansModalColumns[116].omit = true;
                         return;
                     }
@@ -1726,12 +1850,12 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
-                minWidth: "240px",
+                center: true,
             },
             {
-                name: 'Geo Coded Date',
+                name: <div>Geo Coded Date</div>,
                 selector: (row,index) => {
-                    if (!row.geoCodedDate) {
+                    if (!sqlDateToDateString(dateFormatter(row.geoCodedDate))) {
                         showLoansModalColumns[117].omit = true;
                         return;
                     }
@@ -1739,11 +1863,12 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
-                name: 'Census Data Date',
+                name: <div>Census Data Date</div>,
                 selector: (row,index) => {
-                    if (!row.censusDataDate) {
+                    if (!sqlDateToDateString(dateFormatter(row.censusDataDate))) {
                         showLoansModalColumns[118].omit = true;
                         return;
                     }
@@ -1751,12 +1876,12 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
-                minWidth: "120px",
+                center: true,
             },
             {
-                name: 'Rural Census Tract and MSA Lookup Date',
+                name: <div>Rural Census Tract and MSA Lookup Date</div>,
                 selector: (row,index) => {
-                    if (!row.ruralCensusTractAndMsaLookupDate) {
+                    if (!sqlDateToDateString(dateFormatter(row.ruralCensusTractAndMsaLookupDate))) {
                         showLoansModalColumns[119].omit = true;
                         return;
                     }
@@ -1764,7 +1889,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
-                minWidth: "240px",
+                center: true,
             },
             {
                 name: 'Units C',
@@ -1777,6 +1902,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
                 name: 'Units D',
@@ -1789,6 +1915,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
                 name: 'Expr 3',
@@ -1801,6 +1928,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
                 name: 'MSA Code',
@@ -1813,6 +1941,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
                 name: 'MSA Name',
@@ -1825,6 +1954,8 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
+                wrap: true,
             },
             {
                 name: 'Source',
@@ -1837,6 +1968,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
                 name: 'Year',
@@ -1849,9 +1981,10 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
-                name: 'Use As Current',
+                name: <div>Use As Current</div>,
                 selector: (row,index) => {
                     if (!row.useAsCurrent) {
                         showLoansModalColumns[127].omit = true;
@@ -1861,6 +1994,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
                 name: 'Record Type',
@@ -1873,6 +2007,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
                 name: 'Property ID',
@@ -1885,6 +2020,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
                 name: 'Expr 4',
@@ -1897,9 +2033,10 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
-                name: 'Affordable Address',
+                name: <div>Affordable Address</div>,
                 selector: (row,index) => {
                     if (!row.affordableAddress) {
                         showLoansModalColumns[131].omit = true;
@@ -1909,6 +2046,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
                 name: 'Affordable City',
@@ -1921,6 +2059,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
                 name: 'Affordable State',
@@ -1933,6 +2072,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
                 name: 'Affordable Zip',
@@ -1945,9 +2085,10 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
-                name: 'Affordable County Code',
+                name: <div>Affordable County Code</div>,
                 selector: (row,index) => {
                     if (!row.affordableCountyCode) {
                         showLoansModalColumns[135].omit = true;
@@ -1957,9 +2098,10 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
-                name: 'Affordable County',
+                name: <div>Affordable County</div>,
                 selector: (row,index) => {
                     if (!row.affordableCounty) {
                         showLoansModalColumns[136].omit = true;
@@ -1969,6 +2111,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
                 name: 'Total Units',
@@ -1981,11 +2124,12 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
-                name: 'Tracs Overall Expiration Date',
+                name: <div>Tracs Overall Expiration Date</div>,
                 selector: (row,index) => {
-                    if (!row.tracsOverallExpirationDate) {
+                    if (!sqlDateToDateString(dateFormatter(row.tracsOverallExpirationDate))) {
                         showLoansModalColumns[138].omit = true;
                         return;
                     }
@@ -1993,10 +2137,10 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
-                minWidth: "190px"
+                center: true,
             },
             {
-                name: 'Tracs Status Name',
+                name: <div>Tracs Status Name</div>,
                 selector: (row,index) => {
                     if (!row.tracsStatusName) {
                         showLoansModalColumns[139].omit = true;
@@ -2006,9 +2150,10 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
-                name: 'Assisted Units Count',
+                name: <div>Assisted Units Count</div>,
                 selector: (row,index) => {
                     if (!row.assistedUnitsCount) {
                         showLoansModalColumns[140].omit = true;
@@ -2018,6 +2163,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
                 name: 'HUD ID',
@@ -2030,6 +2176,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
                 name: 'N Units',
@@ -2042,6 +2189,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
                 name: 'LI Units',
@@ -2054,9 +2202,10 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
-                name: 'Year Allocation',
+                name: <div>Year Allocation</div>,
                 selector: (row,index) => {
                     if (!row.yrAlloc) {
                         showLoansModalColumns[144].omit = true;
@@ -2066,6 +2215,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
                 name: 'Custom',
@@ -2078,6 +2228,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
                 name: 'Is Legacy',
@@ -2090,9 +2241,10 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
-                name: 'Is Rolled Up',
+                name: <div>Is Rolled Up</div>,
                 selector: (row,index) => {
                     if (!row.isRolledUp) {
                         showLoansModalColumns[147].omit = true;
@@ -2102,9 +2254,10 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
-                name: 'Is Dated Mismatched',
+                name: <div>Is Dated Mismatched</div>,
                 selector: (row,index) => {
                     if (!row.isDateMismatch) {
                         showLoansModalColumns[148].omit = true;
@@ -2114,11 +2267,12 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
             {
-                name: 'Tracs Effective Date',
+                name: <div>Tracs Effective Date</div>,
                 selector: (row,index) => {
-                    if (!row.tracsEffectiveDate) {
+                    if (!sqlDateToDateString(dateFormatter(row.tracsEffectiveDate))) {
                         showLoansModalColumns[149].omit = true;
                         return;
                     }
@@ -2126,7 +2280,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
-                minWidth: "140px"
+                center: true,
             },
             {
                 name: 'Contract Number',
@@ -2139,6 +2293,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 },
                 compact: true,
                 reorder: true,
+                center: true,
             },
         ];
         
