@@ -4,7 +4,8 @@ import Select from "react-select";
 export default function SingleSelectMenu({ rowsForSelect, handleSingleSelectChange, handleMenuClose }) {
     return (
         <Select 
-            className="basic-single"
+            className="basic-single form-control"
+            id="singleSelect"
             classNamePrefix="select"
             options={rowsForSelect}
             name="issuers"
