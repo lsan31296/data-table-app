@@ -251,7 +251,7 @@ export function formatAccountName(accountString) {
     return accountString.slice(dashIndex + 2);
 }
 
-const unwantedElements = ["CCM_INTERNAL_SMA", "CCMNX-Adjusted", "Alternative Impact Fund - Cash Sleeve", "Alternative Impact Fund - FI Sleeve", "Equity Impact Core Fund", "Equity IMact SMID Fund", "Test Acct"];
+const unwantedElements = ["CCM_INTERNAL_SMA", "CCMNX-Adjusted", "Alternative Impact Fund - Cash Sleeve", "Alternative Impact Fund - FI Sleeve", "Equity Impact Core Fund", "Equity IMact SMID Fund", "Test Acct", "All CCM Accounts"];
 /*
 * Helper function is going to be used to find the indeces of unwanted variable using 
 * formatAccount_name().

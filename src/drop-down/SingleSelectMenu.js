@@ -4,7 +4,8 @@ import Select from "react-select";
 export default function SingleSelectMenu({ rowsForSelect, handleSingleSelectChange, handleMenuClose }) {
     return (
         <Select 
-            className="basic-single"
+            className="basic-single form-control"
+            id="singleSelect"
             classNamePrefix="select"
             options={rowsForSelect}
             name="issuers"
@@ -15,7 +16,9 @@ export default function SingleSelectMenu({ rowsForSelect, handleSingleSelectChan
             styles={{
                 option: (baseStyles, state) => ({
                     ...baseStyles,
-                    color: "black"
+                    color: "black",
+                    alignItems: "center",
+                    display: "flex"
                 }),
                 menu: (provided) => ({...provided, zIndex: 9999}),
             }}
