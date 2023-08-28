@@ -29,3 +29,7 @@
     bottom: -8px;
     right: 0px;
 }
+
+#singleSelect {
+    border: none !important;
+}
