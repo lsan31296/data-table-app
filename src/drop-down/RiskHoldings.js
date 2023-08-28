@@ -1015,18 +1015,18 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
     
     /* RENDERED ON UI */
     return (
-        <div style={{ padding: hashMap[`tab${tabIndex}`].data.length > 0 ? "0px 2% 100px 2%" : "0px 2% 100px 2%", backgroundColor: "#F2F2F2" }}>
+        <div style={{ padding: hashMap[`tab${tabIndex}`].data.length > 0 ? "0px 2% 100px 2%" :"1% 4%", backgroundColor: "#F2F2F2",  /*border: "solid 2px green"*/ }}>
 
             <form id="risk-form" onSubmit={handleSearchButton}>
 
-                <div className="input-group row" style={{ margin: "0px 0px 0px 0px"}}>
+                <div className="input-group row ps-3">
 
                     <div className="input-group-text col-4">
-                        {/*<MultiSelectMenu name="multiSelect" required={true} rowsForSelect={rowsForSelect} handleMultiSelectChange={handleMultiSelectChange} handleMenuClose={handleMenuClose}/> */}
-                        <SingleSelectMenu name="singleSelect" required={true} rowsForSelect={rowsForSelect} handleSingleSelectChange={handleSingleSelectChange} handleMenuClose={handleMenuClose} />
+                    {/*<MultiSelectMenu name="multiSelect" required={true} rowsForSelect={rowsForSelect} handleMultiSelectChange={handleMultiSelectChange} handleMenuClose={handleMenuClose}/> */}
+                    <SingleSelectMenu name="singleSelect" required={true} rowsForSelect={rowsForSelect} handleSingleSelectChange={handleSingleSelectChange} handleMenuClose={handleMenuClose} />
                     
-                        <label htmlFor="aoDate"></label>
-                        <input className="form-control" id="aoDate" type="date" name="aoDate" onChange={handleDateChange} value={hashMap[`tab${tabIndex}`].req.aoDate} pattern="\d{4}-\d{2}-\d{2}" placeholder="YYYY-MM-DD"/>
+                    <label htmlFor="aoDate"></label>
+                    <input className="form-control" id="aoDate" type="date" name="aoDate" onChange={handleDateChange} value={hashMap[`tab${tabIndex}`].req.aoDate} pattern="\d{4}-\d{2}-\d{2}" placeholder="YYYY-MM-DD"/>
                     </div>
 
                     <div className="input-group-text col-3">
