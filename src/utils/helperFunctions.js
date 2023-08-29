@@ -320,3 +320,31 @@ export function sqlDateToDateString(date) {
     if(date === "") return;
     return dayjs(date).format("MM/DD/YYYY");
 }
+
+export function aggRowFilter(resData, aggregateRows) {
+    let newResData = [];
+    switch (aggregateRows) {
+        case "n"://No Aggregate Rows
+            newResData = resData;
+            break;
+        case "y"://Aggregate by Marketing Asset Group
+            newResData = resData.filter((row) => row.sortOrder === 0 || row.sortOrder === 1 || row.sortOrder === 100);
+            break;
+        case "yg"://Agregate by Carlton Security Group
+            newResData = resData.filter((row) => row.sortOrder === 0 || row.sortOrder === 1 || row.sortOrder === 2
+            || row.sortOrder === 100);
+            break;
+        case "yt"://Aggregate by Carlton Security Type
+            newResData = resData.filter((row) => row.sortOrder === 0 || row.sortOrder === 1 || row.sortOrder === 2 
+            || row.sortOrder === 3 || row.sortOrder === 100);
+            break;
+        case "ys"://Aggregate by Carlton Security Sector
+            newResData = resData.filter((row) => row.sortOrder === 0 || row.sortOrder === 1 || row.sortOrder === 2 
+            || row.sortOrder === 3 || row.sortOrder === 4 || row.sortOrder === 100);
+            break;
+        default:
+            console.log(`Ran out of Aggregate Row options for: ${aggregateRows}`);
+    }
+
+    return newResData;
+}

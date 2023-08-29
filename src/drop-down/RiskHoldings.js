@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { filterRiskAccounts, dollarFormatter, numberFormatter0, numberFormatter2, formatWeight, addDataIntoCache, removeUnwanteds, formatAccountName, fileNameConstructor, removeAndRenamObjectProps, dollarFormatter0, today, lastBusinessDay, dateFormatter, sqlDateToDateString } from "../utils/helperFunctions";
+import { filterRiskAccounts, dollarFormatter, numberFormatter0, numberFormatter2, formatWeight, addDataIntoCache, removeUnwanteds, formatAccountName, fileNameConstructor, removeAndRenamObjectProps, dollarFormatter0, today, lastBusinessDay, dateFormatter, sqlDateToDateString, aggRowFilter } from "../utils/helperFunctions";
 import { getRiskHoldings } from "../api";
 import DataTable from "react-data-table-component";
 import ExpandedTable from "../data-table/ExpandedTable";
@@ -26,22 +26,34 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
         TD: {
             title: "Trade Date",
             bannerColor: "#1B3668",
-            aggMaGroupRowColor: "#9ad4e6"
+            aggMaGroupRowColor1: "#045787",
+            aggMaGroupRowColor2: "#138bb0",
+            aggMaGroupRowColor3: "#26a1c7",
+            aggMaGroupRowColor4: "#9ad4e6",
         },
         SD: {
             title: "Settlement Date",
             bannerColor: "#0b850d",
-            aggMaGroupRowColor: "#c1f7c2"
+            aggMaGroupRowColor1: "#139e16",
+            aggMaGroupRowColor2: "#25c428",
+            aggMaGroupRowColor3: "#40de43",
+            aggMaGroupRowColor4: "#c1f7c2",
         },
         ID: {
             title: "Trade Date Intraday",
             bannerColor: "#e37005",
-            aggMaGroupRowColor: "#edd2b9"
+            aggMaGroupRowColor1: "#8c4b0e",
+            aggMaGroupRowColor2: "#b3651d",
+            aggMaGroupRowColor3: "#cc7e35",
+            aggMaGroupRowColor4: "#edd2b9",
         },
         LT: {
             title: "Lot-Level Trade Date",
             bannerColor: "#590396",
-            aggMaGroupRowColor: "#ce98f5"
+            aggMaGroupRowColor1: "#6105a3",
+            aggMaGroupRowColor2: "#770cc4",
+            aggMaGroupRowColor3: "#9027db",
+            aggMaGroupRowColor4: "#ce98f5",
         }
     }
     const initialHashTabState = {
@@ -164,7 +176,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
                     title={<div style={{ display: "flex", justifyContent: "space-between"}}> <h3 style={{ color: "white" }}> Risk Holdings: {hashMap[`tab${tabIndex+1}`].tableStyle[`${hashMap[`tab${tabIndex+1}`].req.positionView}`].title} View</h3> <h3 style={{ color: 'white'}}>{sqlDateToDateString(hashMap[`tab${tabIndex+1}`].req.aoDate)}</h3> </div>}
                     subHeader subHeaderComponent={SubHeaderComponent}  
                     columns={columnHeaders}
-                    data={hashMap[`tab${tabIndex+1}`].data}
+                    data={hashMap[`tab${tabIndex+1}`].currentRecords}
                     highlightOnHover
                     striped
                     customStyles={customStyles}
@@ -234,7 +246,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             ...hashMap,
             [`tab${tabIndex}`]: {
                 ...hashMap[`tab${tabIndex}`],
-                data: [], //Resets data that appears in table anytime there is a change in the form. 
+                currentRecords: [], //Resets data that appears in table anytime there is a change in the form. 
                 req: values && values.value.length > 0 ? {
                     ...hashMap[`tab${tabIndex}`].req,
                     accounts: [values.value] //Maps account name(s) to array with corresponding apxCode(s)
@@ -283,7 +295,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             ...hashMap,
             [`tab${tabIndex}`]: {
                 ...hashMap[`tab${tabIndex}`],
-                data: [], //Resets data that appears in table anytime there is a change in the form. 
+                currentRecords: [], //Resets data that appears in table anytime there is a change in the form. 
                 req: values.length > 0 ? {
                     ...hashMap[`tab${tabIndex}`].req,
                     accounts: filterRiskAccounts(values, dropDownData) //Maps account name(s) to array with corresponding apxCode(s)
@@ -335,7 +347,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             ...hashMap,
             [`tab${tabIndex}`]: {
                 ...hashMap[`tab${tabIndex}`],
-                data: [],
+                currentRecords: [],
                 req: {
                     ...hashMap[`tab${tabIndex}`].req, 
                     aoDate: target.value //Set form aoDate to value of selected date from datepicker
@@ -384,7 +396,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
                 ...hashMap,
                 [`tab${tabIndex}`]: {
                     ...hashMap[`tab${tabIndex}`],
-                    data: [],
+                    currentRecords: [],
                     req: {
                         ...hashMap[`tab${tabIndex}`].req, 
                         aoDate: today(), //Set form aoDate to value of selected date from datepicker
@@ -398,7 +410,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
                 ...hashMap,
                 [`tab${tabIndex}`]: {
                     ...hashMap[`tab${tabIndex}`],
-                    data: [],
+                    currentRecords: [],
                     req: {
                         ...hashMap[`tab${tabIndex}`].req,
                         positionView: target.value,
@@ -464,7 +476,11 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
                 }
             })
         }
-        const resData = await getRiskHoldings(bodyReq);
+        //let resData = await getRiskHoldings(bodyReq);
+        //Function for deciding what sort orders get returned dependent on aggregate switch.
+        const response = await getRiskHoldings(bodyReq);
+        const resData = aggRowFilter(response, bodyReq.aggregateRows);
+
         //If a current tab is selected, set that tab's data array to response from getRiskHoldings API (resData)
         if (tabIndex >= 0) {
             setHashMap({
@@ -515,7 +531,8 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             ...hashMap,
             [`tab${tabIndex}`]: {
                 ...hashMap[`tab${tabIndex}`],
-                data: [],
+                //data: [],
+                currentRecords: [],
                 req: {
                     ...hashMap[`tab${tabIndex}`].req,
                     aggregateRows: target.checked ? target.value : "n"
@@ -620,8 +637,8 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
         //Currently account_name and ticker are not working when being called to the middle-tier from its database.
         /*
         { 
-            name: "Account Name", 
-            selector: (row) => formatAccountName(row.account_name),
+            name: "Sort Order", 
+            selector: (row) => numberFormatter0.format(row.sortOrder),
             sortable: true,
             minWidth: "135px",
             center: true,
@@ -998,15 +1015,36 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
     //Set conditional row styles for aggregate row
     const conditionalRowStyles = [
         {
-            when: row => row.weight >= 0.9,
+            when: row => row.sortOrder === 0,
             style: {
                 fontWeight: 700
             }
         },
         {
-            when: row => row.weight < 0.99 && row.aggregate_rating === "" && row.sec_name === "",//identifies the aggregate rows
+            when: row => (row.sortOrder === 1),//identifies the aggregate rows
             style: {
-                backgroundColor: hashMap[`tab${tabIndex}`].tableStyle[`${hashMap[`tab${tabIndex}`].req.positionView}`].aggMaGroupRowColor
+                backgroundColor: hashMap[`tab${tabIndex}`].tableStyle[`${hashMap[`tab${tabIndex}`].req.positionView}`].aggMaGroupRowColor1,
+                color: "white",
+            }
+        },
+        {
+            when: row => (row.sortOrder === 2),//identifies the aggregate rows
+            style: {
+                backgroundColor: hashMap[`tab${tabIndex}`].tableStyle[`${hashMap[`tab${tabIndex}`].req.positionView}`].aggMaGroupRowColor2,
+                color: "white",
+            }
+        },
+        {
+            when: row => (row.sortOrder === 3),//identifies the aggregate rows
+            style: {
+                backgroundColor: hashMap[`tab${tabIndex}`].tableStyle[`${hashMap[`tab${tabIndex}`].req.positionView}`].aggMaGroupRowColor3,
+                color: "white",
+            }
+        },
+        {
+            when: row => (row.sortOrder === 4),//identifies the aggregate rows
+            style: {
+                backgroundColor: hashMap[`tab${tabIndex}`].tableStyle[`${hashMap[`tab${tabIndex}`].req.positionView}`].aggMaGroupRowColor4
             }
         },
     ]

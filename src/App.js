@@ -42,7 +42,7 @@ function App() {
 
   
 
-  if (!tableData || !dropDownData) {
+  if (!tableData || !dropDownData || !previousBD) {
     return <h1>Loading...</h1>
   } else {
     const handleSearch = ({target}) => {
