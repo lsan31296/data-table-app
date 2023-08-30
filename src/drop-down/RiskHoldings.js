@@ -12,6 +12,7 @@ import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import PopModal from "../components/PopModal";
 import SingleSelectMenu from "./SingleSelectMenu";
 import ExpandedDetailsTable from "../data-table/ExpandedDetailsTable";
+import CustomCell from "../components/CustomCell";
 
 //This component is responsible for displaying a drop down menu which may be used for sending requests,
 //exporting selected accounts, etc.
@@ -204,7 +205,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
         console.log("Clicked close button");
         console.log("TabListArr length: ", tabListArr);
         //If we current tab isn't the only remaining tab then,
-        if (tabListArr.length > 0 && tabIndex !== 0) {
+        if (tabIndex !== 0) {
             //remove current tab panel and then from tab list
             console.log("Removed Tab Index: ", tabIndex);
             tabPanelArr.splice(tabIndex-1, 1);
@@ -645,7 +646,6 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             minWidth: "135px",
             center: true,
         },
-        */
         {
             name: <div>Marketing Asset Group</div>,
             selector: (row) => row.marketingAssetGroup,
@@ -666,6 +666,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             //allowOverFlow: true,
             wrap: true,
         },
+        */
         {
             name: <div>CS Sector</div>,
             selector: (row) => row.carlton_SecuritySector,
@@ -738,28 +739,26 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             center: true,
         },
         {
-            name: "Orig Face",
-            selector: (row) => row.orig_face,
+            name: <div>Orig Face</div>,
+            selector: (row) => dollarFormatter0.format(row.orig_face),
             sortable: true,
             compact: true,
-            minWidth: "80px",
-            format: (row) => dollarFormatter0.format(row.orig_face),
             center: true,
         },
         {
-            name: "Curr Face",
+            name: <div>Curr Face</div>,
             selector: (row) => dollarFormatter0.format(row.curent_face),
             sortable: true,
             compact: true,
-            minWidth: "80px",
+            //minWidth: "80px",
             center: true,
         },
         {
-            name: "MKT Val",
+            name: <div>MKT Val</div>,
             selector: (row) => dollarFormatter0.format(row.mv),
             sortable: true,
             compact: true,
-            minWidth: '110px',
+            //minWidth: '110px',
             center: true,
         },
         {
@@ -940,11 +939,11 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             center: true,
         },
         {
-            name: "Book G/L",
+            name: <div>Book G/L</div>,
             selector: (row) => numberFormatter0.format(row.book_gain_loss),
             sortable: true,
             compact: true,
-            minWidth: "80px",
+            //minWidth: "80px",
             conditionalCellStyles: [
                 {
                     when: (row) => row.book_gain_loss < 0,
@@ -954,11 +953,25 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             center: true,
         },
         {
-            name: "DOD G/L",
+            name: <div>DOD G/L</div>,
             selector: (row) => numberFormatter0.format(row.dod_gain_loss),
             sortable: true,
             compact: true,
-            minWidth: "80px",
+            //minWidth: "80px",
+            conditionalCellStyles: [
+                {
+                    when: (row) => row.dod_gain_loss < 0,
+                    style: { color: 'red' }
+                }
+            ],
+            center: true,
+        },
+        {
+            name: <div>DOD Return</div>,
+            selector: (row) => numberFormatter2.format(row.dod_return),
+            sortable: true,
+            compact: true,
+            //minWidth: "90px",
             conditionalCellStyles: [
                 {
                     when: (row) => row.dod_gain_loss < 0,
@@ -1010,9 +1023,12 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
         {
             when: row => row.sortOrder === 0,
             style: {
-                fontWeight: 700
+                fontWeight: 700,
+                backgroundColor: hashMap[`tab${tabIndex}`].tableStyle[`${hashMap[`tab${tabIndex}`].req.positionView}`].aggMaGroupRowColor1,
+                color: "white"
             }
         },
+        /*
         {
             when: row => (row.sortOrder === 1),//identifies the aggregate rows
             style: {
@@ -1034,10 +1050,11 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
                 color: "white",
             }
         },
+        */
         {
             when: row => (row.sortOrder === 4),//identifies the aggregate rows
             style: {
-                backgroundColor: hashMap[`tab${tabIndex}`].tableStyle[`${hashMap[`tab${tabIndex}`].req.positionView}`].aggMaGroupRowColor4
+                backgroundColor: hashMap[`tab${tabIndex}`].tableStyle[`${hashMap[`tab${tabIndex}`].req.positionView}`].aggMaGroupRowColor4,
             }
         },
     ]
@@ -1081,10 +1098,12 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
 
                     
                     <div className="input-group-text col-4">
+        
                         <div className="form-check form-switch pe-2">
                             <input className="form-check-input" type="radio" id="noAggSwitch" name="aggRows" value="n" onChange={handleAggSwitchChange} defaultChecked/>
                             <label className="form-check-label" htmlFor="noAggSwitch">No Aggregates</label>
                         </div>
+                        {/*
                         <div className="form-check form-switch pe-2">
                             <input className="form-check-input" type="radio" id="aggSwitch" name="aggRows" value="y" onChange={handleAggSwitchChange}/>
                             <label className="form-check-label" htmlFor="aggSwitch">Aggregate</label>
@@ -1097,6 +1116,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
                             <input className="form-check-input" type="radio" id="typeAggSwitch" name="aggRows" value="yt" onChange={handleAggSwitchChange}/>
                             <label className="form-check-label" htmlFor="typeAggSwitch">Type</label>
                         </div>
+                        */}
                         <div className="form-check form-switch">
                             <input className="form-check-input" type="radio" id="secAggSwitch" name="aggRows" value="ys" onChange={handleAggSwitchChange}/>
                             <label className="form-check-label" htmlFor="secAggSwitch">Sector</label>
