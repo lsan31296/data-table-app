@@ -1,0 +1,9 @@
+/* Hides rdt_TableHead */
+.kryIMW {
+    display: none !important;
+}
+
+/* Selets the striped rows within the  expanded table*/
+.cZMRjb {
+    background-color: rgb(221, 221, 240) !important;
+}

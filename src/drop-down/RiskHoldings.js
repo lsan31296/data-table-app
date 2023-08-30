@@ -11,6 +11,7 @@ import SubHeaderComponent from "../data-table/SubHeaderComponent";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import PopModal from "../components/PopModal";
 import SingleSelectMenu from "./SingleSelectMenu";
+import ExpandedDetailsTable from "../data-table/ExpandedDetailsTable";
 
 //This component is responsible for displaying a drop down menu which may be used for sending requests,
 //exporting selected accounts, etc.
@@ -41,19 +42,20 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
         },
         ID: {
             title: "Trade Date Intraday",
-            bannerColor: "#e37005",
-            aggMaGroupRowColor1: "#8c4b0e",
-            aggMaGroupRowColor2: "#b3651d",
-            aggMaGroupRowColor3: "#cc7e35",
-            aggMaGroupRowColor4: "#edd2b9",
-        },
-        LT: {
-            title: "Lot-Level Trade Date",
             bannerColor: "#590396",
             aggMaGroupRowColor1: "#6105a3",
             aggMaGroupRowColor2: "#770cc4",
             aggMaGroupRowColor3: "#9027db",
             aggMaGroupRowColor4: "#ce98f5",
+        },
+        LT: {
+            title: "Lot-Level Trade Date",
+            bannerColor: "#e37005",
+            aggMaGroupRowColor1: "#8c4b0e",
+            aggMaGroupRowColor2: "#b3651d",
+            aggMaGroupRowColor3: "#cc7e35",
+            aggMaGroupRowColor4: "#edd2b9",
+
         }
     }
     const initialHashTabState = {
@@ -183,7 +185,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
                     conditionalRowStyles={conditionalRowStyles}
                     expandableRows
                     //expandOnRowClicked //NEEDED TO BE REMOVED IN ORDER TO ALLOW DOUBLE CLICK HANDLER TO OCCUR
-                    expandableRowsComponent={ExpandedTable}
+                    expandableRowsComponent={ExpandedDetailsTable}
                     fixedHeader
                     //fixedHeaderScrollHeight="710px"
                     onRowDoubleClicked={handleDoubleClick}
@@ -274,7 +276,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
                 conditionalRowStyles={conditionalRowStyles}
                 expandableRows
                 //expandOnRowClicked //NEEDED TO BE REMOVED IN ORDER TO ALLOW DOUBLE CLICK HANDLER TO OCCUR
-                expandableRowsComponent={ExpandedTable}
+                expandableRowsComponent={ExpandedDetailsTable}
                 fixedHeader
                 //fixedHeaderScrollHeight="710px"
                 onRowDoubleClicked={handleDoubleClick}
@@ -323,7 +325,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
                 conditionalRowStyles={conditionalRowStyles}
                 expandableRows
                 //expandOnRowClicked //NEEDED TO BE REMOVED IN ORDER TO ALLOW DOUBLE CLICK HANDLER TO OCCUR
-                expandableRowsComponent={ExpandedTable}
+                expandableRowsComponent={ExpandedDetailsTable}
                 fixedHeader
                 //fixedHeaderScrollHeight="710px"
                 onRowDoubleClicked={handleDoubleClick}
@@ -369,7 +371,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
                 conditionalRowStyles={conditionalRowStyles}
                 expandableRows
                 //expandOnRowClicked //NEEDED TO BE REMOVED IN ORDER TO ALLOW DOUBLE CLICK HANDLER TO OCCUR
-                expandableRowsComponent={ExpandedTable}
+                expandableRowsComponent={ExpandedDetailsTable}
                 fixedHeader
                 //fixedHeaderScrollHeight="710px"
                 onRowDoubleClicked={handleDoubleClick}
@@ -434,7 +436,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
                     conditionalRowStyles={conditionalRowStyles}
                     expandableRows
                     //expandOnRowClicked //NEEDED TO BE REMOVED IN ORDER TO ALLOW DOUBLE CLICK HANDLER TO OCCUR
-                    expandableRowsComponent={ExpandedTable}
+                    expandableRowsComponent={ExpandedDetailsTable}
                     fixedHeader
                     //fixedHeaderScrollHeight="710px"
                     onRowDoubleClicked={handleDoubleClick}
@@ -506,7 +508,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
                     conditionalRowStyles={conditionalRowStyles}
                     expandableRows
                     //expandOnRowClicked //NEEDED TO BE REMOVED IN ORDER TO ALLOW DOUBLE CLICK HANDLER TO OCCUR
-                    expandableRowsComponent={ExpandedTable}
+                    expandableRowsComponent={ExpandedDetailsTable}
                     fixedHeader
                     //fixedHeaderScrollHeight="710px"
                     onRowDoubleClicked={handleDoubleClick}
@@ -564,7 +566,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
                     conditionalRowStyles={conditionalRowStyles}
                     expandableRows
                     //expandOnRowClicked //NEEDED TO BE REMOVED IN ORDER TO ALLOW DOUBLE CLICK HANDLER TO OCCUR
-                    expandableRowsComponent={ExpandedTable}
+                    expandableRowsComponent={ExpandedDetailsTable}
                     fixedHeader
                     //fixedHeaderScrollHeight="710px"
                     onRowDoubleClicked={handleDoubleClick}
@@ -615,7 +617,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
                 conditionalRowStyles={conditionalRowStyles}
                 expandableRows
                 //expandOnRowClicked //NEEDED TO BE REMOVED IN ORDER TO ALLOW DOUBLE CLICK HANDLER TO OCCUR
-                expandableRowsComponent={ExpandedTable}
+                expandableRowsComponent={ExpandedDetailsTable}
                 fixedHeader
                 //fixedHeaderScrollHeight="710px"
                 onRowDoubleClicked={handleDoubleClick}
@@ -645,20 +647,19 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
         },
         */
         {
-            name: "Marketing Asset Group",
+            name: <div>Marketing Asset Group</div>,
             selector: (row) => row.marketingAssetGroup,
             center: true,
             compact: true,
-            minWidth: "160px"
         },
         {
-            name: "CS Group",
+            name: <div>CS Group</div>,
             selector: (row) => row.carlton_SecurityGroup,
             center: true,
             compact: true,
         },
         {
-            name: "CS Type",
+            name: <div>CS Type</div>,
             selector: (row) => row.carlton_SecurityType,
             //center: true,
             compact: true,
@@ -666,7 +667,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             wrap: true,
         },
         {
-            name: "CS Sector",
+            name: <div>CS Sector</div>,
             selector: (row) => row.carlton_SecuritySector,
             compact: true,
             wrap: true,
@@ -966,14 +967,6 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             ],
             center: true,
         },
-        {
-            name: "Orig Trd Date",
-            selector: (row) => dateFormatter(row.original_trade_date),
-            sortable: true,
-            compact: true,
-            minWidth: "120px",
-            center: true,
-        },
     ];
     const customStyles = {
         header : {
@@ -1144,7 +1137,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
                                 customStyles={customStyles}
                                 conditionalRowStyles={conditionalRowStyles}
                                 expandableRows
-                                expandableRowsComponent={ExpandedTable}
+                                expandableRowsComponent={ExpandedDetailsTable}
                                 fixedHeader
                                 //fixedHeaderScrollHeight="710px"
                                 onRowDoubleClicked={handleDoubleClick}
