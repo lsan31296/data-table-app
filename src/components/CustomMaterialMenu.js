@@ -50,6 +50,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 compact: true,
                 reorder: true,
                 minWidth: "60px",
+                wrap: true,
             }, 
             {
                 name: "Advent Portfolio ID",

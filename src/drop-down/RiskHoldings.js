@@ -12,6 +12,7 @@ import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import PopModal from "../components/PopModal";
 import SingleSelectMenu from "./SingleSelectMenu";
 import ExpandedDetailsTable from "../data-table/ExpandedDetailsTable";
+import CustomLoader from "../components/CustomLoader";
 //import CustomCell from "../components/CustomCell";
 
 //This component is responsible for displaying a drop down menu which may be used for sending requests,
@@ -69,6 +70,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
         tableStyle: dataTableStyles,
         dataTableTitle: "",
         currentRecords: [],
+        pending: false,
     }
     const initialHashState = {
         tab0: initialHashTabState
@@ -146,12 +148,17 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
         //Wei's idea.
         document.getElementById('remove-tab-button').click();
     }
-    const handleAddTabClick = (event) => {
+    const handleAddTabClick = async (event) => {
         console.log("Tab Index before adding tab: ", tabIndex);
         console.log("TabList Array Length Before: ", tabListArr.length)
         //Insert New Tab in hashMap to save dynamic state variables, set state
-        hashMap[`tab${tabListArr.length+1}`] = initialHashTabState;
-        hashMap[`tab${tabListArr.length+1}`].req.positionView = bodyReq.positionView;
+        hashMap[`tab${tabListArr.length+1}`] = {
+            ...initialHashTabState,
+            pending: true,
+        };
+        //hashMap[`tab${tabListArr.length+1}`].req.positionView = bodyReq.positionView;
+        //hashMap[`tab${tabListArr.length+1}`].req.aoDate = bodyReq.aoDate;
+        hashMap[`tab${tabListArr.length+1}`].req = {...bodyReq};
         setHashMap({
             ...hashMap,
         });
@@ -190,6 +197,8 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
                     pagination paginationPerPage={10000} 
                     paginationRowsPerPageOptions={[100, 200, 300, 400, 500, 1000, 10000]}
                     paginationComponentOptions={{ selectAllRowsItem: true, selectAllRowsItemText: "All" }}
+                    progressPending={hashMap[`tab${tabIndex+1}`].pending}
+                    progressComponent={<CustomLoader/>}
                     //title={<h1 style={{ border: "red solid 2px"}}>Header</h1>}
                     //subHeaderComponent={<h3 style={{ border: "green solid 2px" }}>SubHeader</h3>}
                 />
@@ -233,15 +242,16 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             return;
         }
     };
-    const handleTabOnSelect = (index) => {
+    const handleTabOnSelect =async (index) => {
         console.log("Current selected index: ", index);
         setTabIndex(index);
         //console.log("Current Tab Index State: ", tabIndex);
         console.log("Current hashMap state after switching tabs: ", hashMap);
     };
-    const handleSingleSelectChange = (values, actionMeta) => {
+    const handleSingleSelectChange = async (values, actionMeta) => {
         console.log("Single Select Values: ", values);
         setBodyReq({ ...bodyReq, accounts: values && values.value.length > 0 ? filterRiskAccounts([values], dropDownData) : bodyReq.accounts})
+        //Potentially manipulate hashmap directly here
         setHashMap({
             ...hashMap,
             [`tab${tabIndex}`]: {
@@ -255,7 +265,8 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
                     ...hashMap[`tab${tabIndex}`].req,
                     //accounts: bodyReq.accounts
                 },
-                dataTableTitle: values && values.value.length > 0 ? formatAccountName(values.label) : "" 
+                dataTableTitle: values && values.value.length > 0 ? formatAccountName(values.label) : "",
+                pending: true,
             }
         })
 
@@ -281,6 +292,8 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
                 pagination paginationPerPage={10000} 
                 paginationRowsPerPageOptions={[100, 200, 300, 400, 500, 1000, 10000]}
                 paginationComponentOptions={{ selectAllRowsItem: true, selectAllRowsItemText: "All" }}
+                progressPending={hashMap[`tab${tabIndex}`].pending}
+                progressComponent={<CustomLoader/>}
                 //title={<h1 style={{ border: "red solid 2px"}}>Header</h1>}
                 //subHeaderComponent={<h3 style={{ border: "green solid 2px" }}>SubHeader</h3>}
             />
@@ -343,7 +356,8 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             console.log("Account list from MultiSelect: ", hashMap[`tab${tabIndex}`].req.accounts);
             console.log("hashMap: ", hashMap);
     };
-    const handleDateChange = ({target}) => {
+    const handleDateChange = async ({target}) => {
+        hashMap[`tab${tabIndex}`].pending = true;
         setBodyReq({...bodyReq, aoDate: target.value })
         setHashMap({
             ...hashMap,
@@ -353,7 +367,8 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
                 req: {
                     ...hashMap[`tab${tabIndex}`].req, 
                     aoDate: target.value //Set form aoDate to value of selected date from datepicker
-                }
+                },
+                pending: true,
             }
         })
         tabPanelArr[tabIndex-1] = 
@@ -378,6 +393,8 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
                 pagination paginationPerPage={10000} 
                 paginationRowsPerPageOptions={[100, 200, 300, 400, 500, 1000, 10000]}
                 paginationComponentOptions={{ selectAllRowsItem: true, selectAllRowsItemText: "All" }}
+                progressPending={hashMap[`tab${tabIndex}`].pending}
+                progressComponent={<CustomLoader/>}
                 //title={<h1 style={{ border: "red solid 2px"}}>Header</h1>}
                 //subHeaderComponent={<h3 style={{ border: "green solid 2px" }}>SubHeader</h3>}
                 />
@@ -387,7 +404,8 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             ...tabPanelArr,
         ])
     };
-    const handleRadioButtonClick = ({ target }) => {
+    const handleRadioButtonClick = async ({ target }) => {
+        hashMap[`tab${tabIndex}`].pending = true;
         //Set condition here: If Intrday view is selected (ID), then...
         if (target.value === "ID") {
             console.log("ID Hit, ao_Date should be set to: ", today());
@@ -403,7 +421,8 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
                         ...hashMap[`tab${tabIndex}`].req, 
                         aoDate: today(), //Set form aoDate to value of selected date from datepicker
                         positionView: target.value
-                    }
+                    },
+                    pending: true,
                 }
             });
         } else {
@@ -416,7 +435,8 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
                     req: {
                         ...hashMap[`tab${tabIndex}`].req,
                         positionView: target.value,
-                    }
+                    },
+                    pending: true,
                 }
             })
         }
@@ -443,6 +463,8 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
                     pagination paginationPerPage={10000} 
                     paginationRowsPerPageOptions={[100, 200, 300, 400, 500, 1000, 10000]}
                     paginationComponentOptions={{ selectAllRowsItem: true, selectAllRowsItemText: "All" }}
+                    progressPending={hashMap[`tab${tabIndex}`].pending}
+                    progressComponent={<CustomLoader/>}
                     //title={<h1 style={{ border: "red solid 2px"}}>Header</h1>}
                     //subHeaderComponent={<h3 style={{ border: "green solid 2px" }}>SubHeader</h3>}
                 />
@@ -454,8 +476,18 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
     };
     const handleSearchButton = async (event) => {
         event.preventDefault();
+
+        hashMap[`tab${tabIndex}`].pending = true;
+        setHashMap({
+            ...hashMap,
+            [`tab${tabIndex}`]: {
+                ...hashMap[`tab${tabIndex}`],
+                pending: true,
+            }
+        })
+        console.log("Attempted to set pending to true.");
         console.log("Hit Search!. Tab Index: ", tabIndex)
-        console.log("Hit Search: ", hashMap[`tab${tabIndex}`].req);
+        console.log("Hit Search: ", hashMap[`tab${tabIndex}`]);
         console.log("Body Req: ", bodyReq);
         //IF search is hit and bodyReq.accounts is empty, stop process 
         if (bodyReq.accounts.length === 0) {
@@ -474,9 +506,11 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
                         //...hashMap[`tab${tabIndex}`].req,
                         //accounts: [...bodyReq.accounts]
                         ...bodyReq
-                    } 
+                    },
+                    pending: true,
                 }
             })
+            console.log("Set hashmap pending to true and bodyReq.")
         }
         //let resData = await getRiskHoldings(bodyReq);
         //Function for deciding what sort orders get returned dependent on aggregate switch.
@@ -490,10 +524,12 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
                 [`tab${tabIndex}`]: {
                     ...hashMap[`tab${tabIndex}`],
                     data: [...resData],
-                    currentRecords: [...resData]
+                    currentRecords: [...resData],
+                    pending: false
                 }
             })
         }
+        console.log("Attempted to set pending to false.");
         if (tabIndex > 0) {
             tabPanelArr[tabIndex-1] = 
             <TabPanel>
@@ -515,6 +551,8 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
                     pagination paginationPerPage={10000} 
                     paginationRowsPerPageOptions={[100, 200, 300, 400, 500, 1000, 10000]}
                     paginationComponentOptions={{ selectAllRowsItem: true, selectAllRowsItemText: "All" }}
+                    pending={hashMap[`tab${tabIndex}`].pending}
+                    progressComponent={<CustomLoader/>}
                 />
             </TabPanel>;
             setTabPanelArr([
@@ -528,7 +566,8 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             console.log("Done data caching!");
         }
     };
-    const handleAggSwitchChange = ({ target }) => {
+    const handleAggSwitchChange = async({ target }) => {
+        hashMap[`tab${tabIndex}`].pending = true;
         setHashMap({
             ...hashMap,
             [`tab${tabIndex}`]: {
@@ -538,7 +577,8 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
                 req: {
                     ...hashMap[`tab${tabIndex}`].req,
                     aggregateRows: target.checked ? target.value : "n"
-                }
+                },
+                pending: true,
             }
         })
         
@@ -573,6 +613,8 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
                     pagination paginationPerPage={10000} 
                     paginationRowsPerPageOptions={[100, 200, 300, 400, 500, 1000, 10000]}
                     paginationComponentOptions={{ selectAllRowsItem: true, selectAllRowsItemText: "All" }}
+                    progressPending={hashMap[`tab${tabIndex}`].pending}
+                    progressComponent={<CustomLoader/>}
                     //title={<h1 style={{ border: "red solid 2px"}}>Header</h1>}
                     //subHeaderComponent={<h3 style={{ border: "green solid 2px" }}>SubHeader</h3>}
                 />
@@ -591,7 +633,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             alert(`Row data copied to clipboard!`);
         });
     };
-    const handleFilter = ({target}) => {
+    const handleFilter = async ({target}) => {
         const newData = hashMap[`tab${tabIndex}`].data.filter((row) => {
             return row.bbg_cusip.toLowerCase().includes(target.value.toLowerCase())
         })
@@ -623,6 +665,8 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
                 pagination paginationPerPage={10000} 
                 paginationRowsPerPageOptions={[100, 200, 300, 400, 500, 1000, 10000]}
                 paginationComponentOptions={{ selectAllRowsItem: true, selectAllRowsItemText: "All" }}
+                progressPending={hashMap[`tab${tabIndex}`].pending}
+                progressComponent={<CustomLoader/>}
                 //title={<h1 style={{ border: "red solid 2px"}}>Header</h1>}
                 //subHeaderComponent={<h3 style={{ border: "green solid 2px" }}>SubHeader</h3>}
             />
@@ -652,7 +696,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             compact: true,
             conditionalCellStyles: [
                 {
-                    when: (row) => row.sortOrder !== 1 && hashMap[`tab${tabIndex}`].req.aggregateRows !== "n",
+                    when: (row) => (row.sortOrder !== 1 && hashMap[`tab${tabIndex}`].req.aggregateRows !== "n") || row.marketingAssetGroup === '-no data-',
                     style: {
                         color: "transparent"
                     }
@@ -666,7 +710,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             compact: true,
             conditionalCellStyles: [
                 {
-                    when: (row) => row.sortOrder !== 2 && hashMap[`tab${tabIndex}`].req.aggregateRows !== "n",
+                    when: (row) => (row.sortOrder !== 2 && hashMap[`tab${tabIndex}`].req.aggregateRows !== "n") || row.carlton_SecurityGroup === '-no data-',
                     style: {
                         color: "transparent"
                     }
@@ -680,7 +724,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             wrap: true,
             conditionalCellStyles: [
                 {
-                    when: (row) => row.sortOrder !== 3 && hashMap[`tab${tabIndex}`].req.aggregateRows !== "n",
+                    when: (row) => (row.sortOrder !== 3 && hashMap[`tab${tabIndex}`].req.aggregateRows !== "n") || row.carlton_SecurityType === '-no data-',
                     style: {
                         color: "transparent"
                     }
@@ -694,7 +738,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             wrap: true,
             conditionalCellStyles: [
                 {
-                    when: (row) => row.sortOrder !== 4 && hashMap[`tab${tabIndex}`].req.aggregateRows !== "n",
+                    when: (row) => (row.sortOrder !== 4 && hashMap[`tab${tabIndex}`].req.aggregateRows !== "n") || row.carlton_SecuritySector === '-no data-',
                     style: {
                         color: "transparent"
                     }
@@ -1102,7 +1146,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
                     <input className="form-control" id="aoDate" type="date" name="aoDate" onChange={handleDateChange} value={hashMap[`tab${tabIndex}`].req.aoDate} pattern="\d{4}-\d{2}-\d{2}" placeholder="YYYY-MM-DD"/>
                     </div>
 
-                    <div className="input-group-text col-3">
+                    <div className="input-group-text col-4">
                         <div className="form-check pe-2">
                             <input className="form-check-input" type="radio" value="TD" name="RiskHoldingView" id="trade_date" onChange={handleRadioButtonClick} defaultChecked/>
                             <label className="form-check-label" htmlFor="trade_date">Trade Date</label>
@@ -1122,7 +1166,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
                     </div>
 
                     
-                    <div className="input-group-text col-4">
+                    <div className="input-group-text col-3">
         
                         <div className="form-check form-switch pe-2">
                             <input className="form-check-input" type="radio" id="noAggSwitch" name="aggRows" value="n" onChange={handleAggSwitchChange} defaultChecked/>
@@ -1149,7 +1193,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
                     </div>
 
                     <div className="input-group-text col-1">
-                            <button className="btn btn-sm btn-primary" id="search-button" type="submit">Search</button>
+                            <button className="btn btn-sm btn-primary" id="search-button" type="submit">Run</button>
                             <ExportCSV csvData={hashMap[`tab${tabIndex}`].data} fileName={fileNameConstructor(hashMap, tabIndex)} />
                     </div>
                     
@@ -1189,6 +1233,8 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
                                 pagination paginationPerPage={10000} 
                                 paginationRowsPerPageOptions={[100, 200, 300, 400, 500, 1000, 10000]}
                                 paginationComponentOptions={{ selectAllRowsItem: true, selectAllRowsItemText: "All" }}
+                                progressPending = {hashMap.tab0.pending}
+                                progressComponent={<CustomLoader/>}
                             />
                         </TabPanel>
                         {tabPanelArr}
