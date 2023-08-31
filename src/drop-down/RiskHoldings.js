@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { filterRiskAccounts, dollarFormatter, numberFormatter0, numberFormatter2, formatWeight, addDataIntoCache, removeUnwanteds, formatAccountName, fileNameConstructor, removeAndRenamObjectProps, dollarFormatter0, today, lastBusinessDay, dateFormatter, sqlDateToDateString, aggRowFilter } from "../utils/helperFunctions";
+import { filterRiskAccounts, dollarFormatter, numberFormatter0, numberFormatter2, formatWeight, addDataIntoCache, removeUnwanteds, formatAccountName, fileNameConstructor, removeAndRenamObjectProps, dollarFormatter0, today, sqlDateToDateString, aggRowFilter } from "../utils/helperFunctions";
 import { getRiskHoldings } from "../api";
 import DataTable from "react-data-table-component";
-import ExpandedTable from "../data-table/ExpandedTable";
-import MultiSelectMenu from "./MultiSelectMenu";
+//import ExpandedTable from "../data-table/ExpandedTable";
+//import MultiSelectMenu from "./MultiSelectMenu";
 import ExportCSV from "../ExportCSV";
 import CustomMaterialMenu from "../components/CustomMaterialMenu";
 import './RiskHoldings.css';
@@ -12,7 +12,7 @@ import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import PopModal from "../components/PopModal";
 import SingleSelectMenu from "./SingleSelectMenu";
 import ExpandedDetailsTable from "../data-table/ExpandedDetailsTable";
-import CustomCell from "../components/CustomCell";
+//import CustomCell from "../components/CustomCell";
 
 //This component is responsible for displaying a drop down menu which may be used for sending requests,
 //exporting selected accounts, etc.
@@ -28,7 +28,8 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
         TD: {
             title: "Trade Date",
             bannerColor: "#1B3668",
-            aggMaGroupRowColor1: "#045787",
+            aggMaGroupRowColor0: "#045787",
+            aggMaGroupRowColor1: "#0776a6",
             aggMaGroupRowColor2: "#138bb0",
             aggMaGroupRowColor3: "#26a1c7",
             aggMaGroupRowColor4: "#9ad4e6",
@@ -36,6 +37,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
         SD: {
             title: "Settlement Date",
             bannerColor: "#0b850d",
+            aggMaGroupRowColor0: "#0e8c19",
             aggMaGroupRowColor1: "#139e16",
             aggMaGroupRowColor2: "#25c428",
             aggMaGroupRowColor3: "#40de43",
@@ -44,6 +46,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
         ID: {
             title: "Trade Date Intraday",
             bannerColor: "#590396",
+            aggMaGroupRowColor0: "#540185",
             aggMaGroupRowColor1: "#6105a3",
             aggMaGroupRowColor2: "#770cc4",
             aggMaGroupRowColor3: "#9027db",
@@ -52,7 +55,8 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
         LT: {
             title: "Lot-Level Trade Date",
             bannerColor: "#e37005",
-            aggMaGroupRowColor1: "#8c4b0e",
+            aggMaGroupRowColor0: "#8c4b0e",
+            aggMaGroupRowColor1: "#994f09",
             aggMaGroupRowColor2: "#b3651d",
             aggMaGroupRowColor3: "#cc7e35",
             aggMaGroupRowColor4: "#edd2b9",
@@ -69,13 +73,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
     const initialHashState = {
         tab0: initialHashTabState
     }
-        /*NEED TO DECLARE TAB VARIABLES HERE AS IT HOUSES DataTable component and all the data it needs*/
-        const initialTabListState = [
-        
-        ];
-        const initialTabPanelState = [
-    
-        ];
+
     //DECLARATION OF STATE VARIABLES
     const [tabListArr, setTabListArr] = useState([]);
     const [tabPanelArr, setTabPanelArr] = useState([]);
@@ -101,7 +99,6 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
     const [modalData, setModalData] = useState(null);
     const [modalTitle, setModalTitle] = useState(null);
     const [modalColumns, setModalColumns] = useState([]);
-    const [records, setRecords] = useState("");
     const rowsForSelect = removeUnwanteds(dropDownData).map((account, index) => (
         { 
             value: account.apx_portfolio_code,  
@@ -290,6 +287,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
         </TabPanel>;
         setTabPanelArr([...tabPanelArr]);
     }
+    /*
     const handleMultiSelectChange = (values, actionMeta) => {
         //console.log("Action Meta:", actionMeta);
         console.log("Multi Select values: " , values);
@@ -339,6 +337,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
         </TabPanel>;
         setTabPanelArr([...tabPanelArr]);
     };
+    */
     const handleMenuClose = async (actionMeta, values) => {
             console.log("Body Request: ", bodyReq);
             console.log("Account list from MultiSelect: ", hashMap[`tab${tabIndex}`].req.accounts);
@@ -596,7 +595,6 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
         const newData = hashMap[`tab${tabIndex}`].data.filter((row) => {
             return row.bbg_cusip.toLowerCase().includes(target.value.toLowerCase())
         })
-        setRecords(newData)
         setHashMap({
             ...hashMap,
             [`tab${tabIndex}`]: {
@@ -646,33 +644,62 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             minWidth: "135px",
             center: true,
         },
+        */
         {
             name: <div>Marketing Asset Group</div>,
             selector: (row) => row.marketingAssetGroup,
             center: true,
             compact: true,
+            conditionalCellStyles: [
+                {
+                    when: (row) => row.sortOrder !== 1,
+                    style: {
+                        color: "transparent"
+                    }
+                }
+            ],
         },
         {
             name: <div>CS Group</div>,
             selector: (row) => row.carlton_SecurityGroup,
             center: true,
             compact: true,
+            conditionalCellStyles: [
+                {
+                    when: (row) => row.sortOrder !== 2,
+                    style: {
+                        color: "transparent"
+                    }
+                }
+            ]
         },
         {
             name: <div>CS Type</div>,
             selector: (row) => row.carlton_SecurityType,
-            //center: true,
             compact: true,
-            //allowOverFlow: true,
             wrap: true,
+            conditionalCellStyles: [
+                {
+                    when: (row) => row.sortOrder !== 3,
+                    style: {
+                        color: "transparent"
+                    }
+                }
+            ]
         },
-        */
         {
             name: <div>CS Sector</div>,
             selector: (row) => row.carlton_SecuritySector,
             compact: true,
             wrap: true,
-            //center: true,
+            conditionalCellStyles: [
+                {
+                    when: (row) => row.sortOrder !== 4,
+                    style: {
+                        color: "transparent"
+                    }
+                }
+            ]
         },
         {
             cell: row => 
@@ -850,20 +877,20 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             center: true,
         },
         {
-            name: "SP",
+            name: <div>SP</div>,
             selector: (row) => row.carlton_SPRating,
             sortable: true,
             compact: true,
-            minWidth: "30px",
+            minWidth: "40px",
             center: true,
             //maxWidth: "60px",
         },
         {
-            name: "Fitch",
+            name: <div>Fitch</div>,
             selector: (row) => row.carlton_FitchRating,
             sortable: true,
             compact: true,
-            minWidth: "40px",
+            minWidth: "50px",
             center: true,
         },
         {
@@ -1024,11 +1051,10 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             when: row => row.sortOrder === 0,
             style: {
                 fontWeight: 700,
-                backgroundColor: hashMap[`tab${tabIndex}`].tableStyle[`${hashMap[`tab${tabIndex}`].req.positionView}`].aggMaGroupRowColor1,
+                backgroundColor: hashMap[`tab${tabIndex}`].tableStyle[`${hashMap[`tab${tabIndex}`].req.positionView}`].aggMaGroupRowColor0,
                 color: "white"
             }
         },
-        /*
         {
             when: row => (row.sortOrder === 1),//identifies the aggregate rows
             style: {
@@ -1050,7 +1076,6 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
                 color: "white",
             }
         },
-        */
         {
             when: row => (row.sortOrder === 4),//identifies the aggregate rows
             style: {
@@ -1063,7 +1088,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
     
     /* RENDERED ON UI */
     return (
-        <div style={{ padding: "0px 2% 100px 2%", backgroundColor: "#F2F2F2",  /*border: "solid 2px green"*/ }}>
+        <div style={{ padding: "0px 2% 2% 2%", backgroundColor: "#F2F2F2",  /*border: "solid 2px green"*/ }}>
 
             <form id="risk-form" onSubmit={handleSearchButton}>
 
@@ -1101,7 +1126,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
         
                         <div className="form-check form-switch pe-2">
                             <input className="form-check-input" type="radio" id="noAggSwitch" name="aggRows" value="n" onChange={handleAggSwitchChange} defaultChecked/>
-                            <label className="form-check-label" htmlFor="noAggSwitch">No Aggregates</label>
+                            <label className="form-check-label" htmlFor="noAggSwitch">Do Not Aggregate</label>
                         </div>
                         {/*
                         <div className="form-check form-switch pe-2">
@@ -1132,7 +1157,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             </form>
             {
                 tabIndex >= 0 && 
-                <div>
+                <div id="data-table-container">
                     <PopModal data={modalData} isOpen={isModalOpen} onClose={handleModalClose} columns={modalColumns} modalTitle={modalTitle}/>
 
                     <Tabs selectedIndex={tabIndex} onSelect={handleTabOnSelect}>
@@ -1158,8 +1183,8 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
                                 conditionalRowStyles={conditionalRowStyles}
                                 expandableRows
                                 expandableRowsComponent={ExpandedDetailsTable}
-                                fixedHeader
-                                //fixedHeaderScrollHeight="710px"
+                                fixedHeader //fixedHeaderScrollHeight="710px"
+                                responsive
                                 onRowDoubleClicked={handleDoubleClick}
                                 pagination paginationPerPage={10000} 
                                 paginationRowsPerPageOptions={[100, 200, 300, 400, 500, 1000, 10000]}

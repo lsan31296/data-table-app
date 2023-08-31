@@ -4,7 +4,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { /*FaRegCopy, FaShareAlt, */ FaEllipsisV } from 'react-icons/fa';
 import { getUspTrade, getSecurityDetail, getPriceHistory, getShowLoans, getAccountDetails } from '../api';
-import { dateFormatter, dollarFormatter, dollarFormatter0, formatWeight, numberFormatter2, sqlDateToDateString } from '../utils/helperFunctions';
+import { dateFormatter, dateSorterMMDDYYY, dollarFormatter, dollarFormatter0, formatWeight, numberFormatter2, sqlDateToDateString } from '../utils/helperFunctions';
 import CustomCell from './CustomCell';
 
 export default function CustomMaterialMenu({ row, handleModalOption1Open, handleModalOption2Open, handleModalOption3Open, handleModalOption4Open, handleModalOption5Open}) {
@@ -291,6 +291,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 compact: true,
                 reorder: true,
                 sortable: true,
+                sortFunction: dateSorterMMDDYYY,
             },
             {
                 name: 'CUSIP',

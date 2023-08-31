@@ -33,3 +33,14 @@
 #singleSelect {
     border: none;
 }
+
+/* SELECTS THE HEIGHT OF THE DATA TABLE AND MAKES IT RESPONSIVE*/
+.gLTUqv {
+    /* border: red 2px solid; */
+    max-height: 62vh !important;
+}
+/* SELECTS PAGINATION BAR*/
+.fPIktX {
+    /* border: blue solid 2px; */
+    min-height: 43px !important;
+}

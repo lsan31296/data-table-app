@@ -359,3 +359,15 @@ export function moveElementInArray(arr, old_index, new_index) {
     arr.splice(new_index, 0, arr.splice(old_index, 1)[0]);
     return arr; // for testing
 };
+
+export const dateSorterMMDDYYY = (rowA, rowB) => {
+    const a = sqlDateToDateString(dateFormatter(rowA.aoDate));
+    const b = sqlDateToDateString(dateFormatter(rowB.aoDate));
+
+    let aa = a.split('/');
+    let bb = b.split('/');
+    console.log(`Comparing a: ${aa} to b: ${bb}.`);
+    console.log(`${aa[2] - bb[2]}, ${aa[1] - bb[1]}, ${aa[0] - bb[0]}`);
+
+    return aa[2] - bb[2] || aa[0] - bb[0] || aa[1] - bb[1];
+}

@@ -79,16 +79,24 @@ p a:active {
 
 /* BEGINNING OF SUBHEADER GROUP SELECTIONS
 SELECTS COLUMNS IN RISKHOLDINGS TALBE HEAD ROW: 
-
-  PRICE, WEIGHT, ORIG FACE, CURR FACE, MV, Factor
+  (Sec Name, Coupon, Maturity)PRICE, WEIGHT, ORIG FACE, CURR FACE, MV, Factor
 AND APPLIES BLACK BORDERS AROUND GROUP OF COLUMNS
 REPRESENTS 'POSITION' SUBHEADER
+
+PS: Will be highlight cols previous to this same color for now.
 */
-.rdt_TableHead > div > div:nth-child(8) {
+.rdt_TableHead > div > div:nth-child(1) {
   border-left: #1c298c 1px solid;
   border-bottom: #1c298c 1px solid;
   border-top: #1c298c 1px solid;
 }
+.rdt_TableHead > div > div:nth-child(2),
+.rdt_TableHead > div > div:nth-child(3),
+.rdt_TableHead > div > div:nth-child(4),
+.rdt_TableHead > div > div:nth-child(5),
+.rdt_TableHead > div > div:nth-child(6),
+.rdt_TableHead > div > div:nth-child(7),
+.rdt_TableHead > div > div:nth-child(8),
 .rdt_TableHead > div > div:nth-child(9),
 .rdt_TableHead > div > div:nth-child(10),
 .rdt_TableHead > div > div:nth-child(11),
@@ -102,7 +110,7 @@ REPRESENTS 'POSITION' SUBHEADER
   border-top: #1c298c 1px solid;
 }
 
-.rdt_TableHead > div > div:nth-child(n+8):nth-child(-n+13) {
+.rdt_TableHead > div > div:nth-child(n+1):nth-child(-n+13) {
   color: #fefefe;
   background-color: #1c298c;
 }
@@ -206,7 +214,7 @@ REPRESENTS 'PERFORMANCE' SUBHEADER
   border-top: black 1px solid;
 }
 
-.rdt_TableHead > div > div:nth-child(n+35):nth-child(-n+37) {
+.rdt_TableHead > div > div:nth-child(n+35):nth-child(-n+40) {
   background-color: black;
   color: #fefefe;
 }
