@@ -652,7 +652,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             compact: true,
             conditionalCellStyles: [
                 {
-                    when: (row) => row.sortOrder !== 1,
+                    when: (row) => row.sortOrder !== 1 && hashMap[`tab${tabIndex}`].req.aggregateRows !== "n",
                     style: {
                         color: "transparent"
                     }
@@ -666,7 +666,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             compact: true,
             conditionalCellStyles: [
                 {
-                    when: (row) => row.sortOrder !== 2,
+                    when: (row) => row.sortOrder !== 2 && hashMap[`tab${tabIndex}`].req.aggregateRows !== "n",
                     style: {
                         color: "transparent"
                     }
@@ -680,7 +680,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             wrap: true,
             conditionalCellStyles: [
                 {
-                    when: (row) => row.sortOrder !== 3,
+                    when: (row) => row.sortOrder !== 3 && hashMap[`tab${tabIndex}`].req.aggregateRows !== "n",
                     style: {
                         color: "transparent"
                     }
@@ -694,7 +694,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             wrap: true,
             conditionalCellStyles: [
                 {
-                    when: (row) => row.sortOrder !== 4,
+                    when: (row) => row.sortOrder !== 4 && hashMap[`tab${tabIndex}`].req.aggregateRows !== "n",
                     style: {
                         color: "transparent"
                     }
