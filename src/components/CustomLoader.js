@@ -7,7 +7,7 @@ export default function CustomLoader() {
     return (
         <div style={{ padding: "10px 10px 10px 10px"}}>
             <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-                <Typography>Loading</Typography>
+                <Typography>Standing By</Typography>
                 <CircularProgress />
             </Box>
         </div>
