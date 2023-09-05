@@ -4,7 +4,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { /*FaRegCopy, FaShareAlt, */ FaEllipsisV } from 'react-icons/fa';
 import { getUspTrade, getSecurityDetail, getPriceHistory, getShowLoans, getAccountDetails } from '../api';
-import { dateFormatter, dateSorterMMDDYYY, dollarFormatter, dollarFormatter0, formatWeight, numberFormatter2, sqlDateToDateString } from '../utils/helperFunctions';
+import { dateFormatter, dateSorterMMDDYYY, dollarFormatter, dollarFormatter0, formatWeight, numberFormatter2, omitNullColumns, sqlDateToDateString } from '../utils/helperFunctions';
 import CustomCell from './CustomCell';
 
 export default function CustomMaterialMenu({ row, handleModalOption1Open, handleModalOption2Open, handleModalOption3Open, handleModalOption4Open, handleModalOption5Open}) {
@@ -319,1990 +319,1219 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
         const showLoansRes = await getShowLoans({ cusip: row.bbg_cusip });
         const title = 'Show Loans';
         const showLoansModalColumns = [
-            {
+            {   id: "cusip",
                 name: 'Cusip',
-                selector: (row, index) => {
-                    if (!row.cusip) {
-                        showLoansModalColumns[0].omit = true;
-                        return;
-                    }
-                    return row.cusip
-                },
+                selector: (row, index) => row.cusip,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "loanId",
                 name: 'Loan ID',
-                selector: (row) => {
-                    if (!row.loandId) {
-                        showLoansModalColumns[1].omit = true;
-                        return;
-                    }
-                    return row.loandId;
-                },
+                selector: (row) => row.loandId,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "issuer",
                 name: 'Issuer',
-                selector: (row) => {
-                    if(!row.issuer) {
-                        showLoansModalColumns[2].omit = true;
-                        return;
-                    }
-                    return row.issuer;
-                },
+                selector: (row) => row.issuer,
                 compact: true,
                 reorder: true,
                 center: true,
                 wrap: true,
             },
             {
+                id: "securityName",
                 name: 'Security Name',
-                selector: (row,index) => {
-                    if (!row.securityName) {
-                        showLoansModalColumns[3].omit = true;
-                        return;
-                    }
-                    return row.securityName;
-                },
+                selector: (row,index) => row.securityName,
                 compact: true,
                 reorder: true,
                 center: true,
                 wrap: true,
             },
             {
+                id: "rehab",
                 name: 'Rehab',
-                selector: (row,index) => {
-                    if (!row.rehab) {
-                        showLoansModalColumns[4].omit = true;
-                        return;
-                    }
-                    return <input className="form-check-input" type="checkbox" value="" disabled checked={row.rehab === true ? true : false }/>;
-                },
+                selector: (row,index) => <input className="form-check-input" type="checkbox" value="" disabled checked={row.rehab === true ? true : false }/>,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "affordable",
                 name: 'Affordable',
-                selector: (row,index) => {
-                    if (!row.affordable) {
-                        showLoansModalColumns[5].omit = true;
-                        return;
-                    }
-                    return <input className="form-check-input" type="checkbox" value="" disabled checked={row.affordable === true ? true : false }/>
-                },
+                selector: (row,index) => <input className="form-check-input" type="checkbox" value="" disabled checked={row.affordable === true ? true : false }/>,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "artsCul",
                 name: 'Arts cul',
-                selector: (row,index) => {
-                    if (!row.artsCul) {
-                        showLoansModalColumns[6].omit = true;
-                        return;
-                    }
-                    return <input className="form-check-input" type="checkbox" value="" disabled checked={row.artsCul === true ? true : false }/>
-                },
+                selector: (row,index) => <input className="form-check-input" type="checkbox" value="" disabled checked={row.artsCul === true ? true : false }/>,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "disRec",
                 name: 'Dis Rec',
-                selector: (row,index) => {
-                    if (!row.disRec) {
-                        showLoansModalColumns[7].omit = true;
-                        return;
-                    }
-                    return <input className="form-check-input" type="checkbox" value="" disabled checked={row.disRec === true ? true : false }/>
-                },
+                selector: (row,index) => <input className="form-check-input" type="checkbox" value="" disabled checked={row.disRec === true ? true : false }/>,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "educ",
                 name: 'Educ',
-                selector: (row,index) => {
-                    if (!row.educ) {
-                        showLoansModalColumns[8].omit = true;
-                        return;
-                    }
-                    return <input className="form-check-input" type="checkbox" value="" disabled checked={row.educ === true ? true : false }/>
-                },
+                selector: (row,index) => <input className="form-check-input" type="checkbox" value="" disabled checked={row.educ === true ? true : false }/>,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
-                name: 'Dis Rec',
-                selector: (row,index) => {
-                    if (!row.disRec) {
-                        showLoansModalColumns[9].omit = true;
-                        return;
-                    }
-                    return <input className="form-check-input" type="checkbox" value="" disabled checked={row.disRec === true ? true : false }/>
-                },
-                compact: true,
-                reorder: true,
-                center: true,
-            },
-            {
+                id: "entDev",
                 name: 'EntDev',
-                selector: (row,index) => {
-                    if (!row.entDev) {
-                        showLoansModalColumns[10].omit = true;
-                        return;
-                    }
-                    return <input className="form-check-input" type="checkbox" value="" disabled checked={row.entDev === true ? true : false }/>
-                },
+                selector: (row,index) => <input className="form-check-input" type="checkbox" value="" disabled checked={row.entDev === true ? true : false }/>,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "green",
                 name: 'Green',
-                selector: (row,index) => {
-                    if (!row.green) {
-                        showLoansModalColumns[11].omit = true;
-                        return;
-                    }
-                    return <input className="form-check-input" type="checkbox" value="" disabled checked={row.green === true ? true : false }/>
-                },
+                selector: (row,index) => <input className="form-check-input" type="checkbox" value="" disabled checked={row.green === true ? true : false }/>,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "gender",
                 name: 'Gender',
-                selector: (row,index) => {
-                    if (!row.gender) {
-                        showLoansModalColumns[12].omit = true;
-                        return;
-                    }
-                    return <input className="form-check-input" type="checkbox" value="" disabled checked={row.gender === true ? true : false }/>
-                },
+                selector: (row,index) => <input className="form-check-input" type="checkbox" value="" disabled checked={row.gender === true ? true : false }/>,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "gov",
                 name: 'Gov',
-                selector: (row,index) => {
-                    if (!row.gov) {
-                        showLoansModalColumns[13].omit = true;
-                        return;
-                    }
-                    return <input className="form-check-input" type="checkbox" value="" disabled checked={row.gov === true ? true : false }/>
-                },
+                selector: (row,index) => <input className="form-check-input" type="checkbox" value="" disabled checked={row.gov === true ? true : false }/>,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "healthy",
                 name: 'Healthy',
-                selector: (row,index) => {
-                    if (!row.healthy) {
-                        showLoansModalColumns[14].omit = true;
-                        return;
-                    }
-                    return <input className="form-check-input" type="checkbox" value="" disabled checked={row.healthy === true ? true : false }/>
-                },
+                selector: (row,index) => <input className="form-check-input" type="checkbox" value="" disabled checked={row.healthy === true ? true : false }/>,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "humEmp",
                 name: 'Human Empathy',
-                selector: (row,index) => {
-                    if (!row.humEmp) {
-                        showLoansModalColumns[15].omit = true;
-                        return;
-                    }
-                    return <input className="form-check-input" type="checkbox" value="" disabled checked={row.humEmp === true ? true : false }/>
-                },
+                selector: (row,index) => <input className="form-check-input" type="checkbox" value="" disabled checked={row.humEmp === true ? true : false }/>,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "minority",
                 name: 'Minority',
-                selector: (row,index) => {
-                    if (!row.minority) {
-                        showLoansModalColumns[16].omit = true;
-                        return;
-                    }
-                    return <input className="form-check-input" type="checkbox" value="" disabled checked={row.minority === true ? true : false }/>
-                },
+                selector: (row,index) => <input className="form-check-input" type="checkbox" value="" disabled checked={row.minority === true ? true : false }/>,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "revit",
                 name: 'Revit',
-                selector: (row,index) => {
-                    if (!row.revit) {
-                        showLoansModalColumns[17].omit = true;
-                        return;
-                    }
-                    return <input className="form-check-input" type="checkbox" value="" disabled checked={row.revit === true ? true : false }/>
-                },
+                selector: (row,index) => <input className="form-check-input" type="checkbox" value="" disabled checked={row.revit === true ? true : false }/>,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "rural",
                 name: 'Rural',
-                selector: (row,index) => {
-                    if (!row.rural) {
-                        showLoansModalColumns[18].omit = true;
-                        return;
-                    }
-                    return <input className="form-check-input" type="checkbox" value="" disabled checked={row.rural === true ? true : false }/>
-                },
+                selector: (row,index) => <input className="form-check-input" type="checkbox" value="" disabled checked={row.rural === true ? true : false }/>,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "seniors",
                 name: 'Seniors',
-                selector: (row,index) => {
-                    if (!row.seniors) {
-                        showLoansModalColumns[19].omit = true;
-                        return;
-                    }
-                    return <input className="form-check-input" type="checkbox" value="" disabled checked={row.seniors === true ? true : false }/>
-                },
+                selector: (row,index) => <input className="form-check-input" type="checkbox" value="" disabled checked={row.seniors === true ? true : false }/>,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "agr",
                 name: 'Agricultural',
-                selector: (row,index) => {
-                    if (!row.agr) {
-                        showLoansModalColumns[20].omit = true;
-                        return;
-                    }
-                    return <input className="form-check-input" type="checkbox" value="" disabled checked={row.agr === true ? true : false }/>
-                },
+                selector: (row,index) => <input className="form-check-input" type="checkbox" value="" disabled checked={row.agr === true ? true : false }/>,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+
+                id: "tod",
                 name: 'TOD',
-                selector: (row,index) => {
-                    if (!row.tod) {
-                        showLoansModalColumns[21].omit = true;
-                        return;
-                    }
-                    return <input className="form-check-input" type="checkbox" value="" disabled checked={row.tod === true ? true : false }/>
-                },
+                selector: (row,index) => <input className="form-check-input" type="checkbox" value="" disabled checked={row.tod === true ? true : false }/>,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "economic",
                 name: 'Economic',
-                selector: (row,index) => {
-                    if (!row.economic) {
-                        showLoansModalColumns[22].omit = true;
-                        return;
-                    }
-                    return <input className="form-check-input" type="checkbox" value="" disabled checked={row.economic === true ? true : false }/>
-                },
+                selector: (row,index) => <input className="form-check-input" type="checkbox" value="" disabled checked={row.economic === true ? true : false }/>,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "faith",
                 name: 'Faith',
-                selector: (row,index) => {
-                    if (!row.faith) {
-                        showLoansModalColumns[23].omit = true;
-                        return;
-                    }
-                    return <input className="form-check-input" type="checkbox" value="" disabled checked={row.faith === true ? true : false }/>
-                },
+                selector: (row,index) => <input className="form-check-input" type="checkbox" value="" disabled checked={row.faith === true ? true : false }/>,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "mCares",
                 name: 'mCares',
-                selector: (row,index) => {
-                    if (!row.mCares) {
-                        showLoansModalColumns[24].omit = true;
-                        return;
-                    }
-                    return <input className="form-check-input" type="checkbox" value="" disabled checked={row.mCares === true ? true : false }/>
-                },
+                selector: (row,index) => <input className="form-check-input" type="checkbox" value="" disabled checked={row.mCares === true ? true : false }/>,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "covid",
                 name: 'COVID',
-                selector: (row,index) => {
-                    if (!row.covid) {
-                        showLoansModalColumns[25].omit = true;
-                        return;
-                    }
-                    return <input className="form-check-input" type="checkbox" value="" disabled checked={row.covid === true ? true : false }/>
-                },
+                selector: (row,index) => <input className="form-check-input" type="checkbox" value="" disabled checked={row.covid === true ? true : false }/>,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "mCaresInitiative",
                 name: <div>mCares Initiative</div>,
-                selector: (row,index) => {
-                    if (!row.mCaresInitiative) {
-                        showLoansModalColumns[26].omit = true;
-                        return;
-                    }
-                    return <input className="form-check-input" type="checkbox" value="" disabled checked={row.mCaresInitiative === true ? true : false }/>
-                },
+                selector: (row,index) => <input className="form-check-input" type="checkbox" value="" disabled checked={row.mCaresInitiative === true ? true : false }/>,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "covidInitiative",
                 name: <div>COVID Initiative</div>,
-                selector: (row,index) => {
-                    if (!row.covidInitiative) {
-                        showLoansModalColumns[27].omit = true;
-                        return;
-                    }
-                    return <input className="form-check-input" type="checkbox" value="" disabled checked={row.covidInitiative === true ? true : false }/>
-                },
+                selector: (row,index) => <input className="form-check-input" type="checkbox" value="" disabled checked={row.covidInitiative === true ? true : false }/>,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "securityId",
                 name: 'Security ID',
-                selector: (row,index) => {
-                    if (!row.securityId) {
-                        showLoansModalColumns[28].omit = true;
-                        return;
-                    }
-                    return row.securityId;
-                },
+                selector: (row,index) => row.securityId,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "number",
                 name: 'Number',
-                selector: (row,index) => {
-                    if (!row.number) {
-                        showLoansModalColumns[29].omit = true;
-                        return;
-                    }
-                    return row.number;
-                },
+                selector: (row,index) => row.number,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "rate",
                 name: 'Rate',
-                selector: (row,index) => {
-                    if (!row.rate) {
-                        showLoansModalColumns[30].omit = true;
-                        return;
-                    }
-                    return formatWeight(row.rate);
-                },
+                selector: (row,index) => formatWeight(row.rate),
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "amount",
                 name: 'Amount',
-                selector: (row,index) => {
-                    if (!row.amount) {
-                        showLoansModalColumns[31].omit = true;
-                        return;
-                    }
-                    return dollarFormatter0.format(row.amount);
-                },
+                selector: (row,index) => dollarFormatter0.format(row.amount),
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "fico",
                 name: 'FICO',
-                selector: (row,index) => {
-                    if (!row.fico) {
-                        showLoansModalColumns[32].omit = true;
-                        return;
-                    }
-                    return row.fico;
-                },
+                selector: (row,index) => row.fico,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "term",
                 name: 'Term',
-                selector: (row,index) => {
-                    if (!row.term) {
-                        showLoansModalColumns[33].omit = true;
-                        return;
-                    }
-                    return row.term;
-                },
+                selector: (row,index) => row.term,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "ltv",
                 name: 'LTV',
-                selector: (row,index) => {
-                    if (!row.ltv) {
-                        showLoansModalColumns[34].omit = true;
-                        return;
-                    }
-                    return row.ltv;
-                },
+                selector: (row,index) => row.ltv,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "occupancy",
                 name: 'Occupancy',
-                selector: (row,index) => {
-                    if (!row.occupancy) {
-                        showLoansModalColumns[35].omit = true;
-                        return;
-                    }
-                    return row.occupancy;
-                },
+                selector: (row,index) => row.occupancy,
                 compact: true,
                 reorder: true,
                 center: true,
                 wrap: true,
             },
             {
+                id: "securityType",
                 name: 'Security Type',
-                selector: (row,index) => {
-                    if (!row.securityType) {
-                        showLoansModalColumns[36].omit = true;
-                        return;
-                    }
-                    return row.securityType;
-                },
+                selector: (row,index) => row.securityType,
                 compact: true,
                 reorder: true,
                 center: true,
                 wrap: true,
             },
             {
+                id: "address",
                 name: 'Address',
-                selector: (row,index) => {
-                    if (!row.address) {
-                        showLoansModalColumns[37].omit = true;
-                        return;
-                    }
-                    return row.address;
-                },
+                selector: (row,index) => row.address,
                 compact: true,
                 reorder: true,
                 center: true,
                 wrap: true,
             },
             {
+                id: "cityId",
                 name: 'City ID',
-                selector: (row,index) => {
-                    if (!row.cityId) {
-                        showLoansModalColumns[38].omit = true;
-                        return;
-                    }
-                    return row.cityId;
-                },
+                selector: (row,index) => row.cityId,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "city",
                 name: 'City',
-                selector: (row,index) => {
-                    if (!row.city) {
-                        showLoansModalColumns[39].omit = true;
-                        return;
-                    }
-                    return row.city;
-                },
+                selector: (row,index) => row.city,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "stateId",
                 name: 'State ID',
-                selector: (row,index) => {
-                    if (!row.stateId) {
-                        showLoansModalColumns[40].omit = true;
-                        return;
-                    }
-                    return row.stateId;
-                },
+                selector: (row,index) => row.stateId,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "state",
                 name: 'State',
-                selector: (row,index) => {
-                    if (!row.state) {
-                        showLoansModalColumns[41].omit = true;
-                        return;
-                    }
-                    return row.state;
-                },
+                selector: (row,index) => row.state,
                 compact: true,
                 reorder: true,
                 center: true,
                 wrap: true,
             },
             {
+                id: "stateCountyCode",
                 name: <div>State County Code</div>,
-                selector: (row,index) => {
-                    if (!row.stateCountyCode) {
-                        showLoansModalColumns[42].omit = true;
-                        return;
-                    }
-                    return row.stateCountyCode;
-                },
+                selector: (row,index) => row.stateCountyCode,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "classCode",
                 name: 'Class Code',
-                selector: (row,index) => {
-                    if (!row.classCode) {
-                        showLoansModalColumns[43].omit = true;
-                        return;
-                    }
-                    return row.classCode;
-                },
+                selector: (row,index) => row.classCode,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "county",
                 name: 'County',
-                selector: (row,index) => {
-                    if (!row.county) {
-                        showLoansModalColumns[44].omit = true;
-                        return;
-                    }
-                    return row.county;
-                },
+                selector: (row,index) => row.county,
                 compact: true,
                 reorder: true,
                 center: true,
                 wrap: true,
             },
             {
+                id: "isPPC",
                 name: 'Is PPC',
-                selector: (row,index) => {
-                    if (!row.isPPC) {
-                        showLoansModalColumns[45].omit = true;
-                        return;
-                    }
-                    return row.isPPC;
-                },
+                selector: (row,index) => <input className="form-check-input" type="checkbox" value="" disabled checked={row.isPPC === true ? true : false }/>,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "zipCode",
                 name: 'Zip Code',
-                selector: (row,index) => {
-                    if (!row.zipCode) {
-                        showLoansModalColumns[46].omit = true;
-                        return;
-                    }
-                    return row.zipCode;
-                },
+                selector: (row,index) => row.zipCode,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "annualIncome",
                 name: 'Annual Income',
-                selector: (row,index) => {
-                    if (!row.annualIncome) {
-                        showLoansModalColumns[47].omit = true;
-                        return;
-                    }
-                    return dollarFormatter.format(row.annualIncome);
-                },
+                selector: (row,index) => dollarFormatter.format(row.annualIncome),
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "msaNumber",
                 name: 'MSA Number',
-                selector: (row,index) => {
-                    if (!row.msaNumber) {
-                        showLoansModalColumns[48].omit = true;
-                        return;
-                    }
-                    return row.msaNumber;
-                },
+                selector: (row,index) => row.msaNumber,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "percentMedian",
                 name: 'Percent Median',
-                selector: (row,index) => {
-                    if (!row.percentMedian) {
-                        showLoansModalColumns[49].omit = true;
-                        return;
-                    }
-                    return row.percentMedian;
-                },
+                selector: (row,index) => row.percentMedian,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "mfiId",
                 name: 'MFI ID',
-                selector: (row,index) => {
-                    if (!row.mfiId) {
-                        showLoansModalColumns[50].omit = true;
-                        return;
-                    }
-                    return row.mfiId;
-                },
+                selector: (row,index) => row.mfiId,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "censusTract",
                 name: 'Census Tract',
-                selector: (row,index) => {
-                    if (!row.censusTract) {
-                        showLoansModalColumns[51].omit = true;
-                        return;
-                    }
-                    return row.censusTract;
-                },
+                selector: (row,index) => row.censusTract,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "liRatio",
                 name: 'LI Ratio',
-                selector: (row,index) => {
-                    if (!row.liRatio) {
-                        showLoansModalColumns[52].omit = true;
-                        return;
-                    }
-                    return row.liRatio;
-                },
+                selector: (row,index) => row.liRatio,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "ccmPercentOfMf",
                 name: <div>CCM Percent Of MF</div>,
-                selector: (row,index) => {
-                    if (!row.ccmPercentOfMf) {
-                        showLoansModalColumns[53].omit = true;
-                        return;
-                    }
-                    return row.ccmPercentOfMf;
-                },
+                selector: (row,index) => row.ccmPercentOfMf,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "expr1",
                 name: 'Expr 1',
-                selector: (row,index) => {
-                    if (!row.expr1) {
-                        showLoansModalColumns[54].omit = true;
-                        return;
-                    }
-                    return row.expr1;
-                },
+                selector: (row,index) => row.expr1,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "race",
                 name: 'Race',
-                selector: (row,index) => {
-                    if (!row.race) {
-                        showLoansModalColumns[55].omit = true;
-                        return;
-                    }
-                    return row.race;
-                },
+                selector: (row,index) => row.race,
                 compact: true,
                 reorder: true,
                 center: true,
                 wrap: true,
             },
             {
+                id: "ethnicity",
                 name: 'Ethnicity',
-                selector: (row,index) => {
-                    if (!row.ethnicity) {
-                        showLoansModalColumns[56].omit = true;
-                        return;
-                    }
-                    return row.ethnicity;
-                },
+                selector: (row,index) => row.ethnicity,
                 compact: true,
                 reorder: true,
                 center: true,
                 wrap: true,
             },
             {
+                id: "ffiecMsaCode",
                 name: <div>FFIEC MSA Code</div>,
-                selector: (row,index) => {
-                    if (!row.ffiecMsaCode) {
-                        showLoansModalColumns[57].omit = true;
-                        return;
-                    }
-                    return row.ffiecMsaCode;
-                },
+                selector: (row,index) => row.ffiecMsaCode,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id :"ffiecCountyCode",
                 name: <div>FFIEC County Code</div>,
-                selector: (row,index) => {
-                    if (!row.ffiecCountyCode) {
-                        showLoansModalColumns[58].omit = true;
-                        return;
-                    }
-                    return row.ffiecCountyCode;
-                },
+                selector: (row,index) => row.ffiecCountyCode,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "ffiecCensusTract",
                 name: <div>FFIEC Census Tract</div>,
-                selector: (row,index) => {
-                    if (!row.ffiecCensusTract) {
-                        showLoansModalColumns[59].omit = true;
-                        return;
-                    }
-                    return row.ffiecCensusTract;
-                },
+                selector: (row,index) => row.ffiecCensusTract,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "ffiecCountyName",
                 name: <div>FFIEC County Name</div>,
-                selector: (row,index) => {
-                    if (!row.ffiecCountyName) {
-                        showLoansModalColumns[60].omit = true;
-                        return;
-                    }
-                    return row.ffiecCountyName;
-                },
+                selector: (row,index) => row.ffiecCountyName,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "ffiecIncomeLevel",
                 name: <div>FFIEC Income Level</div>,
-                selector: (row,index) => {
-                    if (!row.ffiecIncomeLevel) {
-                        showLoansModalColumns[61].omit = true;
-                        return;
-                    }
-                    return row.ffiecIncomeLevel;
-                },
+                selector: (row,index) => row.ffiecIncomeLevel,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "ffiecDistressed",
                 name: <div>FFIEC Distressed</div>,
-                selector: (row,index) => {
-                    if (!row.ffiecDistressed) {
-                        showLoansModalColumns[62].omit = true;
-                        return;
-                    }
-                    return row.ffiecDistressed;
-                },
+                selector: (row,index) => row.ffiecDistressed,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "ffiecMfi",
                 name: <div>FFIEC MFI</div>,
-                selector: (row,index) => {
-                    if (!row.ffiecMfi) {
-                        showLoansModalColumns[63].omit = true;
-                        return;
-                    }
-                    return row.ffiecMfi;
-                },
+                selector: (row,index) => row.ffiecMfi,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "ffiecTractPercentMinority",
                 name: <div>FFIEC Tract Percent Minority</div>,
-                selector: (row,index) => {
-                    if (!row.ffiecTractPercentMinority) {
-                        showLoansModalColumns[64].omit = true;
-                        return;
-                    }
-                    return row.ffiecTractPercentMinority;
-                },
+                selector: (row,index) => row.ffiecTractPercentMinority,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "ffiecPercentPoverty",
                 name: <div>FFIEC Percent Poverty</div>,
-                selector: (row,index) => {
-                    if (!row.ffiecPercentPoverty) {
-                        showLoansModalColumns[65].omit = true;
-                        return;
-                    }
-                    return row.ffiecPercentPoverty;
-                },
+                selector: (row,index) => row.ffiecPercentPoverty,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "ffiecStateCode",
                 name: <div>FFIEC State Code</div>,
-                selector: (row,index) => {
-                    if (!row.ffiecStateCode) {
-                        showLoansModalColumns[66].omit = true;
-                        return;
-                    }
-                    return row.ffiecStateCode;
-                },
+                selector: (row,index) => row.ffiecStateCode,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "ffiecMsamfiPercent",
                 name: <div>FFIEC MSA MFI Percent</div>,
-                selector: (row,index) => {
-                    if (!row.ffiecMsamfiPercent) {
-                        showLoansModalColumns[67].omit = true;
-                        return;
-                    }
-                    return row.ffiecMsamfiPercent;
-                },
+                selector: (row,index) => row.ffiecMsamfiPercent,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "ffiecState",
                 name: <div>FFIEC State</div>,
-                selector: (row,index) => {
-                    if (!row.ffiecState) {
-                        showLoansModalColumns[68].omit = true;
-                        return;
-                    }
-                    return row.ffiecState;
-                },
+                selector: (row,index) => row.ffiecState,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "ffiecZipoCode",
                 name: <div>FFIEC Zipo Code</div>,
-                selector: (row,index) => {
-                    if (!row.ffiecZipoCode) {
-                        showLoansModalColumns[69].omit = true;
-                        return;
-                    }
-                    return row.ffiecZipoCode;
-                },
+                selector: (row,index) => row.ffiecZipoCode,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "walkScore",
                 name: 'Walk Score',
-                selector: (row,index) => {
-                    if (!row.walkScore) {
-                        showLoansModalColumns[70].omit = true;
-                        return;
-                    }
-                    return row.walkScore;
-                },
+                selector: (row,index) => row.walkScore,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "walkScoreDescription",
                 name: <div>Walk Score Description</div>,
-                selector: (row,index) => {
-                    if (!row.walkScoreDescription) {
-                        showLoansModalColumns[71].omit = true;
-                        return;
-                    }
-                    return row.walkScoreDescription;
-                },
+                selector: (row,index) => row.walkScoreDescription,
                 compact: true,
                 reorder: true,
                 center: true,
                 wrap: true,
             },
             {
+                id: "bikeScore",
                 name: 'Bike Score',
-                selector: (row,index) => {
-                    if (!row.bikeScore) {
-                        showLoansModalColumns[72].omit = true;
-                        return;
-                    }
-                    return row.bikeScore;
-                },
+                selector: (row,index) => row.bikeScore,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "bikeScoreDescription",
                 name: <div>Bike Score Description</div>,
-                selector: (row,index) => {
-                    if (!row.bikeScoreDescription) {
-                        showLoansModalColumns[73].omit = true;
-                        return;
-                    }
-                    return row.bikeScoreDescription;
-                },
+                selector: (row,index) => row.bikeScoreDescription,
                 compact: true,
                 reorder: true,
                 center: true,
                 wrap: true,
             },
             {
+                id: "transitScore",
                 name: 'Transit Score',
-                selector: (row,index) => {
-                    if (!row.transitScore) {
-                        showLoansModalColumns[74].omit = true;
-                        return;
-                    }
-                    return row.transitScore;
-                },
+                selector: (row,index) => row.transitScore,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "transitScoreDescription",
                 name: <div>Transit Score Description</div>,
-                selector: (row,index) => {
-                    if (!row.transitScoreDescription) {
-                        showLoansModalColumns[75].omit = true;
-                        return;
-                    }
-                    return row.transitScoreDescription;
-                },
+                selector: (row,index) => row.transitScoreDescription,
                 compact: true,
                 reorder: true,
                 center: true,
                 wrap: true,
             },
             {
+                id: "latitude",
                 name: 'Latitude',
-                selector: (row,index) => {
-                    if (!row.latitude) {
-                        showLoansModalColumns[76].omit = true;
-                        return;
-                    }
-                    return numberFormatter2.format(row.latitude);
-                },
+                selector: (row,index) => numberFormatter2.format(row.latitude),
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "longitude",
                 name: 'Longitude',
-                selector: (row,index) => {
-                    if (!row.longitude) {
-                        showLoansModalColumns[77].omit = true;
-                        return;
-                    }
-                    return numberFormatter2.format(row.longitude);
-                },
+                selector: (row,index) => numberFormatter2.format(row.longitude),
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "gender2",
                 name: 'Gender 2',
-                selector: (row,index) => {
-                    if (!row.gender2) {
-                        showLoansModalColumns[78].omit = true;
-                        return;
-                    }
-                    return row.gender2;
-                },
+                selector: (row,index) => row.gender2,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "race2",
                 name: 'Race 2',
-                selector: (row,index) => {
-                    if (!row.race2) {
-                        showLoansModalColumns[79].omit = true;
-                        return;
-                    }
-                    return row.race2;
-                },
+                selector: (row,index) => row.race2,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "ethnicity2",
                 name: 'Ethnicity 2',
-                selector: (row,index) => {
-                    if (!row.ethnicity2) {
-                        showLoansModalColumns[80].omit = true;
-                        return;
-                    }
-                    return row.ethnicity2;
-                },
+                selector: (row,index) => row.ethnicity2,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "poolNumber",
                 name: 'Pool Number',
-                selector: (row,index) => {
-                    if (!row.poolNumber) {
-                        showLoansModalColumns[81].omit = true;
-                        return;
-                    }
-                    return row.poolNumber;
-                },
+                selector: (row,index) => row.poolNumber,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "expr2",
                 name: 'Expr 2',
-                selector: (row,index) => {
-                    if (!row.expr2) {
-                        showLoansModalColumns[82].omit = true;
-                        return;
-                    }
-                    return row.expr2;
-                },
+                selector: (row,index) => row.expr2,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "originalAmount",
                 name: 'Orig Amount',
-                selector: (row,index) => {
-                    if (!row.originalAmount) {
-                        showLoansModalColumns[83].omit = true;
-                        return;
-                    }
-                    return row.originalAmount;
-                },
+                selector: (row,index) => row.originalAmount,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "currentFactor",
                 name: 'Curr Factor',
-                selector: (row,index) => {
-                    if (!row.currentFactor) {
-                        showLoansModalColumns[84].omit = true;
-                        return;
-                    }
-                    return row.currentFactor;
-                },
+                selector: (row,index) => row.currentFactor,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "currentAmount",
                 name: 'Curr Amount',
-                selector: (row,index) => {
-                    if (!row.currentAmount) {
-                        showLoansModalColumns[85].omit = true;
-                        return;
-                    }
-                    return row.currentAmount;
-                },
+                selector: (row,index) => row.currentAmount,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "propertyName",
                 name: 'Property Name',
-                selector: (row,index) => {
-                    if (!row.propertyName) {
-                        showLoansModalColumns[86].omit = true;
-                        return;
-                    }
-                    return row.propertyName;
-                },
+                selector: (row,index) => row.propertyName,
                 compact: true,
                 reorder: true,
                 center: true,
                 wrap: true,
             },
             {
+                id: "issueDate",
                 name: 'Issue Date',
-                selector: (row,index) => {
-                    if (!sqlDateToDateString(dateFormatter(row.issueDate))) {
-                        showLoansModalColumns[87].omit = true;
-                        return;
-                    }
-                    return sqlDateToDateString(dateFormatter(row.issueDate));
-                },
+                selector: (row,index) => sqlDateToDateString(dateFormatter(row.issueDate)),
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "maturityDate",
                 name: 'Maturity Date',
-                selector: (row,index) => {
-                    if (!sqlDateToDateString(dateFormatter(row.maturityDate))) {
-                        showLoansModalColumns[88].omit = true;
-                        return;
-                    }
-                    return sqlDateToDateString(dateFormatter(row.maturityDate));
-                },
+                selector: (row,index) => sqlDateToDateString(dateFormatter(row.maturityDate)),
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "affordableId",
                 name: 'Affordable ID',
-                selector: (row,index) => {
-                    if (!row.affordableId) {
-                        showLoansModalColumns[89].omit = true;
-                        return;
-                    }
-                    return row.affordableId;
-                },
+                selector: (row,index) => row.affordableId,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "fhaCasNumber",
                 name: <div>FHA Case Number</div>,
-                selector: (row,index) => {
-                    if (!row.fhaCasNumber) {
-                        showLoansModalColumns[90].omit = true;
-                        return;
-                    }
-                    return row.fhaCasNumber;
-                },
+                selector: (row,index) => row.fhaCasNumber,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "acknowledgeUnaffordable",
                 name: <div>Acknowledge Unaffordable</div>,
-                selector: (row,index) => {
-                    if (!row.acknowledgeUnaffordable) {
-                        showLoansModalColumns[91].omit = true;
-                        return;
-                    }
-                    return <input className="form-check-input" type="checkbox" value="" disabled checked={row.acknowledgeUnaffordable === true ? true : false }/>;
-                },
+                selector: (row,index) => <input className="form-check-input" type="checkbox" value="" disabled checked={row.acknowledgeUnaffordable === true ? true : false }/>,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "unaffordableComment",
                 name: <div>Unaffordable Comment</div>,
-                selector: (row,index) => {
-                    if (!row.unaffordableComment) {
-                        showLoansModalColumns[92].omit = true;
-                        return;
-                    }
-                    return row.unaffordableComment;
-                },
+                selector: (row,index) => row.unaffordableComment,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "unaffordableOverridingUserId",
                 name: <div>Unaffordable Overriding User ID</div>,
-                selector: (row,index) => {
-                    if (!row.unaffordableOverridingUserId) {
-                        showLoansModalColumns[93].omit = true;
-                        return;
-                    }
-                    return row.unaffordableOverridingUserId;
-                },
+                selector: (row,index) => row.unaffordableOverridingUserId,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "mfi",
                 name: 'MFI',
-                selector: (row,index) => {
-                    if (!row.mfi) {
-                        showLoansModalColumns[94].omit = true;
-                        return;
-                    }
-                    return row.mfi;
-                },
+                selector: (row,index) => row.mfi,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "unitsA",
                 name: 'Units A',
-                selector: (row,index) => {
-                    if (!row.unitsA) {
-                        showLoansModalColumns[95].omit = true;
-                        return;
-                    }
-                    return row.unitsB;
-                },
+                selector: (row,index) => row.unitsA,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "unitsB",
                 name: 'Units B',
-                selector: (row,index) => {
-                    if (!row.unitsB) {
-                        showLoansModalColumns[96].omit = true;
-                        return;
-                    }
-                    return row.unitsB;
-                },
+                selector: (row,index) => row.unitsB,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "nonCraQualified",
                 name: <div>Non CRA Qualified</div>,
-                selector: (row,index) => {
-                    if (!row.nonCraQualified) {
-                        showLoansModalColumns[97].omit = true;
-                        return;
-                    }
-                    return <input className="form-check-input" type="checkbox" value="" disabled checked={row.nonCraQualified === true ? true : false }/>;
-                },
+                selector: (row,index) => <input className="form-check-input" type="checkbox" value="" disabled checked={row.nonCraQualified === true ? true : false }/>,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "contract",
                 name: 'Contract',
-                selector: (row,index) => {
-                    if (!row.contract) {
-                        showLoansModalColumns[98].omit = true;
-                        return;
-                    }
-                    return row.contract;
-                },
+                selector: (row,index) => row.contract,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "contractStartDate",
                 name: <div>Contract Start Date</div>,
-                selector: (row,index) => {
-                    if (!sqlDateToDateString(dateFormatter(row.contractStartDate))) {
-                        showLoansModalColumns[99].omit = true;
-                        return;
-                    }
-                    return sqlDateToDateString(dateFormatter(row.contractStartDate));
-                },
+                selector: (row,index) => sqlDateToDateString(dateFormatter(row.contractStartDate)),
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "contractEndDate",
                 name: <div>Contract End Date</div>,
-                selector: (row,index) => {
-                    if (!sqlDateToDateString(dateFormatter(row.contractEndDate))) {
-                        showLoansModalColumns[100].omit = true;
-                        return;
-                    }
-                    return sqlDateToDateString(dateFormatter(row.contractEndDate));
-                },
+                selector: (row,index) => sqlDateToDateString(dateFormatter(row.contractEndDate)),
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "createDate",
                 name: <div>Create Date</div>,
-                selector: (row,index) => {
-                    if (!sqlDateToDateString(dateFormatter(row.createDate))) {
-                        showLoansModalColumns[101].omit = true;
-                        return;
-                    }
-                    return sqlDateToDateString(dateFormatter(row.createDate));
-                },
+                selector: (row,index) => sqlDateToDateString(dateFormatter(row.createDate)),
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "ffiecLookedUp",
                 name: <div>FFIEC Looked Up</div>,
-                selector: (row,index) => {
-                    if (!row.ffiecLookedUp) {
-                        showLoansModalColumns[102].omit = true;
-                        return;
-                    }
-                    return <input className="form-check-input" type="checkbox" value="" disabled checked={row.ffiecLookedUp === true ? true : false }/>;
-                },
+                selector: (row,index) => <input className="form-check-input" type="checkbox" value="" disabled checked={row.ffiecLookedUp === true ? true : false }/>,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "recapLoan",
                 name: 'Recap Loan',
-                selector: (row,index) => {
-                    if (!row.recapLoan) {
-                        showLoansModalColumns[103].omit = true;
-                        return;
-                    }
-                    return <input className="form-check-input" type="checkbox" value="" disabled checked={row.recapLoan === true ? true : false }/>;
-                },
+                selector: (row,index) => <input className="form-check-input" type="checkbox" value="" disabled checked={row.recapLoan === true ? true : false }/>,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "trackerLoanId",
                 name: <div>Tracker Loan ID</div>,
-                selector: (row,index) => {
-                    if (!row.trackerLoanId) {
-                        showLoansModalColumns[104].omit = true;
-                        return;
-                    }
-                    return row.trackerLoanId;
-                },
+                selector: (row,index) => row.trackerLoanId,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "generalText",
                 name: 'General Text',
-                selector: (row,index) => {
-                    if (!row.generalText) {
-                        showLoansModalColumns[105].omit = true;
-                        return;
-                    }
-                    return row.generalText;
-                },
+                selector: (row,index) => row.generalText,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "googleAddress",
                 name: <div>Google Address</div>,
-                selector: (row,index) => {
-                    if (!row.googleAddress) {
-                        showLoansModalColumns[106].omit = true;
-                        return;
-                    }
-                    return row.googleAddress;
-                },
+                selector: (row,index) => row.googleAddress,
                 compact: true,
                 reorder: true,
                 center: true,
                 wrap: true,
             },
             {
-                name: <div>Tracker Loan ID</div>,
-                selector: (row,index) => {
-                    if (!row.trackerLoanId) {
-                        showLoansModalColumns[107].omit = true;
-                        return;
-                    }
-                    return row.trackerLoanId;
-                },
-                compact: true,
-                reorder: true,
-                center: true,
-            },
-            {
+                id: "googleLookedUp",
                 name: <div>Google Looked Up</div>,
-                selector: (row,index) => {
-                    if (!row.googleLookedUp) {
-                        showLoansModalColumns[108].omit = true;
-                        return;
-                    }
-                    return <input className="form-check-input" type="checkbox" value="" disabled checked={row.googleLookedUp === true ? true : false }/>;
-                },
+                selector: (row,index) => <input className="form-check-input" type="checkbox" value="" disabled checked={row.googleLookedUp === true ? true : false }/>,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "difficultDevelopmentArea",
                 name: <div>Difficult Development Area</div>,
-                selector: (row,index) => {
-                    if (!row.difficultDevelopmentArea) {
-                        showLoansModalColumns[109].omit = true;
-                        return;
-                    }
-                    return <input className="form-check-input" type="checkbox" value="" disabled checked={row.difficultDevelopmentArea === true ? true : false }/>;
-                },
+                selector: (row,index) => <input className="form-check-input" type="checkbox" value="" disabled checked={row.difficultDevelopmentArea === true ? true : false }/>,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "ruralCensusTractAndMsa",
                 name: <div>Rural Census Tract and MSA</div>,
-                selector: (row,index) => {
-                    if (!row.ruralCensusTractAndMsa) {
-                        showLoansModalColumns[110].omit = true;
-                        return;
-                    }
-                    return <input className="form-check-input" type="checkbox" value="" disabled checked={row.ruralCensusTractAndMsa === true ? true : false }/>;
-                },
+                selector: (row,index) => <input className="form-check-input" type="checkbox" value="" disabled checked={row.ruralCensusTractAndMsa === true ? true : false }/>,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "persistentPovertyCounty",
                 name: <div>Persistent Poverty County</div>,
-                selector: (row,index) => {
-                    if (!row.persistentPovertyCounty) {
-                        showLoansModalColumns[111].omit = true;
-                        return;
-                    }
-                    return <input className="form-check-input" type="checkbox" value="" disabled checked={row.persistentPovertyCounty === true ? true : false }/>;
-                },
+                selector: (row,index) => <input className="form-check-input" type="checkbox" value="" disabled checked={row.persistentPovertyCounty === true ? true : false }/>,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "ffiecLookupDate",
                 name: <div>FFIEC Lookup Date</div>,
-                selector: (row,index) => {
-                    if (!sqlDateToDateString(dateFormatter(row.ffiecLookupDate))) {
-                        showLoansModalColumns[112].omit = true;
-                        return;
-                    }
-                    return sqlDateToDateString(dateFormatter(row.ffiecLookupDate));
-                },
+                selector: (row,index) => sqlDateToDateString(dateFormatter(row.ffiecLookupDate)),
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "walkScoreLookupDate",
                 name: <div>Walk Score Lookup Date</div>,
-                selector: (row,index) => {
-                    if (!sqlDateToDateString(dateFormatter(row.walkScoreLookupDate))) {
-                        showLoansModalColumns[113].omit = true;
-                        return;
-                    }
-                    return sqlDateToDateString(dateFormatter(row.walkScoreLookupDate));
-                },
+                selector: (row,index) => sqlDateToDateString(dateFormatter(row.walkScoreLookupDate)),
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "recapLookupDate",
                 name: <div>Recap Lookup Date</div>,
-                selector: (row,index) => {
-                    if (!sqlDateToDateString(dateFormatter(row.recapLookupDate))) {
-                        showLoansModalColumns[114].omit = true;
-                        return;
-                    }
-                    return sqlDateToDateString(dateFormatter(row.recapLookupDate));
-                },
+                selector: (row,index) => sqlDateToDateString(dateFormatter(row.recapLookupDate)),
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "difficultDevelopmentAreaLookupDate",
                 name: <div>Difficult Dev Area Lookup Date</div>,
-                selector: (row,index) => {
-                    if (!sqlDateToDateString(dateFormatter(row.difficultDevelopmentAreaLookupDate))) {
-                        showLoansModalColumns[115].omit = true;
-                        return;
-                    }
-                    return sqlDateToDateString(dateFormatter(row.difficultDevelopmentAreaLookupDate));
-                },
+                selector: (row,index) => sqlDateToDateString(dateFormatter(row.difficultDevelopmentAreaLookupDate)),
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "persistentPovertyCountyLookupDate",
                 name: <div>Persistent Poverty County Lookup Date</div>,
-                selector: (row,index) => {
-                    if (!sqlDateToDateString(dateFormatter(row.persistentPovertyCountyLookupDate))) {
-                        showLoansModalColumns[116].omit = true;
-                        return;
-                    }
-                    return sqlDateToDateString(dateFormatter(row.persistentPovertyCountyLookupDate));
-                },
+                selector: (row,index) => sqlDateToDateString(dateFormatter(row.persistentPovertyCountyLookupDate)),
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "geoCodedDate",
                 name: <div>Geo Coded Date</div>,
-                selector: (row,index) => {
-                    if (!sqlDateToDateString(dateFormatter(row.geoCodedDate))) {
-                        showLoansModalColumns[117].omit = true;
-                        return;
-                    }
-                    return sqlDateToDateString(dateFormatter(row.geoCodedDate));
-                },
+                selector: (row,index) => sqlDateToDateString(dateFormatter(row.geoCodedDate)),
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "censusDataDate",
                 name: <div>Census Data Date</div>,
-                selector: (row,index) => {
-                    if (!sqlDateToDateString(dateFormatter(row.censusDataDate))) {
-                        showLoansModalColumns[118].omit = true;
-                        return;
-                    }
-                    return sqlDateToDateString(dateFormatter(row.censusDataDate));
-                },
+                selector: (row,index) => sqlDateToDateString(dateFormatter(row.censusDataDate)),
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "ruralCensusTractAndMsaLookupDate",
                 name: <div>Rural Census Tract and MSA Lookup Date</div>,
-                selector: (row,index) => {
-                    if (!sqlDateToDateString(dateFormatter(row.ruralCensusTractAndMsaLookupDate))) {
-                        showLoansModalColumns[119].omit = true;
-                        return;
-                    }
-                    return sqlDateToDateString(dateFormatter(row.ruralCensusTractAndMsaLookupDate));
-                },
+                selector: (row,index) => sqlDateToDateString(dateFormatter(row.ruralCensusTractAndMsaLookupDate)),
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "unitsC",
                 name: 'Units C',
-                selector: (row,index) => {
-                    if (!row.unitsC) {
-                        showLoansModalColumns[120].omit = true;
-                        return;
-                    }
-                    return row.unitsC;
-                },
+                selector: (row,index) => row.unitsC,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "unitsD",
                 name: 'Units D',
-                selector: (row,index) => {
-                    if (!row.unitsD) {
-                        showLoansModalColumns[121].omit = true;
-                        return;
-                    }
-                    return row.unitsD;
-                },
+                selector: (row,index) => row.unitsD,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "expr3",
                 name: 'Expr 3',
-                selector: (row,index) => {
-                    if (!row.expr3) {
-                        showLoansModalColumns[122].omit = true;
-                        return;
-                    }
-                    return row.expr3;
-                },
+                selector: (row,index) => row.expr3,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "msaCode",
                 name: 'MSA Code',
-                selector: (row,index) => {
-                    if (!row.msaCode) {
-                        showLoansModalColumns[123].omit = true;
-                        return;
-                    }
-                    return row.msaCode;
-                },
+                selector: (row,index) => row.msaCode,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "msaName",
                 name: 'MSA Name',
-                selector: (row,index) => {
-                    if (!row.msaName) {
-                        showLoansModalColumns[124].omit = true;
-                        return;
-                    }
-                    return row.msaName;
-                },
+                selector: (row,index) => row.msaName,
                 compact: true,
                 reorder: true,
                 center: true,
                 wrap: true,
             },
             {
+                id: "source",
                 name: 'Source',
-                selector: (row,index) => {
-                    if (!row.source) {
-                        showLoansModalColumns[125].omit = true;
-                        return;
-                    }
-                    return row.source;
-                },
+                selector: (row,index) => row.source,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "year",
                 name: 'Year',
-                selector: (row,index) => {
-                    if (!row.year) {
-                        showLoansModalColumns[126].omit = true;
-                        return;
-                    }
-                    return row.year;
-                },
+                selector: (row,index) => row.year,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "useAsCurrent",
                 name: <div>Use As Current</div>,
-                selector: (row,index) => {
-                    if (!row.useAsCurrent) {
-                        showLoansModalColumns[127].omit = true;
-                        return;
-                    }
-                    return <input className="form-check-input" type="checkbox" value="" disabled checked={row.useAsCurrent === true ? true : false }/>;
-                },
+                selector: (row,index) => <input className="form-check-input" type="checkbox" value="" disabled checked={row.useAsCurrent === true ? true : false }/>,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "recordType",
                 name: 'Record Type',
-                selector: (row,index) => {
-                    if (!row.recordType) {
-                        showLoansModalColumns[128].omit = true;
-                        return;
-                    }
-                    return row.recordType;
-                },
+                selector: (row,index) => row.recordType,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "propertyId",
                 name: 'Property ID',
-                selector: (row,index) => {
-                    if (!row.propertyId) {
-                        showLoansModalColumns[129].omit = true;
-                        return;
-                    }
-                    return row.propertyId;
-                },
+                selector: (row,index) => row.propertyId,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "expr4",
                 name: 'Expr 4',
-                selector: (row,index) => {
-                    if (!row.expr4) {
-                        showLoansModalColumns[130].omit = true;
-                        return;
-                    }
-                    return row.expr4;
-                },
+                selector: (row,index) => row.expr4,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "affordableAddress",
                 name: <div>Affordable Address</div>,
-                selector: (row,index) => {
-                    if (!row.affordableAddress) {
-                        showLoansModalColumns[131].omit = true;
-                        return;
-                    }
-                    return row.affordableAddress;
-                },
+                selector: (row,index) => row.affordableAddress,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "affordableCity",
                 name: 'Affordable City',
-                selector: (row,index) => {
-                    if (!row.affordableCity) {
-                        showLoansModalColumns[132].omit = true;
-                        return;
-                    }
-                    return row.affordableCity;
-                },
+                selector: (row,index) => row.affordableCity,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "affordableState",
                 name: 'Affordable State',
-                selector: (row,index) => {
-                    if (!row.affordableState) {
-                        showLoansModalColumns[133].omit = true;
-                        return;
-                    }
-                    return row.affordableState;
-                },
+                selector: (row,index) => row.affordableState,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "affordableZip",
                 name: 'Affordable Zip',
-                selector: (row,index) => {
-                    if (!row.affordableZip) {
-                        showLoansModalColumns[134].omit = true;
-                        return;
-                    }
-                    return row.affordableZip;
-                },
+                selector: (row,index) => row.affordableZip,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "affordableCountyCode",
                 name: <div>Affordable County Code</div>,
-                selector: (row,index) => {
-                    if (!row.affordableCountyCode) {
-                        showLoansModalColumns[135].omit = true;
-                        return;
-                    }
-                    return row.affordableCountyCode;
-                },
+                selector: (row,index) => row.affordableCountyCode,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "affordableCounty",
                 name: <div>Affordable County</div>,
-                selector: (row,index) => {
-                    if (!row.affordableCounty) {
-                        showLoansModalColumns[136].omit = true;
-                        return;
-                    }
-                    return row.affordableCounty;
-                },
+                selector: (row,index) => row.affordableCounty,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "totalUnits",
                 name: 'Total Units',
-                selector: (row,index) => {
-                    if (!row.totalUnits) {
-                        showLoansModalColumns[137].omit = true;
-                        return;
-                    }
-                    return row.totalUnits;
-                },
+                selector: (row,index) => row.totalUnits,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "tracsOverallExpirationDate",
                 name: <div>Tracs Overall Expiration Date</div>,
-                selector: (row,index) => {
-                    if (!sqlDateToDateString(dateFormatter(row.tracsOverallExpirationDate))) {
-                        showLoansModalColumns[138].omit = true;
-                        return;
-                    }
-                    return sqlDateToDateString(dateFormatter(row.tracsOverallExpirationDate));
-                },
+                selector: (row,index) => sqlDateToDateString(dateFormatter(row.tracsOverallExpirationDate)),
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "tracsStatusName",
                 name: <div>Tracs Status Name</div>,
-                selector: (row,index) => {
-                    if (!row.tracsStatusName) {
-                        showLoansModalColumns[139].omit = true;
-                        return;
-                    }
-                    return row.tracsStatusName;
-                },
+                selector: (row,index) => row.tracsStatusName,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "assistedUnitsCount",
                 name: <div>Assisted Units Count</div>,
-                selector: (row,index) => {
-                    if (!row.assistedUnitsCount) {
-                        showLoansModalColumns[140].omit = true;
-                        return;
-                    }
-                    return row.assistedUnitsCount;
-                },
+                selector: (row,index) => row.assistedUnitsCount,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "hudId",
                 name: 'HUD ID',
-                selector: (row,index) => {
-                    if (!row.hudId) {
-                        showLoansModalColumns[141].omit = true;
-                        return;
-                    }
-                    return row.hudId;
-                },
+                selector: (row,index) => row.hudId,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "nUnits",
                 name: 'N Units',
-                selector: (row,index) => {
-                    if (!row.nUnits) {
-                        showLoansModalColumns[142].omit = true;
-                        return;
-                    }
-                    return row.nUnits;
-                },
+                selector: (row,index) => row.nUnits,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "liUnits",
                 name: 'LI Units',
-                selector: (row,index) => {
-                    if (!row.liUnits) {
-                        showLoansModalColumns[143].omit = true;
-                        return;
-                    }
-                    return row.liUnits;
-                },
+                selector: (row,index) => row.liUnits,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "yrAlloc",
                 name: <div>Year Allocation</div>,
-                selector: (row,index) => {
-                    if (!row.yrAlloc) {
-                        showLoansModalColumns[144].omit = true;
-                        return;
-                    }
-                    return row.yrAlloc;
-                },
+                selector: (row,index) => row.yrAlloc,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "custom",
                 name: 'Custom',
-                selector: (row,index) => {
-                    if (!row.custom) {
-                        showLoansModalColumns[145].omit = true;
-                        return;
-                    }
-                    return <input className="form-check-input" type="checkbox" value="" disabled checked={row.custom === true ? true : false }/>;;
-                },
+                selector: (row,index) => <input className="form-check-input" type="checkbox" value="" disabled checked={row.custom === true ? true : false }/>,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "isLegacy",
                 name: 'Is Legacy',
-                selector: (row,index) => {
-                    if (!row.isLegacy) {
-                        showLoansModalColumns[146].omit = true;
-                        return;
-                    }
-                    return <input className="form-check-input" type="checkbox" value="" disabled checked={row.isLegacy === true ? true : false }/>;;
-                },
+                selector: (row,index) => <input className="form-check-input" type="checkbox" value="" disabled checked={row.isLegacy === true ? true : false }/>,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "isRolledUp",
                 name: <div>Is Rolled Up</div>,
-                selector: (row,index) => {
-                    if (!row.isRolledUp) {
-                        showLoansModalColumns[147].omit = true;
-                        return;
-                    }
-                    return <input className="form-check-input" type="checkbox" value="" disabled checked={row.isRolledUp === true ? true : false }/>;;
-                },
+                selector: (row,index) => <input className="form-check-input" type="checkbox" value="" disabled checked={row.isRolledUp === true ? true : false }/>,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "isDateMismatch",
                 name: <div>Is Dated Mismatched</div>,
-                selector: (row,index) => {
-                    if (!row.isDateMismatch) {
-                        showLoansModalColumns[148].omit = true;
-                        return;
-                    }
-                    return <input className="form-check-input" type="checkbox" value="" disabled checked={row.isDateMismatch === true ? true : false }/>;;
-                },
+                selector: (row,index) => <input className="form-check-input" type="checkbox" value="" disabled checked={row.isDateMismatch === true ? true : false }/>,
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "tracsEffectiveDate",
                 name: <div>Tracs Effective Date</div>,
-                selector: (row,index) => {
-                    if (!sqlDateToDateString(dateFormatter(row.tracsEffectiveDate))) {
-                        showLoansModalColumns[149].omit = true;
-                        return;
-                    }
-                    return sqlDateToDateString(dateFormatter(row.tracsEffectiveDate));
-                },
+                selector: (row,index) => sqlDateToDateString(dateFormatter(row.tracsEffectiveDate)),
                 compact: true,
                 reorder: true,
                 center: true,
             },
             {
+                id: "contractNumber",
                 name: 'Contract Number',
-                selector: (row,index) => {
-                    if (!row.contractNumber) {
-                        showLoansModalColumns[150].omit = true;
-                        return;
-                    }
-                    return row.contractNumber;
-                },
+                selector: (row,index) => row.contractNumber,
                 compact: true,
                 reorder: true,
                 center: true,
             },
         ];
-        
         if (showLoansRes.length === 0) {
             alert(`No underlying loans has been found for this CUSIP.`);
         } else {
-            handleModalOption4Open(showLoansRes, title, showLoansModalColumns);
+            const showLoansEmptyColsOmitted = omitNullColumns(showLoansRes, showLoansModalColumns);
+            handleModalOption4Open(showLoansRes, title, showLoansEmptyColsOmitted);
         }
     };
     const handleModalClickAccountDetails = async(event) => {

@@ -371,3 +371,33 @@ export const dateSorterMMDDYYY = (rowA, rowB) => {
 
     return aa[2] - bb[2] || aa[0] - bb[0] || aa[1] - bb[1];
 }
+
+export function omitNullColumns(data, columns) {
+    const allColNames = Object.keys(data[0]); //Array of all column names
+    const emptyColNames = []; //Array of arrays, each array represent 
+    const colNamesOmitted = []; //Keys that are declared null/empty columns
+
+    data.forEach((row) => {
+        const colsNoData = [];
+        Object.entries(row).forEach(([key, value]) => {
+            if(!value || [value].includes("0001-01-01T00:00:00")) {
+                colsNoData.push(key);
+            }
+        })
+        emptyColNames.push(colsNoData);
+    })
+
+    allColNames.forEach((nameKey) => {
+        if (emptyColNames.every((currArr) => currArr.includes(nameKey))) {
+            colNamesOmitted.push(nameKey)
+        }
+    })
+
+    console.log("Total Number of Columns: ", allColNames.length);
+
+    colNamesOmitted.forEach((colName) => {
+        const indexToOmit = columns.findIndex((row) => row.id === colName);
+        indexToOmit >= 0 ? columns[indexToOmit].omit = true : console.log(`${colName} doesn't need to be omitted.`);
+    })
+    return columns;
+}
