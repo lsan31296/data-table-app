@@ -22,17 +22,8 @@ const style = {
 };
 
 export default function PopModal({ data, isOpen, onClose, columns, modalTitle }) {
-    if (!data || !columns) {
-        return (
-            <Modal open={!data || !columns} onClose={data || columns} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
-                <Box sx={style}>
-                    <Typography id="modal-modal-description" variant='h2' component="h2">Loading...</Typography>
-                </Box>
-            </Modal>
-        )
-    } else {
-        return (
-            <div>
+    return (
+        <div>
             {/*<Button onClick={handleOpen}>Open modal</Button> */}
             <Modal
                 open={isOpen}
@@ -52,8 +43,8 @@ export default function PopModal({ data, isOpen, onClose, columns, modalTitle })
                     <Typography style={{ display: "flex", justifyContent: "space-between" }} id="modal-modal-title" variant="h6" component="h2">
                         {modalTitle}
                         {
-                        data && 
-                            <ExportCSV csvData={data} fileName={`${modalTitle} for ${data[0].cusip}`}/>
+                            data &&
+                            <ExportCSV csvData={data} fileName={`${modalTitle} for ${data[0].cusip}`} />
                         }
                     </Typography>
                     <div id="modal-modal-description">
@@ -66,12 +57,11 @@ export default function PopModal({ data, isOpen, onClose, columns, modalTitle })
                             fixedHeaderScrollHeight='650px'
                         />
                     </div>
-    
                 </Box>
             </Modal>
-            </div>
-        );
+        </div>
+    );
     }
     
-    }
+
 //}
