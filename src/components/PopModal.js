@@ -24,7 +24,7 @@ const style = {
 
 export default function PopModal({ data, isOpen, onClose, columns, modalTitle }) {
     return (
-        <div>
+        <div id='pop-modal'>
             {/*<Button onClick={handleOpen}>Open modal</Button> */}
             <Modal
                 open={isOpen}

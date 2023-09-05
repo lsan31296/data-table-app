@@ -1132,11 +1132,11 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
     
     /* RENDERED ON UI */
     return (
-        <div style={{ padding: "0px 2% 2% 2%", backgroundColor: "#F2F2F2",  /*border: "solid 2px green"*/ }}>
+        <div style={{ padding: "0px 2% 0% 2%", backgroundColor: "#F2F2F2",  /*border: "solid 2px green"*/ }}>
 
             <form id="risk-form" onSubmit={handleSearchButton}>
 
-                <div className="input-group row" style={{ margin: "0px 0px"}}>
+                <div id="input-group-container" className="input-group row" style={{ margin: "0px 0px"}}>
 
                     <div className="input-group-text col-4">
                     {/*<MultiSelectMenu name="multiSelect" required={true} rowsForSelect={rowsForSelect} handleMultiSelectChange={handleMultiSelectChange} handleMenuClose={handleMenuClose}/> */}

@@ -27,20 +27,20 @@ const ExpandedDetailsTable = ({data}) => {
     };
 
     return (
-    <div className="row" >
-        <div className="col-2">
+    <div id="expanded-details-data-table-container" className="row" >
+        <div id="expanded-details-data-table1" className="col-2">
             <DataTable columns={detailsCol1}
             data={splitTables[0]} highlightOnHover striped customStyles={customStyles}/>
         </div>
-        <div className="col-2">
+        <div id="expanded-details-data-table2" className="col-2">
         <DataTable columns={detailsCol1}
             data={splitTables[1]} highlightOnHover striped customStyles={customStyles}/>
         </div>
-        <div className="col-2">
+        <div id="expanded-details-data-table3" className="col-2">
         <DataTable columns={detailsCol1}
             data={splitTables[2]} highlightOnHover striped customStyles={customStyles}/>
         </div>
-        <div className="col-2">
+        <div id="expanded-details-data-table4" className="col-2">
         <DataTable columns={detailsCol1}
             data={splitTables[3]} highlightOnHover striped customStyles={customStyles}/>
         </div>

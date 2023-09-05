@@ -1,9 +1,11 @@
-/* Hides rdt_TableHead */
-.kryIMW {
+/* Select rdt_TableHead within the expanded-details-data-table-container id*/
+#expanded-details-data-table-container .rdt_TableHead {
+    /* border: yellow solid 2px; */
     display: none !important;
 }
 
-/* Selets the striped rows within the  expanded table*/
-.cZMRjb {
+/* Selects the striped rows within the  expanded table, should be odd numbers. May be even if table head is hidden*/
+#expanded-details-data-table-container .rdt_TableBody > div:nth-child(2n+1) {
+    /* border: red solid 2px; */
     background-color: rgb(221, 221, 240) !important;
 }

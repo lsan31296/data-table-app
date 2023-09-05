@@ -4,6 +4,10 @@
 } 
 */
 
+#input-group-container > .input-group-text {
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
 /* RESPONSIBLE FOR SPACE IN BETWEEN INPUT(radio/switch) AND LABEL */
 .form-check .form-check-input {
     float: none !important;
@@ -34,15 +38,13 @@
     border: none;
 }
 
-/* NEED TO FIGURE OUT HOW TO SELECT THIS DIVS AS THE CLASS NAMES ARE UNIQUELY CREATED FROM RDT */
-
 /* SELECTS THE HEIGHT OF THE DATA TABLE AND MAKES IT RESPONSIVE*/
-.gLTUqv {
-    /* border: red 2px solid; */
-    max-height: 62vh !important;
+.react-tabs__tab-panel--selected > div:nth-child(3) {
+    max-height: 63vh !important;
 }
 /* SELECTS PAGINATION BAR*/
-.fPIktX {
-    /* border: blue solid 2px; */
-    min-height: 43px !important;
+.rdt_Pagination {
+    min-height: 41px !important;
+    padding-top: 0px;
+    padding-bottom: 0px;
 }
