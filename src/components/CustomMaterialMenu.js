@@ -2,7 +2,7 @@ import * as React from 'react';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import { /*FaRegCopy, FaShareAlt, */ FaEllipsisV } from 'react-icons/fa';
+import { FaEllipsisV } from 'react-icons/fa';
 import { getUspTrade, getSecurityDetail, getPriceHistory, getShowLoans, getAccountDetails } from '../api';
 import { dateFormatter, dateSorterMMDDYYY, dollarFormatter, dollarFormatter0, formatWeight, numberFormatter2, omitNullColumns, sqlDateToDateString } from '../utils/helperFunctions';
 import CustomCell from './CustomCell';
@@ -10,13 +10,10 @@ import CustomCell from './CustomCell';
 export default function CustomMaterialMenu({ row, handleModalOption1Open, handleModalOption2Open, handleModalOption3Open, handleModalOption4Open, handleModalOption5Open}) {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
-    //const [openModal, setOpenModal] = React.useState(false);
-    //const [option1Data, setOption1Data] = React.useState(null)
 
 
     const handleClick = (event) => {
         console.log("Row from Options: ", row);
-        //console.log("Current Target: ", event.currentTarget);
         setAnchorEl(event.currentTarget);
     };
     const handleClose = () => {

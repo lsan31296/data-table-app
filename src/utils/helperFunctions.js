@@ -340,7 +340,7 @@ export function aggRowFilter(resData, aggregateRows) {
             break;
         case "ys"://Aggregate by Carlton Security Sector
             newResData = resData.filter((row) => row.sortOrder === 0 || row.sortOrder === 1 || row.sortOrder === 2 
-            || row.sortOrder === 3 || row.sortOrder === 4 || row.sortOrder === 100);
+            || row.sortOrder === 3 || row.sortOrder === 4 || row.sortOrder === 5 || row.sortOrder === 100);
             break;
         default:
             console.log(`Ran out of Aggregate Row options for: ${aggregateRows}`);

@@ -48,3 +48,9 @@
     padding-top: 0px;
     padding-bottom: 0px;
 }
+
+/* SELECTS THE COLOR OF THE TABLE HEADER WITHIN POP MODAL */
+#modal-modal-description > div > div > div > .rdt_TableHead > div > div:nth-child(n) {
+    background-color: black;
+    color: white;
+}

@@ -34,6 +34,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             aggMaGroupRowColor2: "#138bb0",
             aggMaGroupRowColor3: "#26a1c7",
             aggMaGroupRowColor4: "#9ad4e6",
+            aggMaGroupRowColor5: "#b4eafa",
         },
         SD: {
             title: "Settlement Date",
@@ -42,7 +43,8 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             aggMaGroupRowColor1: "#139e16",
             aggMaGroupRowColor2: "#25c428",
             aggMaGroupRowColor3: "#40de43",
-            aggMaGroupRowColor4: "#c1f7c2",
+            aggMaGroupRowColor4: "#a4f5a6",
+            aggMaGroupRowColor5: "#c9f0ca",
         },
         ID: {
             title: "Trade Date Intraday",
@@ -52,6 +54,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             aggMaGroupRowColor2: "#770cc4",
             aggMaGroupRowColor3: "#9027db",
             aggMaGroupRowColor4: "#ce98f5",
+            aggMaGroupRowColor5: "#e7cdfa",
         },
         LT: {
             title: "Lot-Level Trade Date",
@@ -60,10 +63,12 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             aggMaGroupRowColor1: "#994f09",
             aggMaGroupRowColor2: "#b3651d",
             aggMaGroupRowColor3: "#cc7e35",
-            aggMaGroupRowColor4: "#edd2b9",
-
+            aggMaGroupRowColor4: "#e8c19e",
+            aggMaGroupRowColor5: "#fae6d4",
+    
         }
     }
+    
     const initialHashTabState = {
         data: [],//resData for respective tab
         req: initialFormState,//bodyReq for respective tab
@@ -1124,6 +1129,12 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             when: row => (row.sortOrder === 4),//identifies the aggregate rows
             style: {
                 backgroundColor: hashMap[`tab${tabIndex}`].tableStyle[`${hashMap[`tab${tabIndex}`].req.positionView}`].aggMaGroupRowColor4,
+            }
+        },
+        {
+            when: row => (row.sortOrder === 5),//identifies the aggregate rows
+            style: {
+                backgroundColor: hashMap[`tab${tabIndex}`].tableStyle[`${hashMap[`tab${tabIndex}`].req.positionView}`].aggMaGroupRowColor5,
             }
         },
     ]
