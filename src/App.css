@@ -85,32 +85,35 @@ REPRESENTS 'POSITION' SUBHEADER
 
 PS: Will be highlight cols previous to this same color for now.
 */
-.rdt_TableHead > div > div:nth-child(1) {
+#data-table-container .rdt_TableHead > div > div:nth-child(1) {
   border-left: #1c298c 1px solid;
   border-bottom: #1c298c 1px solid;
   border-top: #1c298c 1px solid;
 }
-.rdt_TableHead > div > div:nth-child(2),
-.rdt_TableHead > div > div:nth-child(3),
-.rdt_TableHead > div > div:nth-child(4),
-.rdt_TableHead > div > div:nth-child(5),
-.rdt_TableHead > div > div:nth-child(6),
-.rdt_TableHead > div > div:nth-child(7),
-.rdt_TableHead > div > div:nth-child(8),
-.rdt_TableHead > div > div:nth-child(9),
-.rdt_TableHead > div > div:nth-child(10),
-.rdt_TableHead > div > div:nth-child(11),
-.rdt_TableHead > div > div:nth-child(12) {
+#data-table-container .rdt_TableHead > div > div:nth-child(2),
+#data-table-container .rdt_TableHead > div > div:nth-child(3),
+#data-table-container .rdt_TableHead > div > div:nth-child(4),
+#data-table-container .rdt_TableHead > div > div:nth-child(5),
+#data-table-container .rdt_TableHead > div > div:nth-child(6),
+#data-table-container .rdt_TableHead > div > div:nth-child(7),
+#data-table-container .rdt_TableHead > div > div:nth-child(8),
+#data-table-container .rdt_TableHead > div > div:nth-child(9),
+#data-table-container .rdt_TableHead > div > div:nth-child(10),
+#data-table-container .rdt_TableHead > div > div:nth-child(11),
+#data-table-container .rdt_TableHead > div > div:nth-child(12),
+#data-table-container .rdt_TableHead > div > div:nth-child(13),
+#data-table-container .rdt_TableHead > div > div:nth-child(14),
+#data-table-container .rdt_TableHead > div > div:nth-child(15) {
   border-top: #1c298c 1px solid;
   border-bottom: #1c298c 1px solid;
 }
-.rdt_TableHead > div > div:nth-child(13) {
+#data-table-container .rdt_TableHead > div > div:nth-child(16) {
   border-right: #1c298c 1px solid;
   border-bottom: #1c298c 1px solid;
   border-top: #1c298c 1px solid;
 }
 
-.rdt_TableHead > div > div:nth-child(n+1):nth-child(-n+13) {
+#data-table-container .rdt_TableHead > div > div:nth-child(n+1):nth-child(-n+16) {
   color: #fefefe;
   background-color: #1c298c;
 }
@@ -119,27 +122,27 @@ SELECTS COLUMNS:
   DUR, DUR CONT, YTW, YTW CONT, DXS, CNVX, WAL, OAS
 REPRESENTS 'RISK' SUBHEADER
 */
-.rdt_TableHead > div > div:nth-child(14) {
+#data-table-container .rdt_TableHead > div > div:nth-child(17) {
   border-left: #4d1c8c 1px solid;
   border-bottom: #4d1c8c 1px solid;
   border-top: #4d1c8c 1px solid;
 }
-.rdt_TableHead > div > div:nth-child(15),
-.rdt_TableHead > div > div:nth-child(16),
-.rdt_TableHead > div > div:nth-child(17),
-.rdt_TableHead > div > div:nth-child(18),
-.rdt_TableHead > div > div:nth-child(19),
-.rdt_TableHead > div > div:nth-child(20) {
+#data-table-container .rdt_TableHead > div > div:nth-child(18),
+#data-table-container .rdt_TableHead > div > div:nth-child(19),
+#data-table-container .rdt_TableHead > div > div:nth-child(20),
+#data-table-container .rdt_TableHead > div > div:nth-child(21),
+#data-table-container .rdt_TableHead > div > div:nth-child(22),
+#data-table-container .rdt_TableHead > div > div:nth-child(23) {
   border-top: #4d1c8c 1px solid;
   border-bottom: #4d1c8c 1px solid;
 }
-.rdt_TableHead > div > div:nth-child(21) {
+#data-table-container .rdt_TableHead > div > div:nth-child(24) {
   border-right: #4d1c8c 1px solid;
   border-bottom: #4d1c8c 1px solid;
   border-top: #4d1c8c 1px solid;
 }
 
-.rdt_TableHead > div > div:nth-child(n+14):nth-child(-n+21) {
+#data-table-container .rdt_TableHead > div > div:nth-child(n+17):nth-child(-n+24) {
   color: #fefefe;
   background-color: #4d1c8c;
 }
@@ -148,23 +151,23 @@ SELECTS COLUMNS:
   AGGREGATE RATING, CARLTON (MOODY, SP, FITCH) RATING
 REPRESENTS 'RATING' SUBHEADER
 */
-.rdt_TableHead > div > div:nth-child(22) {
+#data-table-container .rdt_TableHead > div > div:nth-child(25) {
   border-left: #8c1c54 1px solid;
   border-bottom: #8c1c54 1px solid;
   border-top: #8c1c54 1px solid;
 }
-.rdt_TableHead > div > div:nth-child(23),
-.rdt_TableHead > div > div:nth-child(24) {
+#data-table-container .rdt_TableHead > div > div:nth-child(26),
+#data-table-container .rdt_TableHead > div > div:nth-child(27) {
   border-top: #8c1c54 1px solid;
   border-bottom: #8c1c54 1px solid;
 }
-.rdt_TableHead > div > div:nth-child(25) {
+#data-table-container .rdt_TableHead > div > div:nth-child(28) {
   border-right: #8c1c54 1px solid;
   border-bottom: #8c1c54 1px solid;
   border-top: #8c1c54 1px solid;
 }
 
-.rdt_TableHead > div > div:nth-child(n+22):nth-child(-n+25) {
+#data-table-container .rdt_TableHead > div > div:nth-child(n+25):nth-child(-n+28) {
   background-color: #8c1c54;
   color: #fefefe;
 }
@@ -173,48 +176,52 @@ SELECTS COLUMNS:
   KRD: 6M, 1YR, 2YR, 3YR, 5YR, 7YR, 10YR, 20YR, 30YR
 REPRESENTS 'KRD' SUBHEADER
 */
-.rdt_TableHead > div > div:nth-child(26) {
+#data-table-container .rdt_TableHead > div > div:nth-child(29) {
   border-left: #1c8c63 1px solid;
   border-bottom: #1c8c63 1px solid;
   border-top: #1c8c63 1px solid;
 }
-.rdt_TableHead > div > div:nth-child(27),
-.rdt_TableHead > div > div:nth-child(28),
-.rdt_TableHead > div > div:nth-child(29),
-.rdt_TableHead > div > div:nth-child(30),
-.rdt_TableHead > div > div:nth-child(31),
-.rdt_TableHead > div > div:nth-child(32),
-.rdt_TableHead > div > div:nth-child(33) {
+#data-table-container .rdt_TableHead > div > div:nth-child(30),
+#data-table-container .rdt_TableHead > div > div:nth-child(31),
+#data-table-container .rdt_TableHead > div > div:nth-child(32),
+#data-table-container .rdt_TableHead > div > div:nth-child(33),
+#data-table-container .rdt_TableHead > div > div:nth-child(34),
+#data-table-container .rdt_TableHead > div > div:nth-child(35),
+#data-table-container .rdt_TableHead > div > div:nth-child(36) {
   border-top: #1c8c63 1px solid;
   border-bottom: #1c8c63 1px solid;
 }
-.rdt_TableHead > div > div:nth-child(34) {
+#data-table-container .rdt_TableHead > div > div:nth-child(37) {
   border-right: #1c8c63 1px solid;
   border-bottom: #1c8c63 1px solid;
   border-top: #1c8c63 1px solid;
 }
 
-.rdt_TableHead > div > div:nth-child(n+26):nth-child(-n+34) {
+#data-table-container .rdt_TableHead > div > div:nth-child(n+29):nth-child(-n+37) {
   background-color: #1c8c63;
   color: #fefefe;
 }
 /*
 SELECTS COLUMNS:
-  BOOK GAIN LOSS, DOD GAIN LOSS
+  BOOK GAIN LOSS, DOD GAIN LOSS, DOD RETURN
 REPRESENTS 'PERFORMANCE' SUBHEADER
 */
-.rdt_TableHead > div > div:nth-child(36) {
+#data-table-container .rdt_TableHead > div > div:nth-child(38) {
   border-left: black 1px solid;
   border-bottom: black 1px solid;
   border-top: black 1px solid;
 }
-.rdt_TableHead > div > div:nth-child(37) {
+#data-table-container .rdt_TableHead > div > div:nth-child(39) {
+  border-top: black 1px solid;
+  border-bottom: black 1px solid;
+}
+#data-table-container .rdt_TableHead > div > div:nth-child(40) {
   border-bottom: black 1px solid;
   border-right: black 1px solid;
   border-top: black 1px solid;
 }
 
-.rdt_TableHead > div > div:nth-child(n+35):nth-child(-n+40) {
+#data-table-container .rdt_TableHead > div > div:nth-child(n+38):nth-child(-n+40) {
   background-color: black;
   color: #fefefe;
 }

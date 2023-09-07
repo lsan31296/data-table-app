@@ -943,7 +943,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             center: true,
         },
         {
-            name: "6M",
+            name: <div>KRD 6M</div>,
             selector: (row) => numberFormatter2.format(row.krD_6M),
             sortable: true,
             compact: true,
@@ -951,7 +951,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             center: true,
         },
         {
-            name: "1YR",
+            name: <div>KRD 1YR</div>,
             selector: (row) => numberFormatter2.format(row.krD_1YR),
             sortable: true,
             compact: true,
@@ -959,7 +959,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             center: true,
         },
         {
-            name: "2YR",
+            name: <div>KRD 2YR</div>,
             selector: (row) => numberFormatter2.format(row.krD_2YR),
             sortable: true,
             compact: true,
@@ -967,7 +967,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             center: true,
         },
         {
-            name: "3YR",
+            name: <div>KRD 3YR</div>,
             selector: (row) => numberFormatter2.format(row.krD_3YR),
             sortable: true,
             compact: true,
@@ -975,7 +975,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             center: true,
         },
         {
-            name: "5YR",
+            name: <div>KRD 5YR</div>,
             selector: (row) => numberFormatter2.format(row.krD_5YR),
             sortable: true,
             compact: true,
@@ -983,7 +983,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             center: true,
         },
         {
-            name: "7YR",
+            name: <div>KRD 7YR</div>,
             selector: (row) => numberFormatter2.format(row.krD_7YR),
             sortable: true,
             compact: true,
@@ -991,7 +991,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             center: true,
         },
         {
-            name: "10YR",
+            name: <div>KRD 10YR</div>,
             selector: (row) => numberFormatter2.format(row.krD_10YR),
             sortable: true,
             compact: true,
@@ -999,7 +999,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             center: true,
         },
         {
-            name: "20YR",
+            name: <div>KRD 20YR</div>,
             selector: (row) => numberFormatter2.format(row.krD_20YR),
             sortable: true,
             compact: true,
@@ -1007,7 +1007,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             center: true,
         },
         {
-            name: "30YR",
+            name: <div>KRD 30YR</div>,
             selector: (row) => numberFormatter2.format(row.krD_30YR),
             sortable: true,
             compact: true,
