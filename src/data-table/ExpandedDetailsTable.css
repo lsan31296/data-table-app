@@ -9,3 +9,7 @@
     /* border: red solid 2px; */
     background-color: rgb(221, 221, 240) !important;
 }
+/* SELECTS EACH CELL IN THE EXPANDED TABLE ROW FROM WITHIN THE MAIN RISK HOLDINGS TABLE */
+#expanded-details-data-table-container .rdt_TableCell {
+    height: 23px;
+}

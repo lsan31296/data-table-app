@@ -44,11 +44,11 @@ a:active {
   position: fixed;
   bottom: 0;
   width: 100%;
-  height: 38px;
+  height: 34px;
 }
 
 .footer p {
-  margin-bottom: 5px;
+  margin-bottom: 0px;
 }
 p a:link {
   color: lightblue;

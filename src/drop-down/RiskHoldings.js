@@ -47,7 +47,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             aggMaGroupRowColor5: "#c9f0ca",
         },
         ID: {
-            title: "Trade Date Intraday",
+            title: "Intraday Trade",
             bannerColor: "#590396",
             aggMaGroupRowColor0: "#540185",
             aggMaGroupRowColor1: "#6105a3",
@@ -707,6 +707,7 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
                     }
                 }
             ],
+            minWidth: "90px",
         },
         {
             name: <div>CS Group</div>,
@@ -720,7 +721,8 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
                         color: "transparent"
                     }
                 }
-            ]
+            ],
+            minWidth: "90px",
         },
         {
             name: <div>CS Type</div>,
@@ -734,7 +736,8 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
                         color: "transparent"
                     }
                 }
-            ]
+            ],
+            minWidth: "70px",
         },
         {
             name: <div>CS Sector</div>,
@@ -748,7 +751,17 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
                         color: "transparent"
                     }
                 }
-            ]
+            ],
+            minWidth: "80px",
+        },
+        {
+            name: "Coupon",
+            selector: (row) => row.coupon,
+            sortable: true,
+            compact: true,
+            minWidth: "70px",
+            format: (row) => numberFormatter2.format(row.coupon),
+            center: true,
         },
         {
             cell: row => 
@@ -780,15 +793,6 @@ function RiskHoldings({ tableData, dropDownData, handleSearch, previousBD }) {
             //minWidth: "125px",
             //center: true,
             wrap: true,
-        },
-        {
-            name: "Coupon",
-            selector: (row) => row.coupon,
-            sortable: true,
-            compact: true,
-            minWidth: "70px",
-            format: (row) => numberFormatter2.format(row.coupon),
-            center: true,
         },
         {
             name: "Maturity",

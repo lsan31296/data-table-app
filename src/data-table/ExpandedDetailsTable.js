@@ -20,31 +20,31 @@ const ExpandedDetailsTable = ({data}) => {
     const customStyles = {
         rows: {
             style: {
-                minHeight: '30px',
+                minHeight: '20px',
                 fontSize: '12px'
             }
         },
     };
 
     return (
-    <div id="expanded-details-data-table-container" className="row" >
-        <div id="expanded-details-data-table1" className="col-2">
-            <DataTable columns={detailsCol1}
-            data={splitTables[0]} highlightOnHover striped customStyles={customStyles}/>
+        <div id="expanded-details-data-table-container" className="row" >
+            <div id="expanded-details-data-table1" className="col-2">
+                <DataTable columns={detailsCol1}
+                    data={splitTables[0]} highlightOnHover striped customStyles={customStyles} />
+            </div>
+            <div id="expanded-details-data-table2" className="col-2">
+                <DataTable columns={detailsCol1}
+                    data={splitTables[1]} highlightOnHover striped customStyles={customStyles} />
+            </div>
+            <div id="expanded-details-data-table3" className="col-2">
+                <DataTable columns={detailsCol1}
+                    data={splitTables[2]} highlightOnHover striped customStyles={customStyles} />
+            </div>
+            <div id="expanded-details-data-table4" className="col-2">
+                <DataTable columns={detailsCol1}
+                    data={splitTables[3]} highlightOnHover striped customStyles={customStyles} />
+            </div>
         </div>
-        <div id="expanded-details-data-table2" className="col-2">
-        <DataTable columns={detailsCol1}
-            data={splitTables[1]} highlightOnHover striped customStyles={customStyles}/>
-        </div>
-        <div id="expanded-details-data-table3" className="col-2">
-        <DataTable columns={detailsCol1}
-            data={splitTables[2]} highlightOnHover striped customStyles={customStyles}/>
-        </div>
-        <div id="expanded-details-data-table4" className="col-2">
-        <DataTable columns={detailsCol1}
-            data={splitTables[3]} highlightOnHover striped customStyles={customStyles}/>
-        </div>
-    </div>
 
     );
 

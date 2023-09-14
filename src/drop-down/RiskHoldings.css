@@ -40,7 +40,7 @@
 
 /* SELECTS THE HEIGHT OF THE DATA TABLE AND MAKES IT RESPONSIVE*/
 .react-tabs__tab-panel--selected > div:nth-child(3) {
-    max-height: 63vh !important;
+    max-height: 64vh !important;
 }
 /* SELECTS PAGINATION BAR*/
 .rdt_Pagination {

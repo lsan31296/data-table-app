@@ -4,7 +4,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { FaEllipsisV } from 'react-icons/fa';
 import { getUspTrade, getSecurityDetail, getPriceHistory, getShowLoans, getAccountDetails } from '../api';
-import { dateFormatter, dateSorterMMDDYYY, dollarFormatter, dollarFormatter0, formatWeight, numberFormatter2, omitNullColumns, sqlDateToDateString } from '../utils/helperFunctions';
+import { dateFormatter, dateSorterMMDDYYY, dollarFormatter, dollarFormatter0, formatAccountName, formatWeight, numberFormatter2, omitNullColumns, sqlDateToDateString } from '../utils/helperFunctions';
 import CustomCell from './CustomCell';
 
 export default function CustomMaterialMenu({ row, handleModalOption1Open, handleModalOption2Open, handleModalOption3Open, handleModalOption4Open, handleModalOption5Open}) {
@@ -298,7 +298,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 reorder: true,
             },
             {
-                name: 'PriceValue',
+                name: 'Price',
                 selector: (row) => dollarFormatter.format(row.priceValue),
                 compact: true,
                 reorder: true,
@@ -330,6 +330,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 compact: true,
                 reorder: true,
                 center: true,
+                sortable: true,
             },
             {
                 id: "issuer",
@@ -1543,7 +1544,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
             },
             {
                 name: "Name",
-                selector: (row) => row.name,
+                selector: (row) => formatAccountName(row.name),
                 compact: true,
                 reorder: true,
                 wrap: true,
@@ -1593,7 +1594,7 @@ export default function CustomMaterialMenu({ row, handleModalOption1Open, handle
                 reorder: true,
             },
             {
-                name: "Composite Affiliation ID",
+                name: <div>Composite Affiliation ID</div>,
                 selector: (row) => row.compositeAffiliationId,
                 compact: true,
                 reorder: true,
